@@ -54,13 +54,13 @@
 			// menuStrip1
 			// 
 			this.menuStrip1.AutoSize = false;
-			this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
+			this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MnuQLSV,
             this.MnuQldm});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Size = new System.Drawing.Size(500, 24);
+			this.menuStrip1.Size = new System.Drawing.Size(712, 25);
 			this.menuStrip1.TabIndex = 0;
 			this.menuStrip1.Text = "menuStrip1";
 			// 
