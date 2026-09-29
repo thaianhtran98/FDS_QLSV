@@ -70,7 +70,15 @@
     <Compile Include="Forms\FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="Models\ClassInfo.cs" />
+    <Compile Include="Models\SaveResult.cs" />
+    <Compile Include="Models\SchoolYear.cs" />
+    <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\StudentAcademic.cs" />
+    <Compile Include="Models\Subject.cs" />
+    <Compile Include="Program.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Controls\UcStudentForm.resx">
       <DependentUpon>UcStudentForm.cs</DependentUpon>
