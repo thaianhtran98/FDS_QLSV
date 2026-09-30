@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace QLSV.Models
+namespace QuanLySVDataBase
 {
 	/// <summary>
 	/// Represents the save result.

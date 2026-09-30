@@ -7,27 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using QLSV.Models;
+using QuanLySV.Forms;					  
 
-namespace QLSV.Controls
+namespace QuanLySV.Controls
 {
 	public partial class UcStudentForm : UserControl
-	{
-		private Student StudentCurrent; 
+	{													
 
 		public UcStudentForm(string studentId = "")
 		{
 			InitializeComponent();
-			LoadInit(studentId);
-        }
-
-		private void LoadInit(string studentId = "")
-		{
-			 if (studentId.Contains(""))
-			{
-				StudentCurrent = new Student();
-			}
-		}
+        }														   
 
 		private void SexCheckedChanged(object sender, EventArgs e)
 		{
@@ -40,41 +30,30 @@ namespace QLSV.Controls
 					{
 						if (rbt.Text == "Nam")
 						{
-							StudentCurrent.Sex = Student.MALE;
+							return;
 						}
 						else
 						{
-							StudentCurrent.Sex = Student.FEMALE;
+							return;
 						}
 					}
 				}
 			}
-		}
-
-		private void MapFormToStudent()
-		{
-			StudentCurrent.Name = TxtName.Text;
-			StudentCurrent.BirthOfDate = DtpBirthOfDate.Value;
-			StudentCurrent.BirthLocal = TxtBirthLocal.Text;
-			StudentCurrent.VneId = TxtPlaceOfResidence.Text;
-			StudentCurrent.LocalOfIssue = TxtLocalOfIssue.Text;
-			StudentCurrent.DateOfIssue = DtpDateOfIssue.Value;
-			StudentCurrent.PlaceOfResidence = TxtPlaceOfResidence.Text;
-			StudentCurrent.Hometown = TxtHometown.Text;
-		}
-
-		private void BtnTempSave_Click(object sender, EventArgs e)
-		{
-			MapFormToStudent();
-            MessageBox.Show("Lưu tạm thành công: " + StudentCurrent.Name.ToString());
-			return;
-		}
+		}																   
 
 		private void BtnSave_Click(object sender, EventArgs e)
+		{							   
+			MessageBox.Show("Lưu tạm thành công");
+		}
+
+		private void BtnCreateLearning_Click(object sender, EventArgs e)
 		{
-			MapFormToStudent();
-			MessageBox.Show("Lưu tạm thành công: " + StudentCurrent.Name.ToString());
-			return;
+			FrmStudentAcademic fr = new FrmStudentAcademic();
+			
+			if (fr.ShowDialog() == DialogResult.OK)
+			{
+				fr.Dispose();
+			}
 		}
 	}
 }

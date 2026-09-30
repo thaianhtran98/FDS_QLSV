@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QLSV.Models
+namespace QuanLySVDataBase
 {
 	/// <summary>
 	/// Represents the student.

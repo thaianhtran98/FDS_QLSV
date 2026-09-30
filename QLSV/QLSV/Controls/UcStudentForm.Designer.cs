@@ -1,4 +1,4 @@
-﻿namespace QLSV.Controls
+﻿namespace QuanLySV.Controls
 {
 	partial class UcStudentForm
 	{
@@ -32,6 +32,8 @@
 			this.PnlMain = new System.Windows.Forms.Panel();
 			this.TabStudent = new System.Windows.Forms.TabControl();
 			this.TpgInfoStudent = new System.Windows.Forms.TabPage();
+			this.LblRequired1 = new System.Windows.Forms.Label();
+			this.LblRequired = new System.Windows.Forms.Label();
 			this.DtpDateOfIssue = new System.Windows.Forms.DateTimePicker();
 			this.DtpBirthOfDate = new System.Windows.Forms.DateTimePicker();
 			this.PnlSex = new System.Windows.Forms.Panel();
@@ -67,7 +69,6 @@
 			this.PnlHeaderTpgLearning = new System.Windows.Forms.Panel();
 			this.BtnCreateLearning = new System.Windows.Forms.Button();
 			this.PnlFooter = new System.Windows.Forms.FlowLayoutPanel();
-			this.BtnTempSave = new System.Windows.Forms.Button();
 			this.BtnSave = new System.Windows.Forms.Button();
 			this.PnlMain.SuspendLayout();
 			this.TabStudent.SuspendLayout();
@@ -102,6 +103,8 @@
 			// 
 			// TpgInfoStudent
 			// 
+			this.TpgInfoStudent.Controls.Add(this.LblRequired1);
+			this.TpgInfoStudent.Controls.Add(this.LblRequired);
 			this.TpgInfoStudent.Controls.Add(this.DtpDateOfIssue);
 			this.TpgInfoStudent.Controls.Add(this.DtpBirthOfDate);
 			this.TpgInfoStudent.Controls.Add(this.PnlSex);
@@ -128,6 +131,30 @@
 			this.TpgInfoStudent.TabIndex = 0;
 			this.TpgInfoStudent.Text = "Thông tin sinh viên";
 			this.TpgInfoStudent.UseVisualStyleBackColor = true;
+			// 
+			// LblRequired1
+			// 
+			this.LblRequired1.AutoSize = true;
+			this.LblRequired1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+			this.LblRequired1.ForeColor = System.Drawing.Color.Red;
+			this.LblRequired1.Location = new System.Drawing.Point(240, 10);
+			this.LblRequired1.Name = "LblRequired1";
+			this.LblRequired1.Size = new System.Drawing.Size(12, 13);
+			this.LblRequired1.TabIndex = 28;
+			this.LblRequired1.Text = "*";
+			this.LblRequired1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// LblRequired
+			// 
+			this.LblRequired.AutoSize = true;
+			this.LblRequired.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+			this.LblRequired.ForeColor = System.Drawing.Color.Red;
+			this.LblRequired.Location = new System.Drawing.Point(40, 10);
+			this.LblRequired.Name = "LblRequired";
+			this.LblRequired.Size = new System.Drawing.Size(12, 13);
+			this.LblRequired.TabIndex = 27;
+			this.LblRequired.Text = "*";
+			this.LblRequired.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// DtpDateOfIssue
 			// 
@@ -220,9 +247,9 @@
 			// 
 			// TxtLocalOfIssue
 			// 
-			this.TxtLocalOfIssue.Location = new System.Drawing.Point(250, 65);
+			this.TxtLocalOfIssue.Location = new System.Drawing.Point(255, 65);
 			this.TxtLocalOfIssue.Name = "TxtLocalOfIssue";
-			this.TxtLocalOfIssue.Size = new System.Drawing.Size(160, 20);
+			this.TxtLocalOfIssue.Size = new System.Drawing.Size(155, 20);
 			this.TxtLocalOfIssue.TabIndex = 20;
 			// 
 			// LblLocalOfIssue
@@ -252,9 +279,9 @@
 			// 
 			// TxtBirthLocal
 			// 
-			this.TxtBirthLocal.Location = new System.Drawing.Point(250, 35);
+			this.TxtBirthLocal.Location = new System.Drawing.Point(255, 35);
 			this.TxtBirthLocal.Name = "TxtBirthLocal";
-			this.TxtBirthLocal.Size = new System.Drawing.Size(370, 20);
+			this.TxtBirthLocal.Size = new System.Drawing.Size(365, 20);
 			this.TxtBirthLocal.TabIndex = 18;
 			// 
 			// LblDateOfIssue
@@ -286,7 +313,7 @@
 			// 
 			// TxtName
 			// 
-			this.TxtName.Location = new System.Drawing.Point(250, 5);
+			this.TxtName.Location = new System.Drawing.Point(255, 5);
 			this.TxtName.Name = "TxtName";
 			this.TxtName.Size = new System.Drawing.Size(160, 20);
 			this.TxtName.TabIndex = 17;
@@ -421,10 +448,10 @@
 			this.BtnCreateLearning.TabIndex = 0;
 			this.BtnCreateLearning.Text = "Thêm mới";
 			this.BtnCreateLearning.UseVisualStyleBackColor = true;
+			this.BtnCreateLearning.Click += new System.EventHandler(this.BtnCreateLearning_Click);
 			// 
 			// PnlFooter
 			// 
-			this.PnlFooter.Controls.Add(this.BtnTempSave);
 			this.PnlFooter.Controls.Add(this.BtnSave);
 			this.PnlFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.PnlFooter.Location = new System.Drawing.Point(0, 460);
@@ -432,23 +459,13 @@
 			this.PnlFooter.Size = new System.Drawing.Size(643, 28);
 			this.PnlFooter.TabIndex = 1;
 			// 
-			// BtnTempSave
-			// 
-			this.BtnTempSave.Location = new System.Drawing.Point(3, 3);
-			this.BtnTempSave.Name = "BtnTempSave";
-			this.BtnTempSave.Size = new System.Drawing.Size(75, 23);
-			this.BtnTempSave.TabIndex = 0;
-			this.BtnTempSave.Text = "Lưu tạm";
-			this.BtnTempSave.UseVisualStyleBackColor = true;
-			this.BtnTempSave.Click += new System.EventHandler(this.BtnTempSave_Click);
-			// 
 			// BtnSave
 			// 
-			this.BtnSave.Location = new System.Drawing.Point(84, 3);
+			this.BtnSave.Location = new System.Drawing.Point(3, 3);
 			this.BtnSave.Name = "BtnSave";
 			this.BtnSave.Size = new System.Drawing.Size(76, 22);
 			this.BtnSave.TabIndex = 1;
-			this.BtnSave.Text = "Lưu vào DB";
+			this.BtnSave.Text = "Lưu";
 			this.BtnSave.UseVisualStyleBackColor = true;
 			this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
 			// 
@@ -478,7 +495,6 @@
 
 		private System.Windows.Forms.Panel PnlMain;
 		private System.Windows.Forms.FlowLayoutPanel PnlFooter;
-		private System.Windows.Forms.Button BtnTempSave;
 		private System.Windows.Forms.Button BtnSave;
 		private System.Windows.Forms.TabControl TabStudent;
 		private System.Windows.Forms.TabPage TpgInfoStudent;
@@ -516,5 +532,7 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn Score;
 		private System.Windows.Forms.DataGridViewTextBoxColumn ScoreLetter;
 		private System.Windows.Forms.DataGridViewButtonColumn Action;
+		private System.Windows.Forms.Label LblRequired1;
+		private System.Windows.Forms.Label LblRequired;
 	}
 }

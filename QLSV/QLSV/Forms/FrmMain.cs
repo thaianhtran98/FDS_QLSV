@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using QLSV.Controls;
+using QuanLySV.Controls;
 
-namespace QLSV.Forms
+namespace QuanLySV.Forms
 {
 	public partial class FrmMain : Form
 	{

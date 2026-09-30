@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace QLSV.Models
+namespace QuanLySVDataBase
 {
 	/// <summary>
 	/// Represents the subject.

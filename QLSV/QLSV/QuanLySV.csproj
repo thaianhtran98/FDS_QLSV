@@ -70,12 +70,18 @@
     <Compile Include="Forms\FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\ClassInfo.cs" />
-    <Compile Include="Models\SaveResult.cs" />
-    <Compile Include="Models\SchoolYear.cs" />
-    <Compile Include="Models\Student.cs" />
-    <Compile Include="Models\StudentAcademic.cs" />
-    <Compile Include="Models\Subject.cs" />
+    <Compile Include="Forms\FrmStudentAcademic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmStudentAcademic.Designer.cs">
+      <DependentUpon>FrmStudentAcademic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmTrainngInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmTrainngInfo.Designer.cs">
+      <DependentUpon>FrmTrainngInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -91,6 +97,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmStudentAcademic.resx">
+      <DependentUpon>FrmStudentAcademic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmTrainngInfo.resx">
+      <DependentUpon>FrmTrainngInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
