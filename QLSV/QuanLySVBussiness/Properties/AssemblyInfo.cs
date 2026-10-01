@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("QuanLySV")]
+[assembly: AssemblyTitle("QuanLySVBussiness")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("QuanLySV")]
+[assembly: AssemblyProduct("QuanLySVBussiness")]
 [assembly: AssemblyCopyright("Copyright ©  2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("c37f57b7-69ba-4300-ab83-ae6cbd6ab967")]
+[assembly: Guid("1c225abc-8239-4638-997d-8f1763e05b10")]
 
 // Version information for an assembly consists of the following four values:
 //

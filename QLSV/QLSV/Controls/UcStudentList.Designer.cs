@@ -1,4 +1,4 @@
-﻿namespace QLSV.Controls
+﻿namespace QuanLySV.Controls
 {
 	partial class UcStudentList
 	{
@@ -29,11 +29,11 @@
 		private void InitializeComponent()
 		{
 			this.PnlFilter = new System.Windows.Forms.Panel();
-			this.PnlStudentList = new System.Windows.Forms.Panel();
-			this.LblNameFilter = new System.Windows.Forms.Label();
+			this.comboBox1 = new System.Windows.Forms.ComboBox();
 			this.TxtNameFilter = new System.Windows.Forms.TextBox();
 			this.LblSex = new System.Windows.Forms.Label();
-			this.comboBox1 = new System.Windows.Forms.ComboBox();
+			this.LblNameFilter = new System.Windows.Forms.Label();
+			this.PnlStudentList = new System.Windows.Forms.Panel();
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
 			this.PnlFilter.SuspendLayout();
 			this.PnlStudentList.SuspendLayout();
@@ -52,23 +52,17 @@
 			this.PnlFilter.Size = new System.Drawing.Size(684, 40);
 			this.PnlFilter.TabIndex = 0;
 			// 
-			// PnlStudentList
+			// comboBox1
 			// 
-			this.PnlStudentList.Controls.Add(this.dataGridView1);
-			this.PnlStudentList.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.PnlStudentList.Location = new System.Drawing.Point(0, 40);
-			this.PnlStudentList.Name = "PnlStudentList";
-			this.PnlStudentList.Size = new System.Drawing.Size(684, 409);
-			this.PnlStudentList.TabIndex = 1;
-			// 
-			// LblNameFilter
-			// 
-			this.LblNameFilter.AutoSize = true;
-			this.LblNameFilter.Location = new System.Drawing.Point(0, 10);
-			this.LblNameFilter.Name = "LblNameFilter";
-			this.LblNameFilter.Size = new System.Drawing.Size(26, 13);
-			this.LblNameFilter.TabIndex = 0;
-			this.LblNameFilter.Text = "Tên";
+			this.comboBox1.FormattingEnabled = true;
+			this.comboBox1.Items.AddRange(new object[] {
+            "Nam",
+            "Nữ"});
+			this.comboBox1.Location = new System.Drawing.Point(205, 5);
+			this.comboBox1.Name = "comboBox1";
+			this.comboBox1.Size = new System.Drawing.Size(121, 21);
+			this.comboBox1.TabIndex = 2;
+			this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
 			// 
 			// TxtNameFilter
 			// 
@@ -87,17 +81,23 @@
 			this.LblSex.TabIndex = 0;
 			this.LblSex.Text = "Giới tính";
 			// 
-			// comboBox1
+			// LblNameFilter
 			// 
-			this.comboBox1.FormattingEnabled = true;
-			this.comboBox1.Items.AddRange(new object[] {
-            "Nam",
-            "Nữ"});
-			this.comboBox1.Location = new System.Drawing.Point(205, 5);
-			this.comboBox1.Name = "comboBox1";
-			this.comboBox1.Size = new System.Drawing.Size(121, 21);
-			this.comboBox1.TabIndex = 2;
-			this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+			this.LblNameFilter.AutoSize = true;
+			this.LblNameFilter.Location = new System.Drawing.Point(0, 10);
+			this.LblNameFilter.Name = "LblNameFilter";
+			this.LblNameFilter.Size = new System.Drawing.Size(26, 13);
+			this.LblNameFilter.TabIndex = 0;
+			this.LblNameFilter.Text = "Tên";
+			// 
+			// PnlStudentList
+			// 
+			this.PnlStudentList.Controls.Add(this.dataGridView1);
+			this.PnlStudentList.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.PnlStudentList.Location = new System.Drawing.Point(0, 40);
+			this.PnlStudentList.Name = "PnlStudentList";
+			this.PnlStudentList.Size = new System.Drawing.Size(684, 409);
+			this.PnlStudentList.TabIndex = 1;
 			// 
 			// dataGridView1
 			// 

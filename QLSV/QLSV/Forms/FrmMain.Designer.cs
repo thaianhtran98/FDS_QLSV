@@ -1,4 +1,4 @@
-﻿namespace QLSV.Forms
+﻿namespace QuanLySV.Forms
 {
 	partial class FrmMain
 	{
@@ -31,9 +31,9 @@
 			this.PnlHeader = new System.Windows.Forms.Panel();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.MnuQLSV = new System.Windows.Forms.ToolStripMenuItem();
+			this.MnuQldm = new System.Windows.Forms.ToolStripMenuItem();
 			this.MnuItemList = new System.Windows.Forms.ToolStripMenuItem();
 			this.MnuItemCreate = new System.Windows.Forms.ToolStripMenuItem();
-			this.MnuQldm = new System.Windows.Forms.ToolStripMenuItem();
 			this.PnlMain = new System.Windows.Forms.Panel();
 			this.LblMain = new System.Windows.Forms.Label();
 			this.PnlHeader.SuspendLayout();
@@ -54,13 +54,13 @@
 			// menuStrip1
 			// 
 			this.menuStrip1.AutoSize = false;
-			this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
+			this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MnuQLSV,
             this.MnuQldm});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
-			this.menuStrip1.Size = new System.Drawing.Size(500, 24);
+			this.menuStrip1.Size = new System.Drawing.Size(712, 25);
 			this.menuStrip1.TabIndex = 0;
 			this.menuStrip1.Text = "menuStrip1";
 			// 
@@ -68,10 +68,18 @@
 			// 
 			this.MnuQLSV.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MnuItemList,
-            this.MnuItemCreate});
+			this.MnuItemCreate
+			});
 			this.MnuQLSV.Name = "MnuQLSV";
-			this.MnuQLSV.Size = new System.Drawing.Size(110, 20);
+			this.MnuQLSV.Size = new System.Drawing.Size(110, 21);
 			this.MnuQLSV.Text = "Quản lý sinh viên";
+			// 
+			// MnuQldm
+			// 
+			this.MnuQldm.Name = "MnuQldm";
+			this.MnuQldm.Size = new System.Drawing.Size(155, 21);
+			this.MnuQldm.Text = "Quản lý thông tin đào tạo";
+			this.MnuQldm.Click += new System.EventHandler(this.MnuQldm_Click);
 			// 
 			// MnuItemList
 			// 
@@ -86,13 +94,6 @@
 			this.MnuItemCreate.Size = new System.Drawing.Size(129, 22);
 			this.MnuItemCreate.Text = "Thêm mới";
 			this.MnuItemCreate.Click += new System.EventHandler(this.MnuItemCreate_Click);
-			// 
-			// MnuQldm
-			// 
-			this.MnuQldm.Name = "MnuQldm";
-			this.MnuQldm.Size = new System.Drawing.Size(155, 20);
-			this.MnuQldm.Text = "Quản lý thông tin đào tạo";
-			this.MnuQldm.Click += new System.EventHandler(this.MnuQldm_Click);
 			// 
 			// PnlMain
 			// 

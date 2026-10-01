@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace QLSV.Properties
+namespace QuanLySV.Properties
 {
 
 

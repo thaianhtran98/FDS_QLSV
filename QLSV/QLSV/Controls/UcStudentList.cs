@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace QLSV.Controls
+namespace QuanLySV.Controls
 {
 	public partial class UcStudentList : UserControl
 	{
