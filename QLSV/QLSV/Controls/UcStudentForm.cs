@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using QuanLySV.Forms;					  
+using QuanLySV.Forms;
+using System.Collections;
 
 namespace QuanLySV.Controls
 {
@@ -42,8 +43,16 @@ namespace QuanLySV.Controls
 		}																   
 
 		private void BtnSave_Click(object sender, EventArgs e)
-		{							   
-			MessageBox.Show("Lưu tạm thành công");
+		{
+			string message = null;
+            if (!Validator(out message))
+			{
+				MessageBox.Show(message);
+				return;
+			}
+
+			message = "Lưu tạm thành công";
+            MessageBox.Show(message);
 		}
 
 		private void BtnCreateLearning_Click(object sender, EventArgs e)
@@ -54,6 +63,21 @@ namespace QuanLySV.Controls
 			{
 				fr.Dispose();
 			}
+		}
+
+		private bool Validator(out string message)
+		{
+			message = null;
+			if (TxtStudentId.Text == "")
+			{
+				message += "Vui lòng nhập MSSV";
+			}
+			if(TxtName.Text == "")
+			{
+				message += "\r\nVui lòng nhập Họ tên";
+			}
+
+			return message == null ? true : false;  
 		}
 	}
 }

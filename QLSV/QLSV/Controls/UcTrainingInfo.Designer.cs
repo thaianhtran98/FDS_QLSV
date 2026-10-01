@@ -44,7 +44,6 @@
 			this.TxtDescriptionClass = new System.Windows.Forms.TextBox();
 			this.TxtClassName = new System.Windows.Forms.TextBox();
 			this.LblDescription = new System.Windows.Forms.Label();
-			this.LblRequiredClassDes = new System.Windows.Forms.Label();
 			this.LblRequired = new System.Windows.Forms.Label();
 			this.LblClassName = new System.Windows.Forms.Label();
 			this.TpgSchoolYear = new System.Windows.Forms.TabPage();
@@ -79,7 +78,6 @@
 			this.TxtSubjectName = new System.Windows.Forms.TextBox();
 			this.LblSubjectDescription = new System.Windows.Forms.Label();
 			this.LblRequiredSubjectCredit = new System.Windows.Forms.Label();
-			this.LblRequried2 = new System.Windows.Forms.Label();
 			this.LblSubjectCredit = new System.Windows.Forms.Label();
 			this.LblRequired1 = new System.Windows.Forms.Label();
 			this.LblSubjectName = new System.Windows.Forms.Label();
@@ -208,7 +206,6 @@
 			this.PnlClassForm.Controls.Add(this.TxtDescriptionClass);
 			this.PnlClassForm.Controls.Add(this.TxtClassName);
 			this.PnlClassForm.Controls.Add(this.LblDescription);
-			this.PnlClassForm.Controls.Add(this.LblRequiredClassDes);
 			this.PnlClassForm.Controls.Add(this.LblRequired);
 			this.PnlClassForm.Controls.Add(this.LblClassName);
 			this.PnlClassForm.Dock = System.Windows.Forms.DockStyle.Left;
@@ -262,18 +259,6 @@
 			this.LblDescription.TabIndex = 0;
 			this.LblDescription.Text = "Mô tả";
 			this.LblDescription.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// LblRequiredClassDes
-			// 
-			this.LblRequiredClassDes.AutoSize = true;
-			this.LblRequiredClassDes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-			this.LblRequiredClassDes.ForeColor = System.Drawing.Color.Red;
-			this.LblRequiredClassDes.Location = new System.Drawing.Point(35, 50);
-			this.LblRequiredClassDes.Name = "LblRequiredClassDes";
-			this.LblRequiredClassDes.Size = new System.Drawing.Size(12, 13);
-			this.LblRequiredClassDes.TabIndex = 0;
-			this.LblRequiredClassDes.Text = "*";
-			this.LblRequiredClassDes.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// LblRequired
 			// 
@@ -563,7 +548,6 @@
 			this.PnlSubjectForm.Controls.Add(this.TxtSubjectName);
 			this.PnlSubjectForm.Controls.Add(this.LblSubjectDescription);
 			this.PnlSubjectForm.Controls.Add(this.LblRequiredSubjectCredit);
-			this.PnlSubjectForm.Controls.Add(this.LblRequried2);
 			this.PnlSubjectForm.Controls.Add(this.LblSubjectCredit);
 			this.PnlSubjectForm.Controls.Add(this.LblRequired1);
 			this.PnlSubjectForm.Controls.Add(this.LblSubjectName);
@@ -576,9 +560,19 @@
 			// NumSubjectCredit
 			// 
 			this.NumSubjectCredit.Location = new System.Drawing.Point(5, 65);
+			this.NumSubjectCredit.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			this.NumSubjectCredit.Name = "NumSubjectCredit";
 			this.NumSubjectCredit.Size = new System.Drawing.Size(180, 20);
 			this.NumSubjectCredit.TabIndex = 3;
+			this.NumSubjectCredit.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			// 
 			// BtnTempSaveSubject
 			// 
@@ -640,18 +634,6 @@
 			this.LblRequiredSubjectCredit.TabIndex = 0;
 			this.LblRequiredSubjectCredit.Text = "*";
 			this.LblRequiredSubjectCredit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// LblRequried2
-			// 
-			this.LblRequried2.AutoSize = true;
-			this.LblRequried2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-			this.LblRequried2.ForeColor = System.Drawing.Color.Red;
-			this.LblRequried2.Location = new System.Drawing.Point(35, 95);
-			this.LblRequried2.Name = "LblRequried2";
-			this.LblRequried2.Size = new System.Drawing.Size(12, 13);
-			this.LblRequried2.TabIndex = 0;
-			this.LblRequried2.Text = "*";
-			this.LblRequried2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// LblSubjectCredit
 			// 
@@ -731,7 +713,6 @@
 		private System.Windows.Forms.TextBox TxtClassName;
 		private System.Windows.Forms.Label LblDescription;
 		private System.Windows.Forms.Label LblRequired;
-		private System.Windows.Forms.Label LblRequiredClassDes;
 		private System.Windows.Forms.CheckBox ChkStatusClass;
 		private System.Windows.Forms.Panel panel2;
 		private System.Windows.Forms.DataGridView DgvListClass;
@@ -753,7 +734,6 @@
 		private System.Windows.Forms.TextBox TxtSubjectDescription;
 		private System.Windows.Forms.TextBox TxtSubjectName;
 		private System.Windows.Forms.Label LblSubjectDescription;
-		private System.Windows.Forms.Label LblRequried2;
 		private System.Windows.Forms.Label LblRequired1;
 		private System.Windows.Forms.Label LblSubjectName;
 		private System.Windows.Forms.Label LblRequriedStartYear;

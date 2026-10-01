@@ -47,7 +47,38 @@ namespace QuanLySV.Forms
 
 		private void BtnSave_Click(object sender, EventArgs e)
 		{
-			MessageBox.Show("Thành công");
+			string message = null;
+			if (!Validator(out message))
+			{
+				MessageBox.Show(message);
+				return;
+			}
+
+			message = "Lưu tạm thành công";
+			MessageBox.Show(message);
+		}
+
+		private bool Validator(out string errMessage)
+		{
+			errMessage = "Lỗi:";
+			if (CbxSchoolYear.Text == "")
+			{
+				errMessage += "\r\nVui lòng chọn Năm học";
+			}
+			if (CbxSemester.Text == "")
+			{
+				errMessage += "\r\nVui lòng chọn Học kỳ";
+			}
+			if (CbxClassName.Text == "")
+			{
+				errMessage += "\r\nVui lòng chọn Lớp";
+			}
+			if (CbxSubjectName.Text == "")
+			{
+				errMessage += "\r\nVui lòng chọn Môn học";
+			}
+
+			return errMessage == "Lỗi:" ? true : false;
 		}
 	}
 }

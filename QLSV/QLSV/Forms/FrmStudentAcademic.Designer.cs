@@ -29,23 +29,27 @@
 		private void InitializeComponent()
 		{
 			this.LblSchoolYearName = new System.Windows.Forms.Label();
-			this.comboBox1 = new System.Windows.Forms.ComboBox();
+			this.CbxSchoolYear = new System.Windows.Forms.ComboBox();
 			this.LblClassName = new System.Windows.Forms.Label();
-			this.comboBox2 = new System.Windows.Forms.ComboBox();
+			this.CbxClassName = new System.Windows.Forms.ComboBox();
 			this.LblSemester = new System.Windows.Forms.Label();
-			this.comboBox3 = new System.Windows.Forms.ComboBox();
+			this.CbxSemester = new System.Windows.Forms.ComboBox();
 			this.LblSubjectName = new System.Windows.Forms.Label();
-			this.comboBox4 = new System.Windows.Forms.ComboBox();
+			this.CbxSubjectName = new System.Windows.Forms.ComboBox();
 			this.LblScore = new System.Windows.Forms.Label();
-			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.TxtScore = new System.Windows.Forms.TextBox();
 			this.LblScoreLetter = new System.Windows.Forms.Label();
-			this.textBox2 = new System.Windows.Forms.TextBox();
+			this.CbxScoreLetter = new System.Windows.Forms.TextBox();
 			this.LblNote = new System.Windows.Forms.Label();
 			this.TxtNote = new System.Windows.Forms.TextBox();
 			this.BtnSave = new System.Windows.Forms.Button();
 			this.BtnAddSchoolYear = new System.Windows.Forms.Button();
 			this.BtnAddClass = new System.Windows.Forms.Button();
 			this.BtnAddSubject = new System.Windows.Forms.Button();
+			this.LblRequired1 = new System.Windows.Forms.Label();
+			this.label1 = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// LblSchoolYearName
@@ -57,13 +61,13 @@
 			this.LblSchoolYearName.TabIndex = 0;
 			this.LblSchoolYearName.Text = "Năm học";
 			// 
-			// comboBox1
+			// CbxSchoolYear
 			// 
-			this.comboBox1.FormattingEnabled = true;
-			this.comboBox1.Location = new System.Drawing.Point(5, 15);
-			this.comboBox1.Name = "comboBox1";
-			this.comboBox1.Size = new System.Drawing.Size(145, 21);
-			this.comboBox1.TabIndex = 1;
+			this.CbxSchoolYear.FormattingEnabled = true;
+			this.CbxSchoolYear.Location = new System.Drawing.Point(5, 15);
+			this.CbxSchoolYear.Name = "CbxSchoolYear";
+			this.CbxSchoolYear.Size = new System.Drawing.Size(145, 21);
+			this.CbxSchoolYear.TabIndex = 1;
 			// 
 			// LblClassName
 			// 
@@ -74,13 +78,13 @@
 			this.LblClassName.TabIndex = 0;
 			this.LblClassName.Text = "Lớp học";
 			// 
-			// comboBox2
+			// CbxClassName
 			// 
-			this.comboBox2.FormattingEnabled = true;
-			this.comboBox2.Location = new System.Drawing.Point(350, 15);
-			this.comboBox2.Name = "comboBox2";
-			this.comboBox2.Size = new System.Drawing.Size(140, 21);
-			this.comboBox2.TabIndex = 1;
+			this.CbxClassName.FormattingEnabled = true;
+			this.CbxClassName.Location = new System.Drawing.Point(350, 15);
+			this.CbxClassName.Name = "CbxClassName";
+			this.CbxClassName.Size = new System.Drawing.Size(140, 21);
+			this.CbxClassName.TabIndex = 1;
 			// 
 			// LblSemester
 			// 
@@ -91,17 +95,17 @@
 			this.LblSemester.TabIndex = 0;
 			this.LblSemester.Text = "Học kỳ";
 			// 
-			// comboBox3
+			// CbxSemester
 			// 
-			this.comboBox3.FormattingEnabled = true;
-			this.comboBox3.Items.AddRange(new object[] {
+			this.CbxSemester.FormattingEnabled = true;
+			this.CbxSemester.Items.AddRange(new object[] {
             "1",
             "2",
             "3"});
-			this.comboBox3.Location = new System.Drawing.Point(180, 15);
-			this.comboBox3.Name = "comboBox3";
-			this.comboBox3.Size = new System.Drawing.Size(140, 21);
-			this.comboBox3.TabIndex = 1;
+			this.CbxSemester.Location = new System.Drawing.Point(180, 15);
+			this.CbxSemester.Name = "CbxSemester";
+			this.CbxSemester.Size = new System.Drawing.Size(140, 21);
+			this.CbxSemester.TabIndex = 1;
 			// 
 			// LblSubjectName
 			// 
@@ -112,13 +116,13 @@
 			this.LblSubjectName.TabIndex = 0;
 			this.LblSubjectName.Text = "Môn học";
 			// 
-			// comboBox4
+			// CbxSubjectName
 			// 
-			this.comboBox4.FormattingEnabled = true;
-			this.comboBox4.Location = new System.Drawing.Point(5, 65);
-			this.comboBox4.Name = "comboBox4";
-			this.comboBox4.Size = new System.Drawing.Size(145, 21);
-			this.comboBox4.TabIndex = 1;
+			this.CbxSubjectName.FormattingEnabled = true;
+			this.CbxSubjectName.Location = new System.Drawing.Point(5, 65);
+			this.CbxSubjectName.Name = "CbxSubjectName";
+			this.CbxSubjectName.Size = new System.Drawing.Size(145, 21);
+			this.CbxSubjectName.TabIndex = 1;
 			// 
 			// LblScore
 			// 
@@ -129,12 +133,12 @@
 			this.LblScore.TabIndex = 0;
 			this.LblScore.Text = "Điểm số";
 			// 
-			// textBox1
+			// TxtScore
 			// 
-			this.textBox1.Location = new System.Drawing.Point(180, 65);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(145, 20);
-			this.textBox1.TabIndex = 2;
+			this.TxtScore.Location = new System.Drawing.Point(180, 65);
+			this.TxtScore.Name = "TxtScore";
+			this.TxtScore.Size = new System.Drawing.Size(145, 20);
+			this.TxtScore.TabIndex = 2;
 			// 
 			// LblScoreLetter
 			// 
@@ -145,13 +149,13 @@
 			this.LblScoreLetter.TabIndex = 0;
 			this.LblScoreLetter.Text = "Điểm chữ";
 			// 
-			// textBox2
+			// CbxScoreLetter
 			// 
-			this.textBox2.Enabled = false;
-			this.textBox2.Location = new System.Drawing.Point(350, 65);
-			this.textBox2.Name = "textBox2";
-			this.textBox2.Size = new System.Drawing.Size(160, 20);
-			this.textBox2.TabIndex = 2;
+			this.CbxScoreLetter.Enabled = false;
+			this.CbxScoreLetter.Location = new System.Drawing.Point(350, 65);
+			this.CbxScoreLetter.Name = "CbxScoreLetter";
+			this.CbxScoreLetter.Size = new System.Drawing.Size(160, 20);
+			this.CbxScoreLetter.TabIndex = 2;
 			// 
 			// LblNote
 			// 
@@ -211,28 +215,80 @@
 			this.BtnAddSubject.UseVisualStyleBackColor = true;
 			this.BtnAddSubject.Click += new System.EventHandler(this.BtnAddSubject_Click);
 			// 
+			// LblRequired1
+			// 
+			this.LblRequired1.AutoSize = true;
+			this.LblRequired1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+			this.LblRequired1.ForeColor = System.Drawing.Color.Red;
+			this.LblRequired1.Location = new System.Drawing.Point(50, 50);
+			this.LblRequired1.Name = "LblRequired1";
+			this.LblRequired1.Size = new System.Drawing.Size(12, 13);
+			this.LblRequired1.TabIndex = 5;
+			this.LblRequired1.Text = "*";
+			this.LblRequired1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+			this.label1.ForeColor = System.Drawing.Color.Red;
+			this.label1.Location = new System.Drawing.Point(220, 0);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(12, 13);
+			this.label1.TabIndex = 5;
+			this.label1.Text = "*";
+			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+			this.label2.ForeColor = System.Drawing.Color.Red;
+			this.label2.Location = new System.Drawing.Point(395, 0);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(12, 13);
+			this.label2.TabIndex = 5;
+			this.label2.Text = "*";
+			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+			this.label3.ForeColor = System.Drawing.Color.Red;
+			this.label3.Location = new System.Drawing.Point(55, 0);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(12, 13);
+			this.label3.TabIndex = 5;
+			this.label3.Text = "*";
+			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
 			// FrmStudentAcademic
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(522, 245);
+			this.Controls.Add(this.label3);
+			this.Controls.Add(this.label2);
+			this.Controls.Add(this.label1);
+			this.Controls.Add(this.LblRequired1);
 			this.Controls.Add(this.BtnAddSubject);
 			this.Controls.Add(this.BtnAddClass);
 			this.Controls.Add(this.BtnAddSchoolYear);
 			this.Controls.Add(this.BtnSave);
-			this.Controls.Add(this.textBox2);
+			this.Controls.Add(this.CbxScoreLetter);
 			this.Controls.Add(this.TxtNote);
-			this.Controls.Add(this.textBox1);
-			this.Controls.Add(this.comboBox3);
+			this.Controls.Add(this.TxtScore);
+			this.Controls.Add(this.CbxSemester);
 			this.Controls.Add(this.LblSemester);
-			this.Controls.Add(this.comboBox2);
+			this.Controls.Add(this.CbxClassName);
 			this.Controls.Add(this.LblClassName);
-			this.Controls.Add(this.comboBox4);
+			this.Controls.Add(this.CbxSubjectName);
 			this.Controls.Add(this.LblNote);
 			this.Controls.Add(this.LblScoreLetter);
 			this.Controls.Add(this.LblScore);
 			this.Controls.Add(this.LblSubjectName);
-			this.Controls.Add(this.comboBox1);
+			this.Controls.Add(this.CbxSchoolYear);
 			this.Controls.Add(this.LblSchoolYearName);
 			this.Name = "FrmStudentAcademic";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -245,22 +301,26 @@
 		#endregion
 
 		private System.Windows.Forms.Label LblSchoolYearName;
-		private System.Windows.Forms.ComboBox comboBox1;
+		private System.Windows.Forms.ComboBox CbxSchoolYear;
 		private System.Windows.Forms.Label LblClassName;
-		private System.Windows.Forms.ComboBox comboBox2;
+		private System.Windows.Forms.ComboBox CbxClassName;
 		private System.Windows.Forms.Label LblSemester;
-		private System.Windows.Forms.ComboBox comboBox3;
+		private System.Windows.Forms.ComboBox CbxSemester;
 		private System.Windows.Forms.Label LblSubjectName;
-		private System.Windows.Forms.ComboBox comboBox4;
+		private System.Windows.Forms.ComboBox CbxSubjectName;
 		private System.Windows.Forms.Label LblScore;
-		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.TextBox TxtScore;
 		private System.Windows.Forms.Label LblScoreLetter;
-		private System.Windows.Forms.TextBox textBox2;
+		private System.Windows.Forms.TextBox CbxScoreLetter;
 		private System.Windows.Forms.Label LblNote;
 		private System.Windows.Forms.TextBox TxtNote;
 		private System.Windows.Forms.Button BtnSave;
 		private System.Windows.Forms.Button BtnAddSchoolYear;
 		private System.Windows.Forms.Button BtnAddClass;
 		private System.Windows.Forms.Button BtnAddSubject;
+		private System.Windows.Forms.Label LblRequired1;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Label label3;
 	}
 }
