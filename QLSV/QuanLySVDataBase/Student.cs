@@ -76,5 +76,7 @@ namespace QuanLySVDataBase
 		/// Gets or sets the number phone.
 		/// </summary>
 		public string NumberPhone { get; set; }
+
+		public 
 	}
 }

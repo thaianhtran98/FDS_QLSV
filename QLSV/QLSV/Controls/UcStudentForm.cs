@@ -10,15 +10,21 @@ using System.Windows.Forms;
 using QuanLySV.Forms;
 using System.Collections;
 
+
 namespace QuanLySV.Controls
 {
 	public partial class UcStudentForm : UserControl
-	{													
-
-		public UcStudentForm(string studentId = "")
+	{
+		
+		public UcStudentForm()
 		{
 			InitializeComponent();
-        }														   
+        }
+		
+		public void Initialize(string studentId = "")
+		{
+			 if (studentId == "")
+		}														   
 
 		private void SexCheckedChanged(object sender, EventArgs e)
 		{
@@ -51,7 +57,7 @@ namespace QuanLySV.Controls
 				return;
 			}
 
-			message = "Lưu tạm thành công";
+			message = "Lưu thành công";
             MessageBox.Show(message);
 		}
 
@@ -67,17 +73,17 @@ namespace QuanLySV.Controls
 
 		private bool Validator(out string message)
 		{
-			message = null;
+			message = "Lỗi:";
 			if (TxtStudentId.Text == "")
 			{
-				message += "Vui lòng nhập MSSV";
+				message += "\r\nVui lòng nhập MSSV";
 			}
 			if(TxtName.Text == "")
 			{
 				message += "\r\nVui lòng nhập Họ tên";
 			}
 
-			return message == null ? true : false;  
+			return message == "Lỗi:" ? true : false;  
 		}
 	}
 }
