@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
+using System.Data;
+using System.Configuration;
+using Oracle.ManagedDataAccess.Client;
+using QuanLySVHelperDataBase;
 
 namespace QuanLySVDataBase
 {
@@ -11,6 +16,7 @@ namespace QuanLySVDataBase
 	/// </summary>
 	public class Student
 	{
+		private DBHelper DBHelper = new DBHelper();
 		/// <summary>
 		/// The male.
 		/// </summary>
@@ -77,6 +83,16 @@ namespace QuanLySVDataBase
 		/// </summary>
 		public string NumberPhone { get; set; }
 
-		public 
+		public DataTable FillData()
+		{
+			DataTable dt = new DataTable();
+			string sql = "SELECT STUDENTID, NAME, SEX, BIRTHOFDATE, BIRTHLOCAL, VNEID, " +
+				"DATEOFISSUE, LOCALOFISSUE, LOCAL, PLACEOFRESIDENCE, NUMBERPHONE, STATUS " +
+				"FROM STUDENT ";
+
+			dt = DBHelper.ExecuteQuery(sql);
+
+            return dt;
+		}
 	}
 }

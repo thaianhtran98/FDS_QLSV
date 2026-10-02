@@ -7,24 +7,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using QuanLySVBussiness;
+using System.Collections;
 
 namespace QuanLySV.Controls
 {
 	public partial class UcStudentList : UserControl
 	{
+		private StudentBussiness StudentBussiness = new StudentBussiness();
+		 
 		public UcStudentList()
 		{
 			InitializeComponent();
+			LoadData();
 		}
 
-		private void TxtNameFilter_TextChanged(object sender, EventArgs e)
+		private void LoadData()
 		{
-
-		}
-
-		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-		{
-
-		}
+			DataTable dt = StudentBussiness.FillStudent();
+			DgvStudentList.AutoGenerateColumns = false;
+            DgvStudentList.DataSource = dt;
+        }
 	}
 }

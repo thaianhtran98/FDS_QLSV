@@ -15,16 +15,11 @@ namespace QuanLySV.Controls
 {
 	public partial class UcStudentForm : UserControl
 	{
-		
+
 		public UcStudentForm()
 		{
 			InitializeComponent();
-        }
-		
-		public void Initialize(string studentId = "")
-		{
-			 if (studentId == "")
-		}														   
+		}
 
 		private void SexCheckedChanged(object sender, EventArgs e)
 		{
