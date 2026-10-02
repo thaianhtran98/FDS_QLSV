@@ -90,7 +90,8 @@ namespace QuanLySVDataBase
 				"DATEOFISSUE, LOCALOFISSUE, LOCAL, PLACEOFRESIDENCE, NUMBERPHONE, STATUS " +
 				"FROM STUDENT ";
 
-			dt = DBHelper.ExecuteQuery(sql);
+			string errMessage = null;
+            	dt = DBHelper.ExecuteQuery(sql);
 
             return dt;
 		}
