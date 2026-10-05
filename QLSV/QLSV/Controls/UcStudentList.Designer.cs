@@ -29,17 +29,17 @@
 		private void InitializeComponent()
 		{
 			this.DgvStudentList = new System.Windows.Forms.DataGridView();
-			this.PnlFilter = new System.Windows.Forms.Panel();
-			this.comboBox1 = new System.Windows.Forms.ComboBox();
-			this.TxtNameFilter = new System.Windows.Forms.TextBox();
-			this.LblSex = new System.Windows.Forms.Label();
-			this.LblNameFilter = new System.Windows.Forms.Label();
-			this.PnlStudentList = new System.Windows.Forms.Panel();
 			this.StudentId = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.StudentName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Sex = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.BirthOfDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.VneId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.PnlFilter = new System.Windows.Forms.Panel();
+			this.CbxSex = new System.Windows.Forms.ComboBox();
+			this.TxtNameFilter = new System.Windows.Forms.TextBox();
+			this.LblSex = new System.Windows.Forms.Label();
+			this.LblNameFilter = new System.Windows.Forms.Label();
+			this.PnlStudentList = new System.Windows.Forms.Panel();
 			((System.ComponentModel.ISupportInitialize)(this.DgvStudentList)).BeginInit();
 			this.PnlFilter.SuspendLayout();
 			this.PnlStudentList.SuspendLayout();
@@ -62,63 +62,6 @@
 			this.DgvStudentList.ReadOnly = true;
 			this.DgvStudentList.Size = new System.Drawing.Size(1053, 369);
 			this.DgvStudentList.TabIndex = 0;
-			// 
-			// PnlFilter
-			// 
-			this.PnlFilter.Controls.Add(this.comboBox1);
-			this.PnlFilter.Controls.Add(this.TxtNameFilter);
-			this.PnlFilter.Controls.Add(this.LblSex);
-			this.PnlFilter.Controls.Add(this.LblNameFilter);
-			this.PnlFilter.Dock = System.Windows.Forms.DockStyle.Top;
-			this.PnlFilter.Location = new System.Drawing.Point(0, 0);
-			this.PnlFilter.Name = "PnlFilter";
-			this.PnlFilter.Size = new System.Drawing.Size(1053, 40);
-			this.PnlFilter.TabIndex = 0;
-			// 
-			// comboBox1
-			// 
-			this.comboBox1.FormattingEnabled = true;
-			this.comboBox1.Items.AddRange(new object[] {
-            "Nam",
-            "Nữ"});
-			this.comboBox1.Location = new System.Drawing.Point(205, 5);
-			this.comboBox1.Name = "comboBox1";
-			this.comboBox1.Size = new System.Drawing.Size(121, 21);
-			this.comboBox1.TabIndex = 2;
-			// 
-			// TxtNameFilter
-			// 
-			this.TxtNameFilter.Location = new System.Drawing.Point(25, 5);
-			this.TxtNameFilter.Name = "TxtNameFilter";
-			this.TxtNameFilter.Size = new System.Drawing.Size(100, 20);
-			this.TxtNameFilter.TabIndex = 1;
-			// 
-			// LblSex
-			// 
-			this.LblSex.AutoSize = true;
-			this.LblSex.Location = new System.Drawing.Point(155, 10);
-			this.LblSex.Name = "LblSex";
-			this.LblSex.Size = new System.Drawing.Size(47, 13);
-			this.LblSex.TabIndex = 0;
-			this.LblSex.Text = "Giới tính";
-			// 
-			// LblNameFilter
-			// 
-			this.LblNameFilter.AutoSize = true;
-			this.LblNameFilter.Location = new System.Drawing.Point(0, 10);
-			this.LblNameFilter.Name = "LblNameFilter";
-			this.LblNameFilter.Size = new System.Drawing.Size(26, 13);
-			this.LblNameFilter.TabIndex = 0;
-			this.LblNameFilter.Text = "Tên";
-			// 
-			// PnlStudentList
-			// 
-			this.PnlStudentList.Controls.Add(this.DgvStudentList);
-			this.PnlStudentList.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.PnlStudentList.Location = new System.Drawing.Point(0, 40);
-			this.PnlStudentList.Name = "PnlStudentList";
-			this.PnlStudentList.Size = new System.Drawing.Size(1053, 369);
-			this.PnlStudentList.TabIndex = 1;
 			// 
 			// StudentId
 			// 
@@ -164,6 +107,62 @@
 			this.VneId.ReadOnly = true;
 			this.VneId.Width = 200;
 			// 
+			// PnlFilter
+			// 
+			this.PnlFilter.Controls.Add(this.CbxSex);
+			this.PnlFilter.Controls.Add(this.TxtNameFilter);
+			this.PnlFilter.Controls.Add(this.LblSex);
+			this.PnlFilter.Controls.Add(this.LblNameFilter);
+			this.PnlFilter.Dock = System.Windows.Forms.DockStyle.Top;
+			this.PnlFilter.Location = new System.Drawing.Point(0, 0);
+			this.PnlFilter.Name = "PnlFilter";
+			this.PnlFilter.Size = new System.Drawing.Size(1053, 40);
+			this.PnlFilter.TabIndex = 0;
+			// 
+			// CbxSex
+			// 
+			this.CbxSex.FormattingEnabled = true;
+			this.CbxSex.Location = new System.Drawing.Point(205, 5);
+			this.CbxSex.Name = "CbxSex";
+			this.CbxSex.Size = new System.Drawing.Size(121, 21);
+			this.CbxSex.TabIndex = 2;
+			this.CbxSex.SelectedIndexChanged += new System.EventHandler(this.CbxSex_SelectedIndexChanged_1);
+			// 
+			// TxtNameFilter
+			// 
+			this.TxtNameFilter.Location = new System.Drawing.Point(25, 5);
+			this.TxtNameFilter.Name = "TxtNameFilter";
+			this.TxtNameFilter.Size = new System.Drawing.Size(100, 20);
+			this.TxtNameFilter.TabIndex = 1;
+			this.TxtNameFilter.TextChanged += new System.EventHandler(this.TxtNameFilter_TextChanged);
+			// 
+			// LblSex
+			// 
+			this.LblSex.AutoSize = true;
+			this.LblSex.Location = new System.Drawing.Point(155, 10);
+			this.LblSex.Name = "LblSex";
+			this.LblSex.Size = new System.Drawing.Size(47, 13);
+			this.LblSex.TabIndex = 0;
+			this.LblSex.Text = "Giới tính";
+			// 
+			// LblNameFilter
+			// 
+			this.LblNameFilter.AutoSize = true;
+			this.LblNameFilter.Location = new System.Drawing.Point(0, 10);
+			this.LblNameFilter.Name = "LblNameFilter";
+			this.LblNameFilter.Size = new System.Drawing.Size(26, 13);
+			this.LblNameFilter.TabIndex = 0;
+			this.LblNameFilter.Text = "Tên";
+			// 
+			// PnlStudentList
+			// 
+			this.PnlStudentList.Controls.Add(this.DgvStudentList);
+			this.PnlStudentList.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.PnlStudentList.Location = new System.Drawing.Point(0, 40);
+			this.PnlStudentList.Name = "PnlStudentList";
+			this.PnlStudentList.Size = new System.Drawing.Size(1053, 369);
+			this.PnlStudentList.TabIndex = 1;
+			// 
 			// UcStudentList
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -183,7 +182,7 @@
 		#endregion
 
 		private System.Windows.Forms.Panel PnlFilter;
-		private System.Windows.Forms.ComboBox comboBox1;
+		private System.Windows.Forms.ComboBox CbxSex;
 		private System.Windows.Forms.TextBox TxtNameFilter;
 		private System.Windows.Forms.Label LblSex;
 		private System.Windows.Forms.Label LblNameFilter;

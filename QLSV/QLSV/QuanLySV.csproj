@@ -134,6 +134,10 @@
       <Project>{1c225abc-8239-4638-997d-8f1763e05b10}</Project>
       <Name>QuanLySVBussiness</Name>
     </ProjectReference>
+    <ProjectReference Include="..\QuanLySVModel\QuanLySVModel.csproj">
+      <Project>{b4f6e54c-73cd-4c94-8b61-6b5b51814402}</Project>
+      <Name>QuanLySVModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

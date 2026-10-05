@@ -4,16 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using QuanLySVDataBase;
+using QuanLySVModel;
 
 namespace QuanLySVBussiness
 {
 	public class StudentBussiness
 	{
-		QuanLySVDataBase.Student StudentDB = new QuanLySVDataBase.Student();
+		StudentDB _StudentDB = new StudentDB();
 
 		public DataTable FillStudent()
 		{
-			return StudentDB.FillData();
+			return _StudentDB.FillData();
+		}
+
+		public DataTable Filter(string name, int sex)
+		{
+			return _StudentDB.FilterStudent(name, sex);
+        }
+
+		public bool CreatNewStudent(StudentModel student)
+		{
+			return _StudentDB.CreatNewStudent(student);
 		}
 	}
 }

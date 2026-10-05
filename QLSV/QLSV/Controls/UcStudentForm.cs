@@ -9,17 +9,27 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using QuanLySV.Forms;
 using System.Collections;
-
+using QuanLySVBussiness;
+using QuanLySVModel;
 
 namespace QuanLySV.Controls
 {
 	public partial class UcStudentForm : UserControl
 	{
+		private StudentModel StudentCurrent;
+		private StudentBussiness StudentBus;
 
 		public UcStudentForm()
 		{
+			StudentBus = new StudentBussiness();
+			StudentCurrent = new StudentModel();
 			InitializeComponent();
 		}
+
+		public void InitLoad(StudentBussiness studentBussiness)
+		{
+			StudentBus = studentBussiness;
+        }
 
 		private void SexCheckedChanged(object sender, EventArgs e)
 		{
@@ -30,15 +40,8 @@ namespace QuanLySV.Controls
 					RadioButton rbt = (RadioButton)ctl;
 					if (rbt.Checked)
 					{
-						if (rbt.Text == "Nam")
-						{
-							return;
-						}
-						else
-						{
-							return;
-						}
-					}
+						StudentCurrent.Sex = (int)rbt.Tag;
+                    }
 				}
 			}
 		}																   
@@ -51,6 +54,20 @@ namespace QuanLySV.Controls
 				MessageBox.Show(message);
 				return;
 			}
+
+			StudentCurrent.Name = TxtName.Text;
+			StudentCurrent.Status = StudentModel.ACTIVE;
+			StudentCurrent.StudentId = TxtStudentId.Text;
+			StudentCurrent.BirthOfDate = DtpBirthOfDate.Value;
+			StudentCurrent.BirthLocal = TxtBirthLocal.Text;
+			StudentCurrent.NumberPhone = MtxNumberphone.Text;
+			StudentCurrent.VneId = TxtVneId.Text;
+			StudentCurrent.DateOfIssue = DtpDateOfIssue.Value;
+			StudentCurrent.LocalOfIssue = TxtLocalOfIssue.Text;
+			StudentCurrent.Hometown = TxtHometown.Text;
+			StudentCurrent.PlaceOfResidence = TxtPlaceOfResidence.Text;
+			
+			StudentBus.CreatNewStudent(StudentCurrent);
 
 			message = "Lưu thành công";
             MessageBox.Show(message);

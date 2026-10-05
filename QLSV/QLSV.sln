@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuanLySVHelperUI", "QuanLyS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuanLySVHelperDataBase", "QuanLySVHelperDataBase\QuanLySVHelperDataBase.csproj", "{95B12B60-4E94-4DF0-9190-808B0AB5A3DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuanLySVModel", "QuanLySVModel\QuanLySVModel.csproj", "{B4F6E54C-73CD-4C94-8B61-6B5B51814402}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{95B12B60-4E94-4DF0-9190-808B0AB5A3DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95B12B60-4E94-4DF0-9190-808B0AB5A3DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95B12B60-4E94-4DF0-9190-808B0AB5A3DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4F6E54C-73CD-4C94-8B61-6B5B51814402}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4F6E54C-73CD-4C94-8B61-6B5B51814402}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4F6E54C-73CD-4C94-8B61-6B5B51814402}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4F6E54C-73CD-4C94-8B61-6B5B51814402}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

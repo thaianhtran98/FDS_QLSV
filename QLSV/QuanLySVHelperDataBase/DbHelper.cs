@@ -7,12 +7,20 @@ namespace QuanLySVHelperDataBase
 {
     public class DBHelper
     {
-		private static string ConnectionString
+		private static string _ConnectionString
 		{
 			get
 			{
 				var connSetting = ConfigurationManager.ConnectionStrings["OracleConnection"];
 				return connSetting != null ? connSetting.ConnectionString : string.Empty;
+			}
+		}
+
+		public static string ConnectionString
+		{
+			get
+			{
+				return _ConnectionString;
 			}
 		}
 
@@ -23,7 +31,7 @@ namespace QuanLySVHelperDataBase
 		{
 			DataTable dataTable = new DataTable();
 
-			using (OracleConnection conn = new OracleConnection(ConnectionString))
+			using (OracleConnection conn = new OracleConnection(_ConnectionString))
 			{
 				using (OracleCommand cmd = new OracleCommand(query, conn))
 				{
@@ -43,6 +51,28 @@ namespace QuanLySVHelperDataBase
 			}
 
 			return dataTable;
+		}
+
+		/// <summary>
+		/// Handles the execute non query logic.
+		/// </summary>
+		public static int ExecuteNonQuery(string query, OracleParameter[] parameters = null)
+		{
+			using (OracleConnection conn = new OracleConnection(_ConnectionString))
+			{
+				using (OracleCommand cmd = new OracleCommand(query, conn))
+				{
+					cmd.BindByName = true;
+
+					if (parameters != null)
+					{
+						cmd.Parameters.AddRange(parameters);
+					}
+
+					conn.Open();
+					return cmd.ExecuteNonQuery();
+				}
+			}
 		}
 	}
 }
