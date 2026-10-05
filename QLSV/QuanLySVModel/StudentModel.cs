@@ -4,13 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QuanLySVDataBase
+namespace QuanLySVModel
 {
-	/// <summary>
-	/// Represents the student.
-	/// </summary>
-	public class Student
-	{
+    public class StudentModel
+    {
 		/// <summary>
 		/// The male.
 		/// </summary>
@@ -76,7 +73,5 @@ namespace QuanLySVDataBase
 		/// Gets or sets the number phone.
 		/// </summary>
 		public string NumberPhone { get; set; }
-
-		public 
 	}
 }

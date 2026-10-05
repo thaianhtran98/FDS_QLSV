@@ -8,13 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using QuanLySV.Controls;
+using QuanLySVBussiness;
 
 namespace QuanLySV.Forms
 {
 	public partial class FrmMain : Form
 	{
+		private StudentBussiness StudentBus;
 		public FrmMain()
 		{
+			StudentBus = new StudentBussiness();
 			InitializeComponent();
 		}
 
@@ -29,13 +32,14 @@ namespace QuanLySV.Forms
 
 		private void MnuItemList_Click(object sender, EventArgs e)
 		{
-			UserControl uc = new UcStudentList();
+			UcStudentList uc = new UcStudentList();
+			uc.InitLoad(StudentBus);
 			ShowUc(uc);
 		}
 
 		private void MnuItemCreate_Click(object sender, EventArgs e)
 		{
-			UserControl uc = new UcStudentForm();
+			UcStudentForm uc = new UcStudentForm();
 			ShowUc(uc);
 		}
 

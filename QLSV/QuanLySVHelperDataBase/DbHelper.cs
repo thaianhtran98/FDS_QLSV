@@ -5,14 +5,22 @@ using Oracle.ManagedDataAccess.Client;
 
 namespace QuanLySVHelperDataBase
 {
-    public class ConnectDB
+    public class DBHelper
     {
-		private static string ConnectionString
+		private static string _ConnectionString
 		{
 			get
 			{
 				var connSetting = ConfigurationManager.ConnectionStrings["OracleConnection"];
 				return connSetting != null ? connSetting.ConnectionString : string.Empty;
+			}
+		}
+
+		public static string ConnectionString
+		{
+			get
+			{
+				return _ConnectionString;
 			}
 		}
 
@@ -23,7 +31,7 @@ namespace QuanLySVHelperDataBase
 		{
 			DataTable dataTable = new DataTable();
 
-			using (OracleConnection conn = new OracleConnection(ConnectionString))
+			using (OracleConnection conn = new OracleConnection(_ConnectionString))
 			{
 				using (OracleCommand cmd = new OracleCommand(query, conn))
 				{
@@ -50,7 +58,7 @@ namespace QuanLySVHelperDataBase
 		/// </summary>
 		public static int ExecuteNonQuery(string query, OracleParameter[] parameters = null)
 		{
-			using (OracleConnection conn = new OracleConnection(ConnectionString))
+			using (OracleConnection conn = new OracleConnection(_ConnectionString))
 			{
 				using (OracleCommand cmd = new OracleCommand(query, conn))
 				{
@@ -63,28 +71,6 @@ namespace QuanLySVHelperDataBase
 
 					conn.Open();
 					return cmd.ExecuteNonQuery();
-				}
-			}
-		}
-
-		/// <summary>
-		/// Handles the execute scalar logic.
-		/// </summary>
-		public static object ExecuteScalar(string query, OracleParameter[] parameters = null)
-		{
-			using (OracleConnection conn = new OracleConnection(ConnectionString))
-			{
-				using (OracleCommand cmd = new OracleCommand(query, conn))
-				{
-					cmd.BindByName = true;
-
-					if (parameters != null)
-					{
-						cmd.Parameters.AddRange(parameters);
-					}
-
-					conn.Open();
-					return cmd.ExecuteScalar();
 				}
 			}
 		}

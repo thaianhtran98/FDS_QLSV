@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.PnlMain = new System.Windows.Forms.Panel();
 			this.TabStudent = new System.Windows.Forms.TabControl();
 			this.TpgInfoStudent = new System.Windows.Forms.TabPage();
@@ -70,6 +70,8 @@
 			this.BtnCreateLearning = new System.Windows.Forms.Button();
 			this.PnlFooter = new System.Windows.Forms.FlowLayoutPanel();
 			this.BtnSave = new System.Windows.Forms.Button();
+			this.LblNumberPhone = new System.Windows.Forms.Label();
+			this.MtxNumberphone = new System.Windows.Forms.MaskedTextBox();
 			this.PnlMain.SuspendLayout();
 			this.TabStudent.SuspendLayout();
 			this.TpgInfoStudent.SuspendLayout();
@@ -103,6 +105,7 @@
 			// 
 			// TpgInfoStudent
 			// 
+			this.TpgInfoStudent.Controls.Add(this.MtxNumberphone);
 			this.TpgInfoStudent.Controls.Add(this.LblRequired1);
 			this.TpgInfoStudent.Controls.Add(this.LblRequired);
 			this.TpgInfoStudent.Controls.Add(this.DtpDateOfIssue);
@@ -119,6 +122,7 @@
 			this.TpgInfoStudent.Controls.Add(this.TxtBirthLocal);
 			this.TpgInfoStudent.Controls.Add(this.LblDateOfIssue);
 			this.TpgInfoStudent.Controls.Add(this.LblBirthLocal);
+			this.TpgInfoStudent.Controls.Add(this.LblNumberPhone);
 			this.TpgInfoStudent.Controls.Add(this.LblBirthOfDate);
 			this.TpgInfoStudent.Controls.Add(this.TxtName);
 			this.TpgInfoStudent.Controls.Add(this.LblName);
@@ -159,7 +163,7 @@
 			// DtpDateOfIssue
 			// 
 			this.DtpDateOfIssue.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-			this.DtpDateOfIssue.Location = new System.Drawing.Point(490, 65);
+			this.DtpDateOfIssue.Location = new System.Drawing.Point(495, 95);
 			this.DtpDateOfIssue.Name = "DtpDateOfIssue";
 			this.DtpDateOfIssue.Size = new System.Drawing.Size(130, 20);
 			this.DtpDateOfIssue.TabIndex = 26;
@@ -190,8 +194,10 @@
 			this.RbtFemale.Name = "RbtFemale";
 			this.RbtFemale.Size = new System.Drawing.Size(50, 20);
 			this.RbtFemale.TabIndex = 6;
+			this.RbtFemale.Tag = "0";
 			this.RbtFemale.Text = "Nữ";
 			this.RbtFemale.UseVisualStyleBackColor = true;
+			this.RbtFemale.CheckedChanged += new System.EventHandler(this.SexCheckedChanged);
 			// 
 			// LblSex
 			// 
@@ -210,26 +216,28 @@
 			this.RbtMale.Size = new System.Drawing.Size(60, 20);
 			this.RbtMale.TabIndex = 5;
 			this.RbtMale.TabStop = true;
+			this.RbtMale.Tag = "1";
 			this.RbtMale.Text = "Nam";
 			this.RbtMale.UseVisualStyleBackColor = true;
+			this.RbtMale.CheckedChanged += new System.EventHandler(this.SexCheckedChanged);
 			// 
 			// TxtHometown
 			// 
-			this.TxtHometown.Location = new System.Drawing.Point(90, 125);
+			this.TxtHometown.Location = new System.Drawing.Point(95, 155);
 			this.TxtHometown.Name = "TxtHometown";
 			this.TxtHometown.Size = new System.Drawing.Size(530, 20);
 			this.TxtHometown.TabIndex = 22;
 			// 
 			// TxtPlaceOfResidence
 			// 
-			this.TxtPlaceOfResidence.Location = new System.Drawing.Point(90, 95);
+			this.TxtPlaceOfResidence.Location = new System.Drawing.Point(95, 125);
 			this.TxtPlaceOfResidence.Name = "TxtPlaceOfResidence";
 			this.TxtPlaceOfResidence.Size = new System.Drawing.Size(530, 20);
 			this.TxtPlaceOfResidence.TabIndex = 21;
 			// 
 			// LblHometown
 			// 
-			this.LblHometown.Location = new System.Drawing.Point(5, 125);
+			this.LblHometown.Location = new System.Drawing.Point(10, 155);
 			this.LblHometown.Name = "LblHometown";
 			this.LblHometown.Size = new System.Drawing.Size(90, 20);
 			this.LblHometown.TabIndex = 12;
@@ -238,7 +246,7 @@
 			// 
 			// LblPlaceOfResidence
 			// 
-			this.LblPlaceOfResidence.Location = new System.Drawing.Point(5, 95);
+			this.LblPlaceOfResidence.Location = new System.Drawing.Point(10, 125);
 			this.LblPlaceOfResidence.Name = "LblPlaceOfResidence";
 			this.LblPlaceOfResidence.Size = new System.Drawing.Size(90, 20);
 			this.LblPlaceOfResidence.TabIndex = 13;
@@ -247,14 +255,14 @@
 			// 
 			// TxtLocalOfIssue
 			// 
-			this.TxtLocalOfIssue.Location = new System.Drawing.Point(255, 65);
+			this.TxtLocalOfIssue.Location = new System.Drawing.Point(260, 95);
 			this.TxtLocalOfIssue.Name = "TxtLocalOfIssue";
 			this.TxtLocalOfIssue.Size = new System.Drawing.Size(155, 20);
 			this.TxtLocalOfIssue.TabIndex = 20;
 			// 
 			// LblLocalOfIssue
 			// 
-			this.LblLocalOfIssue.Location = new System.Drawing.Point(205, 65);
+			this.LblLocalOfIssue.Location = new System.Drawing.Point(210, 95);
 			this.LblLocalOfIssue.Name = "LblLocalOfIssue";
 			this.LblLocalOfIssue.Size = new System.Drawing.Size(50, 20);
 			this.LblLocalOfIssue.TabIndex = 15;
@@ -263,14 +271,14 @@
 			// 
 			// TxtVneId
 			// 
-			this.TxtVneId.Location = new System.Drawing.Point(60, 65);
+			this.TxtVneId.Location = new System.Drawing.Point(65, 95);
 			this.TxtVneId.Name = "TxtVneId";
 			this.TxtVneId.Size = new System.Drawing.Size(140, 20);
 			this.TxtVneId.TabIndex = 19;
 			// 
 			// LblVneId
 			// 
-			this.LblVneId.Location = new System.Drawing.Point(5, 65);
+			this.LblVneId.Location = new System.Drawing.Point(10, 95);
 			this.LblVneId.Name = "LblVneId";
 			this.LblVneId.Size = new System.Drawing.Size(50, 20);
 			this.LblVneId.TabIndex = 16;
@@ -279,14 +287,14 @@
 			// 
 			// TxtBirthLocal
 			// 
-			this.TxtBirthLocal.Location = new System.Drawing.Point(255, 35);
+			this.TxtBirthLocal.Location = new System.Drawing.Point(55, 65);
 			this.TxtBirthLocal.Name = "TxtBirthLocal";
 			this.TxtBirthLocal.Size = new System.Drawing.Size(365, 20);
 			this.TxtBirthLocal.TabIndex = 18;
 			// 
 			// LblDateOfIssue
 			// 
-			this.LblDateOfIssue.Location = new System.Drawing.Point(440, 65);
+			this.LblDateOfIssue.Location = new System.Drawing.Point(445, 95);
 			this.LblDateOfIssue.Name = "LblDateOfIssue";
 			this.LblDateOfIssue.Size = new System.Drawing.Size(70, 20);
 			this.LblDateOfIssue.TabIndex = 14;
@@ -295,7 +303,7 @@
 			// 
 			// LblBirthLocal
 			// 
-			this.LblBirthLocal.Location = new System.Drawing.Point(205, 35);
+			this.LblBirthLocal.Location = new System.Drawing.Point(5, 65);
 			this.LblBirthLocal.Name = "LblBirthLocal";
 			this.LblBirthLocal.Size = new System.Drawing.Size(50, 20);
 			this.LblBirthLocal.TabIndex = 11;
@@ -386,8 +394,8 @@
 			// 
 			// SchoolYearName
 			// 
-			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			this.SchoolYearName.DefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			this.SchoolYearName.DefaultCellStyle = dataGridViewCellStyle2;
 			this.SchoolYearName.HeaderText = "Năm học";
 			this.SchoolYearName.Name = "SchoolYearName";
 			this.SchoolYearName.ReadOnly = true;
@@ -469,6 +477,23 @@
 			this.BtnSave.UseVisualStyleBackColor = true;
 			this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
 			// 
+			// LblNumberPhone
+			// 
+			this.LblNumberPhone.Location = new System.Drawing.Point(210, 35);
+			this.LblNumberPhone.Name = "LblNumberPhone";
+			this.LblNumberPhone.Size = new System.Drawing.Size(70, 20);
+			this.LblNumberPhone.TabIndex = 10;
+			this.LblNumberPhone.Text = "Sđt:";
+			this.LblNumberPhone.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// MtxNumberphone
+			// 
+			this.MtxNumberphone.Location = new System.Drawing.Point(255, 35);
+			this.MtxNumberphone.Mask = "0000-000-000";
+			this.MtxNumberphone.Name = "MtxNumberphone";
+			this.MtxNumberphone.Size = new System.Drawing.Size(160, 20);
+			this.MtxNumberphone.TabIndex = 29;
+			// 
 			// UcStudentForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -534,5 +559,7 @@
 		private System.Windows.Forms.DataGridViewButtonColumn Action;
 		private System.Windows.Forms.Label LblRequired1;
 		private System.Windows.Forms.Label LblRequired;
+		private System.Windows.Forms.MaskedTextBox MtxNumberphone;
+		private System.Windows.Forms.Label LblNumberPhone;
 	}
 }

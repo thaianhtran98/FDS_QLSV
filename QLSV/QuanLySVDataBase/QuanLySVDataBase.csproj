@@ -30,7 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.122.19.1, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,9 +46,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveResult.cs" />
     <Compile Include="SchoolYear.cs" />
-    <Compile Include="Student.cs" />
+    <Compile Include="StudentDB.cs" />
     <Compile Include="StudentAcademic.cs" />
     <Compile Include="Subject.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuanLySVHelperDataBase\QuanLySVHelperDataBase.csproj">
+      <Project>{95b12b60-4e94-4df0-9190-808b0ab5a3da}</Project>
+      <Name>QuanLySVHelperDataBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuanLySVModel\QuanLySVModel.csproj">
+      <Project>{b4f6e54c-73cd-4c94-8b61-6b5b51814402}</Project>
+      <Name>QuanLySVModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
