@@ -31,9 +31,9 @@
 			this.PnlHeader = new System.Windows.Forms.Panel();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.MnuQLSV = new System.Windows.Forms.ToolStripMenuItem();
-			this.MnuQldm = new System.Windows.Forms.ToolStripMenuItem();
 			this.MnuItemList = new System.Windows.Forms.ToolStripMenuItem();
 			this.MnuItemCreate = new System.Windows.Forms.ToolStripMenuItem();
+			this.MnuQldm = new System.Windows.Forms.ToolStripMenuItem();
 			this.PnlMain = new System.Windows.Forms.Panel();
 			this.LblMain = new System.Windows.Forms.Label();
 			this.PnlHeader.SuspendLayout();
@@ -68,11 +68,24 @@
 			// 
 			this.MnuQLSV.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MnuItemList,
-			this.MnuItemCreate
-			});
+            this.MnuItemCreate});
 			this.MnuQLSV.Name = "MnuQLSV";
 			this.MnuQLSV.Size = new System.Drawing.Size(110, 21);
 			this.MnuQLSV.Text = "Quản lý sinh viên";
+			// 
+			// MnuItemList
+			// 
+			this.MnuItemList.Name = "MnuItemList";
+			this.MnuItemList.Size = new System.Drawing.Size(152, 22);
+			this.MnuItemList.Text = "Danh sách";
+			this.MnuItemList.Click += new System.EventHandler(this.MnuItemList_Click);
+			// 
+			// MnuItemCreate
+			// 
+			this.MnuItemCreate.Name = "MnuItemCreate";
+			this.MnuItemCreate.Size = new System.Drawing.Size(152, 22);
+			this.MnuItemCreate.Text = "Thêm mới";
+			this.MnuItemCreate.Click += new System.EventHandler(this.MnuItemCreate_Click);
 			// 
 			// MnuQldm
 			// 
@@ -80,20 +93,6 @@
 			this.MnuQldm.Size = new System.Drawing.Size(155, 21);
 			this.MnuQldm.Text = "Quản lý thông tin đào tạo";
 			this.MnuQldm.Click += new System.EventHandler(this.MnuQldm_Click);
-			// 
-			// MnuItemList
-			// 
-			this.MnuItemList.Name = "MnuItemList";
-			this.MnuItemList.Size = new System.Drawing.Size(129, 22);
-			this.MnuItemList.Text = "Danh sách";
-			this.MnuItemList.Click += new System.EventHandler(this.MnuItemList_Click);
-			// 
-			// MnuItemCreate
-			// 
-			this.MnuItemCreate.Name = "MnuItemCreate";
-			this.MnuItemCreate.Size = new System.Drawing.Size(129, 22);
-			this.MnuItemCreate.Text = "Thêm mới";
-			this.MnuItemCreate.Click += new System.EventHandler(this.MnuItemCreate_Click);
 			// 
 			// PnlMain
 			// 

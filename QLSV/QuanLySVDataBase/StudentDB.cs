@@ -28,25 +28,24 @@ namespace QuanLySVDataBase
 		private OracleCommand fillSql;
 		private OracleCommand createSql;
 		private OracleCommand updateSql;
+		private OracleCommand deteleSql;
 
 		public StudentDB()
 		{
 			StudentMod = new StudentModel();
 			OracleConnection conn = new OracleConnection(DBHelper.ConnectionString);
 
+			// Select Command
 			fillSql =  new OracleCommand("SELECT STUDENTID, NAME, SEX, BIRTHOFDATE, BIRTHLOCAL, VNEID, " +
-				"DATEOFISSUE, LOCALOFISSUE, LOCAL, PLACEOFRESIDENCE, NUMBERPHONE, STATUS " +
+				"DATEOFISSUE, LOCALOFISSUE, HOMETOWN, PLACEOFRESIDENCE, NUMBERPHONE, STATUS " +
 				"FROM STUDENT ", conn);
-			createSql = new OracleCommand("INSERT INTO STUDENT (STUDENTID, NAME, SEX, BIRTHOFDATE, BIRTHLOCAL, VNEID, DATEOFISSUE, LOCALOFISSUE, LOCAL, PLACEOFRESIDENCE, NUMBERPHONE, STATUS) " +
-				"VALUES (:STUDENTID, :NAME, :SEX, :BIRTHOFDATE, :BIRTHLOCAL, :VNEID, :DATEOFISSUE, :LOCALOFISSUE, :LOCAL, :PLACEOFRESIDENCE, :NUMBERPHONE, :STATUS)", conn);
-			createSql.BindByName = true;
-			foreach (string column in new[] { "STUDENTID", "NAME", "SEX", "BIRTHOFDATE", "BIRTHLOCAL", "VNEID",
-				"DATEOFISSUE", "LOCALOFISSUE", "LOCAL", "PLACEOFRESIDENCE", "NUMBERPHONE", "STATUS" })
-			{
-				// SourceColumn lets the adapter copy each value from the new DataRow into the INSERT
-				createSql.Parameters.Add(new OracleParameter { ParameterName = column, SourceColumn = column });
-			}
 
+			// Insert Command
+			createSql = new OracleCommand("INSERT INTO STUDENT (STUDENTID, NAME, SEX, BIRTHOFDATE, BIRTHLOCAL, VNEID, DATEOFISSUE, LOCALOFISSUE, HOMETOWN, PLACEOFRESIDENCE, NUMBERPHONE, STATUS) " +
+				"VALUES (:STUDENTID, :NAME, :SEX, :BIRTHOFDATE, :BIRTHLOCAL, :VNEID, :DATEOFISSUE, :LOCALOFISSUE, :HOMETOWN, :PLACEOFRESIDENCE, :NUMBERPHONE, :STATUS)", conn);
+			createSql.BindByName = true;
+
+			// Update Command
 			updateSql = new OracleCommand("UPDATE STUDENT SET " +
 				"NAME = :NAME, " +
 				"SEX = :SEX, " +
@@ -55,39 +54,51 @@ namespace QuanLySVDataBase
 				"VNEID = :VNEID, " +
 				"DATEOFISSUE = :DATEOFISSUE, " +
 				"LOCALOFISSUE = :LOCALOFISSUE, " +
-				"LOCAL = :LOCAL, " +
+				"HOMETOWN = :HOMETOWN, " +
 				"PLACEOFRESIDENCE = :PLACEOFRESIDENCE, " +
 				"NUMBERPHONE = :NUMBERPHONE, " +
 				"STATUS = :STATUS " +
 				"WHERE STUDENTID = :STUDENTID_OLD", conn);
-			updateSql.Parameters.Add(":STUDENTID", "");
-			updateSql.Parameters.Add(":NAME", "");
-			updateSql.Parameters.Add(":SEX", "");
-			updateSql.Parameters.Add(":BIRTHOFDATE", "");
-			updateSql.Parameters.Add(":BIRTHLOCAL", "");
-			updateSql.Parameters.Add(":VNEID", "");
-			updateSql.Parameters.Add(":DATEOFISSUE", "");
-			updateSql.Parameters.Add(":LOCALOFISSUE", "");
-			updateSql.Parameters.Add(":LOCAL", "");
-			updateSql.Parameters.Add(":PLACEOFRESIDENCE", "");
-			updateSql.Parameters.Add(":NUMBERPHONE", "");
-			updateSql.Parameters.Add(":STATUS", "");
+			updateSql.BindByName = true;
+
+			// Delete Command
+			deteleSql = new OracleCommand("DELETE FROM STUDENT WHERE STUDENTID = :STUDENTID", conn);
+			deteleSql.BindByName = true;
+			
+			// Add parameters
+			string[] columns = new[] { "STUDENTID", "NAME", "SEX", "BIRTHOFDATE", "BIRTHLOCAL", "VNEID", "DATEOFISSUE", "LOCALOFISSUE", "HOMETOWN", "PLACEOFRESIDENCE", "NUMBERPHONE", "STATUS" };
+			foreach (string column in columns)
+			{
+				createSql.Parameters.Add(new OracleParameter { ParameterName = column, SourceColumn = column });
+				updateSql.Parameters.Add(new OracleParameter { ParameterName = column, SourceColumn = column });
+			}
+			updateSql.Parameters.Add(new OracleParameter { ParameterName = "STUDENTID_OLD", SourceColumn = "STUDENTID" });
+			deteleSql.Parameters.Add(new OracleParameter { ParameterName = "STUDENTID", SourceColumn = "STUDENTID" });
 
 			_adapter = new OracleDataAdapter();
 			_adapter.SelectCommand = fillSql;
 			_adapter.InsertCommand = createSql;
 			_adapter.UpdateCommand = updateSql;
+			_adapter.DeleteCommand = deteleSql;
 		}
 
-		public DataTable FillData()
+		public DataTable FillData(bool forceReload = false)
 		{
-			DBStudent = new DataTable("StudentDataTable");
-			_adapter.Fill(DBStudent);
+			if (DBStudent == null || forceReload)
+			{
+				DBStudent = new DataTable("StudentDataTable");
+				_adapter.Fill(DBStudent);
+			}
+
 			return DBStudent;
 		}
 
 		public bool CreatNewStudent(StudentModel student)
 		{
+			if (DBStudent == null)
+			{
+				FillData();
+			}
 			DataRow newRow = DBStudent.NewRow();
 			newRow["STUDENTID"] = student.StudentId;
 			newRow["NAME"] = student.Name;
@@ -97,24 +108,73 @@ namespace QuanLySVDataBase
 			newRow["VNEID"] = student.VneId;
 			newRow["DATEOFISSUE"] = student.DateOfIssue;
 			newRow["LOCALOFISSUE"] = student.LocalOfIssue;
-			newRow["LOCAL"] = student.Hometown;
+			newRow["HOMETOWN"] = student.Hometown;
 			newRow["PLACEOFRESIDENCE"] = student.PlaceOfResidence;
 			newRow["NUMBERPHONE"] = student.NumberPhone;
 			newRow["STATUS"] = student.Status;
 			DBStudent.Rows.Add(newRow);
 			
-			_adapter.Update(DBStudent);
-			
 			return true;
 		}
 
-		public bool UpdateStudent(StudentModel student)
+		public bool UpdateStudent(StudentModel student, string studentId)
 		{
-			DataRow newRow = DBStudent.NewRow();
-			
-			return true;
+			DataRow updateRow = FindStudentById(studentId);
+			if (updateRow != null)
+			{
+				updateRow["STUDENTID"] = student.StudentId;
+				updateRow["NAME"] = student.Name;
+				updateRow["SEX"] = student.Sex;
+				updateRow["BIRTHOFDATE"] = student.BirthOfDate;
+				updateRow["BIRTHLOCAL"] = student.BirthLocal;
+				updateRow["VNEID"] = student.VneId;
+				updateRow["DATEOFISSUE"] = student.DateOfIssue;
+				updateRow["LOCALOFISSUE"] = student.LocalOfIssue;
+				updateRow["HOMETOWN"] = student.Hometown;
+				updateRow["PLACEOFRESIDENCE"] = student.PlaceOfResidence;
+				updateRow["NUMBERPHONE"] = student.NumberPhone;
+				updateRow["STATUS"] = student.Status;
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+
 		}
 
+		public bool DeleteStudent(string studentId)
+		{
+			DataRow deleteRow = FindStudentById(studentId);
+			if (deleteRow != null)
+			{
+				deleteRow.Delete();
+				return true;
+			}
+			return false;
+		}
+
+		public bool SaveAll() {
+			try
+			{
+				if (HasChanges())
+				{
+					_adapter.Update(DBStudent);
+				}
+				return true;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+		}
+
+		public bool HasChanges()
+		{
+			return DBStudent != null && DBStudent.GetChanges() != null;
+		}
+
+		// Filter student data in table
 		public DataTable FilterStudent(string name = null, int sex = -1)
 		{
 			ArrayList filters = new ArrayList();
@@ -126,7 +186,7 @@ namespace QuanLySVDataBase
 			{
 				filters.Add("NAME LIKE '%" + name.Replace("'", "''") + "%'");
 			}
-			
+
 			DataTable dataTable = DBStudent.Copy();
 			string filterString = "";
 			foreach (string filter in filters)
@@ -139,6 +199,24 @@ namespace QuanLySVDataBase
 			}
 			dataTable.DefaultView.RowFilter = filterString;
 			return dataTable;
+		}
+
+		public DataRow FindStudentById(string studentId)
+		{
+			foreach (DataRow studentRow in DBStudent.Rows)
+			{
+				if (studentRow.RowState == DataRowState.Deleted)
+				{
+					continue;
+				}
+
+				if (studentRow["STUDENTID"].ToString() == studentId)
+				{
+					return studentRow;
+				}
+			}
+
+			return null;
 		}
 	}
 }

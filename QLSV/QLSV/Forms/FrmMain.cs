@@ -40,8 +40,9 @@ namespace QuanLySV.Forms
 		private void MnuItemCreate_Click(object sender, EventArgs e)
 		{
 			UcStudentForm uc = new UcStudentForm();
+			uc.InitLoad(StudentBus);
 			ShowUc(uc);
-		}
+        }
 
 		private void MnuQldm_Click(object sender, EventArgs e)
 		{

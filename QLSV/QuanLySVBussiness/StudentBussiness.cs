@@ -13,7 +13,7 @@ namespace QuanLySVBussiness
 	{
 		StudentDB _StudentDB = new StudentDB();
 
-		public DataTable FillStudent()
+		public DataTable FillStudent(bool forceReload = false)
 		{
 			return _StudentDB.FillData();
 		}
@@ -26,6 +26,50 @@ namespace QuanLySVBussiness
 		public bool CreatNewStudent(StudentModel student)
 		{
 			return _StudentDB.CreatNewStudent(student);
+		}
+
+		public StudentModel FindStudentById(string studentId)
+		{
+			DataRow studentRow = _StudentDB.FindStudentById(studentId);
+			StudentModel student = null;
+			if (studentRow != null)
+			{
+				student = new StudentModel();
+				student.StudentId = studentRow["STUDENTID"].ToString();
+				student.Name = studentRow["NAME"].ToString();
+				student.Sex = Convert.ToInt32(studentRow["SEX"]);
+				student.BirthOfDate = (DateTime)studentRow["BIRTHOFDATE"];
+				student.BirthLocal = studentRow["BIRTHLOCAL"].ToString();
+				student.VneId = studentRow["VNEID"].ToString();
+				student.DateOfIssue = (DateTime)studentRow["DATEOFISSUE"];
+				student.LocalOfIssue = studentRow["LOCALOFISSUE"].ToString();
+				student.Hometown = studentRow["HOMETOWN"].ToString();
+				student.PlaceOfResidence = studentRow["PLACEOFRESIDENCE"].ToString();
+				student.NumberPhone = studentRow["NUMBERPHONE"].ToString();
+				student.Status = Convert.ToInt32(studentRow["STATUS"]);
+			}
+			
+			return student;
+		}
+
+		public bool UpdateStudent(StudentModel student, string studentId)
+		{
+			return _StudentDB.UpdateStudent(student, studentId);
+		}
+
+		public bool DeleteStudent(string studentId)
+		{
+			return _StudentDB.DeleteStudent(studentId);
+		}
+
+		public bool HasChanges()
+		{
+			return _StudentDB.HasChanges();
+		}
+
+		public bool SaveAll()
+		{
+			return _StudentDB.SaveAll();
 		}
 	}
 }

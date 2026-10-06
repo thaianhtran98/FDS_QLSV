@@ -34,12 +34,16 @@
 			this.Sex = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.BirthOfDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.VneId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.DgvColEdit = new System.Windows.Forms.DataGridViewButtonColumn();
+			this.DgvColDelete = new System.Windows.Forms.DataGridViewButtonColumn();
 			this.PnlFilter = new System.Windows.Forms.Panel();
+			this.LblNotification = new System.Windows.Forms.Label();
 			this.CbxSex = new System.Windows.Forms.ComboBox();
 			this.TxtNameFilter = new System.Windows.Forms.TextBox();
 			this.LblSex = new System.Windows.Forms.Label();
 			this.LblNameFilter = new System.Windows.Forms.Label();
 			this.PnlStudentList = new System.Windows.Forms.Panel();
+			this.BtnSave = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.DgvStudentList)).BeginInit();
 			this.PnlFilter.SuspendLayout();
 			this.PnlStudentList.SuspendLayout();
@@ -55,13 +59,18 @@
             this.StudentName,
             this.Sex,
             this.BirthOfDate,
-            this.VneId});
+            this.VneId,
+            this.DgvColEdit,
+            this.DgvColDelete});
 			this.DgvStudentList.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.DgvStudentList.Location = new System.Drawing.Point(0, 0);
 			this.DgvStudentList.Name = "DgvStudentList";
 			this.DgvStudentList.ReadOnly = true;
 			this.DgvStudentList.Size = new System.Drawing.Size(1053, 369);
 			this.DgvStudentList.TabIndex = 0;
+			this.DgvStudentList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvStudentList_CellContentClick);
+			this.DgvStudentList.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DgvStudentList_CellFormatting);
+			this.DgvStudentList.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.DgvStudentList_RowPrePaint);
 			// 
 			// StudentId
 			// 
@@ -107,8 +116,30 @@
 			this.VneId.ReadOnly = true;
 			this.VneId.Width = 200;
 			// 
+			// DgvColEdit
+			// 
+			this.DgvColEdit.HeaderText = "Sửa";
+			this.DgvColEdit.Name = "DgvColEdit";
+			this.DgvColEdit.ReadOnly = true;
+			this.DgvColEdit.Text = "Sửa";
+			this.DgvColEdit.UseColumnTextForButtonValue = true;
+			this.DgvColEdit.Width = 50;
+			// 
+			// DgvColDelete
+			// 
+			this.DgvColDelete.HeaderText = "Xóa";
+			this.DgvColDelete.Name = "DgvColDelete";
+			this.DgvColDelete.ReadOnly = true;
+			this.DgvColDelete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.DgvColDelete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			this.DgvColDelete.Text = "Xóa";
+			this.DgvColDelete.UseColumnTextForButtonValue = true;
+			this.DgvColDelete.Width = 50;
+			// 
 			// PnlFilter
 			// 
+			this.PnlFilter.Controls.Add(this.BtnSave);
+			this.PnlFilter.Controls.Add(this.LblNotification);
 			this.PnlFilter.Controls.Add(this.CbxSex);
 			this.PnlFilter.Controls.Add(this.TxtNameFilter);
 			this.PnlFilter.Controls.Add(this.LblSex);
@@ -118,6 +149,14 @@
 			this.PnlFilter.Name = "PnlFilter";
 			this.PnlFilter.Size = new System.Drawing.Size(1053, 40);
 			this.PnlFilter.TabIndex = 0;
+			// 
+			// LblNotification
+			// 
+			this.LblNotification.AutoSize = true;
+			this.LblNotification.Location = new System.Drawing.Point(420, 10);
+			this.LblNotification.Name = "LblNotification";
+			this.LblNotification.Size = new System.Drawing.Size(0, 13);
+			this.LblNotification.TabIndex = 3;
 			// 
 			// CbxSex
 			// 
@@ -163,6 +202,17 @@
 			this.PnlStudentList.Size = new System.Drawing.Size(1053, 369);
 			this.PnlStudentList.TabIndex = 1;
 			// 
+			// BtnSave
+			// 
+			this.BtnSave.Location = new System.Drawing.Point(335, 5);
+			this.BtnSave.Name = "BtnSave";
+			this.BtnSave.Size = new System.Drawing.Size(75, 23);
+			this.BtnSave.TabIndex = 4;
+			this.BtnSave.Text = "Lưu";
+			this.BtnSave.UseVisualStyleBackColor = true;
+			this.BtnSave.Visible = false;
+			this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
+			// 
 			// UcStudentList
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -193,5 +243,9 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn Sex;
 		private System.Windows.Forms.DataGridViewTextBoxColumn BirthOfDate;
 		private System.Windows.Forms.DataGridViewTextBoxColumn VneId;
+		private System.Windows.Forms.DataGridViewButtonColumn DgvColEdit;
+		private System.Windows.Forms.DataGridViewButtonColumn DgvColDelete;
+		private System.Windows.Forms.Label LblNotification;
+		private System.Windows.Forms.Button BtnSave;
 	}
 }

@@ -18,18 +18,60 @@ namespace QuanLySV.Controls
 	{
 		private StudentModel StudentCurrent;
 		private StudentBussiness StudentBus;
+		private bool IsEdit = false;
+		private string StudentIdSelected = null;
 
 		public UcStudentForm()
 		{
-			StudentBus = new StudentBussiness();
 			StudentCurrent = new StudentModel();
 			InitializeComponent();
 		}
 
-		public void InitLoad(StudentBussiness studentBussiness)
+		public void InitLoad(StudentBussiness studentBussiness, string studentId = null)
 		{
 			StudentBus = studentBussiness;
-        }
+			if (studentId != null)
+			{
+				LoadStudentById(studentId);
+			}
+        }								
+
+		private void LoadStudentById(string studentId)
+		{
+			StudentIdSelected = studentId;
+			StudentCurrent = StudentBus.FindStudentById(studentId);
+
+			if(StudentCurrent != null)
+			{
+				TxtName.Text = StudentCurrent.Name;
+				TxtStudentId.Text = StudentCurrent.StudentId;
+				TxtBirthLocal.Text = StudentCurrent.BirthLocal;
+				MtxNumberphone.Text = StudentCurrent.NumberPhone;
+				TxtVneId.Text = StudentCurrent.VneId;
+				TxtLocalOfIssue.Text = StudentCurrent.LocalOfIssue;
+				TxtHometown.Text = StudentCurrent.Hometown;
+				TxtPlaceOfResidence.Text = StudentCurrent.PlaceOfResidence;
+				DtpBirthOfDate.Value = StudentCurrent.BirthOfDate;
+				DtpDateOfIssue.Value = StudentCurrent.DateOfIssue;
+				foreach (Control ctl in PnlSex.Controls)
+				{
+					if (ctl is RadioButton)
+					{
+						RadioButton rbt = (RadioButton)ctl;
+						if (rbt.Tag.ToString() == StudentCurrent.Sex.ToString())
+						{
+							rbt.Checked = true;
+						}
+					}
+				}
+
+				TxtStudentId.Enabled = false;
+				ChkStatus.Visible = true;
+                ChkStatus.Checked = StudentCurrent.Status == StudentModel.ACTIVE;
+
+				IsEdit = true;
+            }
+		}
 
 		private void SexCheckedChanged(object sender, EventArgs e)
 		{
@@ -40,7 +82,7 @@ namespace QuanLySV.Controls
 					RadioButton rbt = (RadioButton)ctl;
 					if (rbt.Checked)
 					{
-						StudentCurrent.Sex = (int)rbt.Tag;
+						StudentCurrent.Sex = Convert.ToInt32(rbt.Tag);
                     }
 				}
 			}
@@ -66,8 +108,16 @@ namespace QuanLySV.Controls
 			StudentCurrent.LocalOfIssue = TxtLocalOfIssue.Text;
 			StudentCurrent.Hometown = TxtHometown.Text;
 			StudentCurrent.PlaceOfResidence = TxtPlaceOfResidence.Text;
-			
-			StudentBus.CreatNewStudent(StudentCurrent);
+
+			if (IsEdit)
+			{
+				StudentCurrent.Status = ChkStatus.Checked ? StudentModel.ACTIVE : StudentModel.INACTIVE;
+				StudentBus.UpdateStudent(StudentCurrent, StudentIdSelected);
+			}
+			else
+			{
+				StudentBus.CreatNewStudent(StudentCurrent);
+			}
 
 			message = "Lưu thành công";
             MessageBox.Show(message);
@@ -86,13 +136,18 @@ namespace QuanLySV.Controls
 		private bool Validator(out string message)
 		{
 			message = "Lỗi:";
-			if (TxtStudentId.Text == "")
+			string studentID = TxtStudentId.Text;
+            if (studentID == "")
 			{
 				message += "\r\nVui lòng nhập MSSV";
 			}
 			if(TxtName.Text == "")
 			{
 				message += "\r\nVui lòng nhập Họ tên";
+			}
+			if (StudentBus.FindStudentById(studentID) != null && !IsEdit)
+			{
+				message += "\r\nMSSV đã tồn tại";
 			}
 
 			return message == "Lỗi:" ? true : false;  

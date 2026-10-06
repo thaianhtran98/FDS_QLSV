@@ -32,6 +32,7 @@
 			this.PnlMain = new System.Windows.Forms.Panel();
 			this.TabStudent = new System.Windows.Forms.TabControl();
 			this.TpgInfoStudent = new System.Windows.Forms.TabPage();
+			this.MtxNumberphone = new System.Windows.Forms.MaskedTextBox();
 			this.LblRequired1 = new System.Windows.Forms.Label();
 			this.LblRequired = new System.Windows.Forms.Label();
 			this.DtpDateOfIssue = new System.Windows.Forms.DateTimePicker();
@@ -51,6 +52,7 @@
 			this.TxtBirthLocal = new System.Windows.Forms.TextBox();
 			this.LblDateOfIssue = new System.Windows.Forms.Label();
 			this.LblBirthLocal = new System.Windows.Forms.Label();
+			this.LblNumberPhone = new System.Windows.Forms.Label();
 			this.LblBirthOfDate = new System.Windows.Forms.Label();
 			this.TxtName = new System.Windows.Forms.TextBox();
 			this.LblName = new System.Windows.Forms.Label();
@@ -70,8 +72,7 @@
 			this.BtnCreateLearning = new System.Windows.Forms.Button();
 			this.PnlFooter = new System.Windows.Forms.FlowLayoutPanel();
 			this.BtnSave = new System.Windows.Forms.Button();
-			this.LblNumberPhone = new System.Windows.Forms.Label();
-			this.MtxNumberphone = new System.Windows.Forms.MaskedTextBox();
+			this.ChkStatus = new System.Windows.Forms.CheckBox();
 			this.PnlMain.SuspendLayout();
 			this.TabStudent.SuspendLayout();
 			this.TpgInfoStudent.SuspendLayout();
@@ -105,6 +106,7 @@
 			// 
 			// TpgInfoStudent
 			// 
+			this.TpgInfoStudent.Controls.Add(this.ChkStatus);
 			this.TpgInfoStudent.Controls.Add(this.MtxNumberphone);
 			this.TpgInfoStudent.Controls.Add(this.LblRequired1);
 			this.TpgInfoStudent.Controls.Add(this.LblRequired);
@@ -135,6 +137,14 @@
 			this.TpgInfoStudent.TabIndex = 0;
 			this.TpgInfoStudent.Text = "Thông tin sinh viên";
 			this.TpgInfoStudent.UseVisualStyleBackColor = true;
+			// 
+			// MtxNumberphone
+			// 
+			this.MtxNumberphone.Location = new System.Drawing.Point(255, 35);
+			this.MtxNumberphone.Mask = "0000-000-000";
+			this.MtxNumberphone.Name = "MtxNumberphone";
+			this.MtxNumberphone.Size = new System.Drawing.Size(160, 20);
+			this.MtxNumberphone.TabIndex = 29;
 			// 
 			// LblRequired1
 			// 
@@ -310,6 +320,15 @@
 			this.LblBirthLocal.Text = "Nơi sinh: ";
 			this.LblBirthLocal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
+			// LblNumberPhone
+			// 
+			this.LblNumberPhone.Location = new System.Drawing.Point(210, 35);
+			this.LblNumberPhone.Name = "LblNumberPhone";
+			this.LblNumberPhone.Size = new System.Drawing.Size(70, 20);
+			this.LblNumberPhone.TabIndex = 10;
+			this.LblNumberPhone.Text = "Sđt:";
+			this.LblNumberPhone.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
 			// LblBirthOfDate
 			// 
 			this.LblBirthOfDate.Location = new System.Drawing.Point(5, 35);
@@ -477,22 +496,16 @@
 			this.BtnSave.UseVisualStyleBackColor = true;
 			this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
 			// 
-			// LblNumberPhone
+			// ChkStatus
 			// 
-			this.LblNumberPhone.Location = new System.Drawing.Point(210, 35);
-			this.LblNumberPhone.Name = "LblNumberPhone";
-			this.LblNumberPhone.Size = new System.Drawing.Size(70, 20);
-			this.LblNumberPhone.TabIndex = 10;
-			this.LblNumberPhone.Text = "Sđt:";
-			this.LblNumberPhone.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// MtxNumberphone
-			// 
-			this.MtxNumberphone.Location = new System.Drawing.Point(255, 35);
-			this.MtxNumberphone.Mask = "0000-000-000";
-			this.MtxNumberphone.Name = "MtxNumberphone";
-			this.MtxNumberphone.Size = new System.Drawing.Size(160, 20);
-			this.MtxNumberphone.TabIndex = 29;
+			this.ChkStatus.AutoSize = true;
+			this.ChkStatus.Location = new System.Drawing.Point(10, 190);
+			this.ChkStatus.Name = "ChkStatus";
+			this.ChkStatus.Size = new System.Drawing.Size(126, 17);
+			this.ChkStatus.TabIndex = 30;
+			this.ChkStatus.Text = "Trạng thái hoạt động";
+			this.ChkStatus.UseVisualStyleBackColor = true;
+			this.ChkStatus.Visible = false;
 			// 
 			// UcStudentForm
 			// 
@@ -561,5 +574,6 @@
 		private System.Windows.Forms.Label LblRequired;
 		private System.Windows.Forms.MaskedTextBox MtxNumberphone;
 		private System.Windows.Forms.Label LblNumberPhone;
+		private System.Windows.Forms.CheckBox ChkStatus;
 	}
 }

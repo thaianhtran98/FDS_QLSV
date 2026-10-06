@@ -15,7 +15,7 @@ namespace QuanLySV.Controls
 {
 	public partial class UcStudentList : UserControl
 	{
-		private StudentBussiness StudentBus = new StudentBussiness();
+		private StudentBussiness StudentBus;
 
 		private class GenderItem
 		{
@@ -26,20 +26,31 @@ namespace QuanLySV.Controls
 		public UcStudentList()
 		{
 			InitializeComponent();
-			LoadData();
-			LoadFilterList();
         }
 
 		public void InitLoad(StudentBussiness studentBussiness)
 		{
 			StudentBus = studentBussiness;
-        }
+			LoadData();
+			LoadFilterList();
+		}
 
-		private void LoadData()
+		private void LoadData(bool forceReload = false)
 		{
-			DataTable dt = StudentBus.FillStudent();
+			DataTable dt = StudentBus.FillStudent(forceReload);
 			DgvStudentList.AutoGenerateColumns = false;
             DgvStudentList.DataSource = dt;
+
+			if (StudentBus.HasChanges())
+			{
+				BtnSave.Visible = true;
+				LblNotification.Text = "Có thay đổi chưa được lưu";
+			}
+			else
+			{
+				BtnSave.Visible = false;
+				LblNotification.Text = "";
+			}
         }
 
 		private void LoadFilterList()
@@ -84,6 +95,83 @@ namespace QuanLySV.Controls
 			DgvStudentList.DataSource = dt;
 		}
 
+		private void DgvStudentList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+		{
+			if (e.RowIndex < 0)
+			{
+				return;
+			}
 
+			string studentId = DgvStudentList.Rows[e.RowIndex].Cells[StudentId.Index].Value.ToString();
+			string studentName = DgvStudentList.Rows[e.RowIndex].Cells[StudentName.Index].Value.ToString();
+
+			if (e.ColumnIndex == DgvColEdit.Index)
+			{
+				UcStudentForm uc = new UcStudentForm();
+				uc.InitLoad(StudentBus, studentId);
+				uc.Dock = DockStyle.Fill;
+
+				Control parent = this.Parent;
+				parent.Controls.Clear();
+				parent.Controls.Add(uc);
+			}
+			else if (e.ColumnIndex == DgvColDelete.Index)
+			{
+				if (MessageBox.Show("Xóa sinh viên " + studentName + "?", "Xác nhận", MessageBoxButtons.YesNo) == DialogResult.Yes)
+				{
+					StudentBus.DeleteStudent(studentId);
+					LoadData();
+				}
+			}
+		}
+
+		private void DgvStudentList_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+		{
+			DataGridViewRow gridRow = DgvStudentList.Rows[e.RowIndex];
+			DataRowView rowView = gridRow.DataBoundItem as DataRowView;
+			if (rowView == null)
+			{
+				return;
+			}
+
+			switch (rowView.Row.RowState)
+			{
+				case DataRowState.Added:
+					gridRow.DefaultCellStyle.BackColor = Color.LightGreen;
+					break;
+				case DataRowState.Modified:
+					gridRow.DefaultCellStyle.BackColor = Color.LightYellow;
+					break;
+				default:
+					gridRow.DefaultCellStyle.BackColor = Color.White;
+					break;
+			}
+		}
+
+		private void BtnSave_Click(object sender, EventArgs e)
+		{
+			StudentBus.SaveAll();
+			LoadData(true);
+		}
+
+		private void DgvStudentList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+		{
+			if (e.ColumnIndex != Sex.Index || e.Value == null || e.Value == DBNull.Value)
+			{
+				return;
+			}
+
+			int sex = Convert.ToInt32(e.Value);
+			if (sex == StudentModel.MALE)
+			{
+				e.Value = "Nam";
+			}
+			else
+			{
+				e.Value = "Nữ";
+			}
+
+			e.FormattingApplied = true;
+		}
 	}
 }
