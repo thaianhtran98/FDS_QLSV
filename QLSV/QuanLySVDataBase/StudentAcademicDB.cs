@@ -5,7 +5,7 @@ namespace QuanLySVDataBase
 	/// <summary>
 	/// Represents the student academic.
 	/// </summary>
-	public class StudentAcademic
+	public class StudentAcademicDB
 	{
 		/// <summary>
 		/// The active.

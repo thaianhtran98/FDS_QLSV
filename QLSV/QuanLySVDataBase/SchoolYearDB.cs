@@ -5,7 +5,7 @@ namespace QuanLySVDataBase
 	/// <summary>
 	/// Represents the school year.
 	/// </summary>
-	public class SchoolYear
+	public class SchoolYearDB
 	{
 		/// <summary>
 		/// The active.

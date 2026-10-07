@@ -3,9 +3,9 @@
 namespace QuanLySVDataBase
 {
 	/// <summary>
-	/// Represents the class info.
+	/// Represents the subject.
 	/// </summary>
-	public class ClassInfo
+	public class SubjectDB
 	{
 		/// <summary>
 		/// The active.
@@ -17,13 +17,17 @@ namespace QuanLySVDataBase
 		public static int INACTIVE = 0;
 
 		/// <summary>
-		/// Gets or sets the class id.
+		/// Gets or sets the subject id.
 		/// </summary>
-		public string ClassId { get; set; }
+		public string SubjectId { get; set; }
 		/// <summary>
-		/// Gets or sets the class name.
+		/// Gets or sets the subject name.
 		/// </summary>
-		public string ClassName { get; set; }
+		public string SubjectName { get; set; }
+		/// <summary>
+		/// Gets or sets the credits.
+		/// </summary>
+		public int Credits { get; set; }
 		/// <summary>
 		/// Gets or sets the description.
 		/// </summary>
@@ -36,6 +40,6 @@ namespace QuanLySVDataBase
 		/// <summary>
 		/// Handles the to string logic.
 		/// </summary>
-		public override string ToString() { return ClassName; }
+		public override string ToString() { return SubjectName; }
 	}
 }
