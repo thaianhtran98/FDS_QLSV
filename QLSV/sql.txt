@@ -14,7 +14,7 @@ CREATE TABLE STUDENT (
     VNEID               VARCHAR2(12) UNIQUE,
     DATEOFISSUE         DATE,
     LOCALOFISSUE        VARCHAR2(200),
-    LOCAL               VARCHAR2(255),
+    HOMETOWN               VARCHAR2(255),
     PLACEOFRESIDENCE    VARCHAR2(255),
     NUMBERPHONE         VARCHAR2(15),
     STATUS              NUMBER(1) DEFAULT 1               -- 1: Đang hoạt động (active), 0: Ngưng hoạt động (inactive)

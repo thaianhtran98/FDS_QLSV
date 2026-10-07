@@ -154,8 +154,9 @@ namespace QuanLySVDataBase
 			return false;
 		}
 
-		public bool SaveAll() {
-			try
+		public bool SaveAll(out string errMessage) {
+            errMessage = null;
+            try
 			{
 				if (HasChanges())
 				{
@@ -165,7 +166,8 @@ namespace QuanLySVDataBase
 			}
 			catch (Exception ex)
 			{
-				throw ex;
+                errMessage = "Lỗi khi lưu dữ liệu: " + ex.Message;
+				return false;
 			}
 		}
 
@@ -203,7 +205,11 @@ namespace QuanLySVDataBase
 
 		public DataRow FindStudentById(string studentId)
 		{
-			foreach (DataRow studentRow in DBStudent.Rows)
+            if (DBStudent == null)
+            {
+                FillData();
+            }
+            foreach (DataRow studentRow in DBStudent.Rows)
 			{
 				if (studentRow.RowState == DataRowState.Deleted)
 				{

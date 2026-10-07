@@ -1,4 +1,9 @@
-﻿using System;
+using System;
+using System.Collections;
+using System.Data;
+using Oracle.ManagedDataAccess.Client;
+using QuanLySVHelperDataBase;
+using QuanLySVModel;
 
 namespace QuanLySVDataBase
 {
@@ -7,63 +12,202 @@ namespace QuanLySVDataBase
 	/// </summary>
 	public class StudentAcademicDB
 	{
-		/// <summary>
-		/// The active.
-		/// </summary>
-		public static int ACTIVE = 1;
-		/// <summary>
-		/// The inactive.
-		/// </summary>
-		public static int INACTIVE = 0;
+		private DBHelper DBHelper = new DBHelper();
+		public DataTable DBStudentAcademic
+		{
+			get; set;
+		}
 
-		/// <summary>
-		/// Gets or sets the academic id.
-		/// </summary>
-		public long AcademicId { get; set; }
-		/// <summary>
-		/// Gets or sets the student id.
-		/// </summary>
-		public string StudentId { get; set; }
-		/// <summary>
-		/// Gets or sets the class id.
-		/// </summary>
-		public string ClassId { get; set; }
-		/// <summary>
-		/// Gets or sets the class name.
-		/// </summary>
-		public string ClassName { get; set; }       // join display
-		/// <summary>
-		/// Gets or sets the school year id.
-		/// </summary>
-		public string SchoolYearId { get; set; }
-		/// <summary>
-		/// Gets or sets the school year name.
-		/// </summary>
-		public string SchoolYearName { get; set; }  // join display
-		/// <summary>
-		/// Gets or sets the subject id.
-		/// </summary>
-		public string SubjectId { get; set; }
-		/// <summary>
-		/// Gets or sets the subject name.
-		/// </summary>
-		public string SubjectName { get; set; }     // join display
-		public decimal? Score { get; set; }
-		/// <summary>
-		/// Gets or sets the score letter.
-		/// </summary>
-		public string ScoreLetter { get; set; }
-		/// <summary>
-		/// Gets or sets the semester.
-		/// </summary>
-		public int Semester { get; set; }
-		/// <summary>
-		/// Gets or sets the note.
-		/// </summary>
-		public string Note { get; set; }
-		/// <summary>
-		/// Gets or sets the status.
-		/// </summary>
-		public int Status { get; set; }
+		private OracleDataAdapter _adapter;
+		private OracleCommand fillSql;
+		private OracleCommand createSql;
+		private OracleCommand updateSql;
+		private OracleCommand deleteSql;
+
+		// Temporary id for new rows, trigger TRG_STUDENT_ACADEMIC_BI replaces ids <= 0 by sequence
+		private long _newAcademicId = 0;
+
+		public StudentAcademicDB()
+		{
+			OracleConnection conn = new OracleConnection(DBHelper.ConnectionString);
+
+			// Select Command (join to get display names)
+			fillSql = new OracleCommand("SELECT SA.ACADEMICID, SA.STUDENTID, SA.CLASSID, C.CLASSNAME, " +
+				"SA.SCHOOLYEARID, SY.SCHOOLYEARNAME, SA.SUBJECTID, SJ.SUBJECTNAME, " +
+				"SA.SCORE, SA.SCORE_LETTER, SA.SEMESTER, SA.NOTE, SA.STATUS " +
+				"FROM STUDENT_ACADEMIC SA " +
+				"LEFT JOIN CLASS C ON C.CLASSID = SA.CLASSID " +
+				"LEFT JOIN SCHOOL_YEAR SY ON SY.SCHOOLYEARID = SA.SCHOOLYEARID " +
+				"LEFT JOIN SUBJECT SJ ON SJ.SUBJECTID = SA.SUBJECTID ", conn);
+
+			// Insert Command
+			createSql = new OracleCommand("INSERT INTO STUDENT_ACADEMIC (ACADEMICID, STUDENTID, CLASSID, SCHOOLYEARID, SUBJECTID, SCORE, SCORE_LETTER, SEMESTER, NOTE, STATUS) " +
+				"VALUES (:ACADEMICID, :STUDENTID, :CLASSID, :SCHOOLYEARID, :SUBJECTID, :SCORE, :SCORE_LETTER, :SEMESTER, :NOTE, :STATUS)", conn);
+			createSql.BindByName = true;
+
+			// Update Command
+			updateSql = new OracleCommand("UPDATE STUDENT_ACADEMIC SET " +
+				"STUDENTID = :STUDENTID, " +
+				"CLASSID = :CLASSID, " +
+				"SCHOOLYEARID = :SCHOOLYEARID, " +
+				"SUBJECTID = :SUBJECTID, " +
+				"SCORE = :SCORE, " +
+				"SCORE_LETTER = :SCORE_LETTER, " +
+				"SEMESTER = :SEMESTER, " +
+				"NOTE = :NOTE, " +
+				"STATUS = :STATUS " +
+				"WHERE ACADEMICID = :ACADEMICID", conn);
+			updateSql.BindByName = true;
+
+			// Delete Command
+			deleteSql = new OracleCommand("DELETE FROM STUDENT_ACADEMIC WHERE ACADEMICID = :ACADEMICID", conn);
+			deleteSql.BindByName = true;
+
+			// Add parameters
+			string[] columns = new[] { "ACADEMICID", "STUDENTID", "CLASSID", "SCHOOLYEARID", "SUBJECTID", "SCORE", "SCORE_LETTER", "SEMESTER", "NOTE", "STATUS" };
+			foreach (string column in columns)
+			{
+				createSql.Parameters.Add(new OracleParameter { ParameterName = column, SourceColumn = column });
+				updateSql.Parameters.Add(new OracleParameter { ParameterName = column, SourceColumn = column });
+			}
+			deleteSql.Parameters.Add(new OracleParameter { ParameterName = "ACADEMICID", SourceColumn = "ACADEMICID", SourceVersion = DataRowVersion.Original });
+
+			_adapter = new OracleDataAdapter();
+			_adapter.SelectCommand = fillSql;
+			_adapter.InsertCommand = createSql;
+			_adapter.UpdateCommand = updateSql;
+			_adapter.DeleteCommand = deleteSql;
+		}
+
+		public DataTable FillData(bool forceReload = false)
+		{
+			if (DBStudentAcademic == null || forceReload)
+			{
+				DBStudentAcademic = new DataTable("StudentAcademicDataTable");
+				_adapter.Fill(DBStudentAcademic);
+				_newAcademicId = 0;
+			}
+
+			return DBStudentAcademic;
+		}
+
+		public bool CreateNewStudentAcademic(StudentAcademicModel academic)
+		{
+			if (DBStudentAcademic == null)
+			{
+				FillData();
+			}
+			DataRow newRow = DBStudentAcademic.NewRow();
+			newRow["ACADEMICID"] = --_newAcademicId;
+			SetRowValues(newRow, academic);
+			DBStudentAcademic.Rows.Add(newRow);
+
+			return true;
+		}
+
+		public bool UpdateStudentAcademic(StudentAcademicModel academic, long academicId)
+		{
+			DataRow updateRow = FindStudentAcademicById(academicId);
+			if (updateRow != null)
+			{
+				SetRowValues(updateRow, academic);
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		public bool DeleteStudentAcademic(long academicId)
+		{
+			DataRow deleteRow = FindStudentAcademicById(academicId);
+			if (deleteRow != null)
+			{
+				deleteRow.Delete();
+				return true;
+			}
+			return false;
+		}
+
+		public bool SaveAll()
+		{
+			if (HasChanges())
+			{
+				_adapter.Update(DBStudentAcademic);
+				// Reload to get the real ACADEMICID generated by the sequence
+				FillData(true);
+			}
+			return true;
+		}
+
+		public bool HasChanges()
+		{
+			return DBStudentAcademic != null && DBStudentAcademic.GetChanges() != null;
+		}
+
+		// Filter student academic data in table
+		public DataTable FilterStudentAcademic(string studentId = null, string classId = null, string schoolYearId = null, string subjectId = null, int semester = -1)
+		{
+			ArrayList filters = new ArrayList();
+			if (studentId != null)
+			{
+				filters.Add("STUDENTID = '" + studentId.Replace("'", "''") + "'");
+			}
+			if (classId != null)
+			{
+				filters.Add("CLASSID = '" + classId.Replace("'", "''") + "'");
+			}
+			if (schoolYearId != null)
+			{
+				filters.Add("SCHOOLYEARID = '" + schoolYearId.Replace("'", "''") + "'");
+			}
+			if (subjectId != null)
+			{
+				filters.Add("SUBJECTID = '" + subjectId.Replace("'", "''") + "'");
+			}
+			if (semester >= 0)
+			{
+				filters.Add("SEMESTER = " + semester);
+			}
+
+			DataTable dataTable = DBStudentAcademic.Copy();
+			dataTable.DefaultView.RowFilter = string.Join(" AND ", filters.ToArray());
+			return dataTable;
+		}
+
+		public DataRow FindStudentAcademicById(long academicId)
+		{
+			foreach (DataRow academicRow in DBStudentAcademic.Rows)
+			{
+				if (academicRow.RowState == DataRowState.Deleted)
+				{
+					continue;
+				}
+
+				if (Convert.ToInt64(academicRow["ACADEMICID"]) == academicId)
+				{
+					return academicRow;
+				}
+			}
+
+			return null;
+		}
+
+		private void SetRowValues(DataRow row, StudentAcademicModel academic)
+		{
+			row["STUDENTID"] = academic.StudentId;
+			row["CLASSID"] = academic.ClassId;
+			row["CLASSNAME"] = academic.ClassName;
+			row["SCHOOLYEARID"] = academic.SchoolYearId;
+			row["SCHOOLYEARNAME"] = academic.SchoolYearName;
+			row["SUBJECTID"] = academic.SubjectId;
+			row["SUBJECTNAME"] = academic.SubjectName;
+			row["SCORE"] = academic.Score.HasValue ? (object)academic.Score.Value : DBNull.Value;
+			row["SCORE_LETTER"] = academic.ScoreLetter;
+			row["SEMESTER"] = academic.Semester;
+			row["NOTE"] = academic.Note;
+			row["STATUS"] = academic.Status;
+		}
 	}
 }

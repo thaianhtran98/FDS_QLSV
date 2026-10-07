@@ -67,9 +67,9 @@ namespace QuanLySVBussiness
 			return _StudentDB.HasChanges();
 		}
 
-		public bool SaveAll()
+		public bool SaveAll(out string errMessage)
 		{
-			return _StudentDB.SaveAll();
+            return _StudentDB.SaveAll(out errMessage);
 		}
 	}
 }

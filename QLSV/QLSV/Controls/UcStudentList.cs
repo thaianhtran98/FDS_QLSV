@@ -150,9 +150,18 @@ namespace QuanLySV.Controls
 
 		private void BtnSave_Click(object sender, EventArgs e)
 		{
-			StudentBus.SaveAll();
-			LoadData(true);
-		}
+            string errMessage = null;
+
+            if (StudentBus.SaveAll(out errMessage))
+            {
+			    LoadData(true);
+                MessageBox.Show("Lưu thành công");
+            }
+            else
+            {
+                MessageBox.Show(errMessage);
+            }
+        }
 
 		private void DgvStudentList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
 		{
