@@ -27,8 +27,11 @@ namespace QuanLySV.Controls
 		private ClassInfoModel ClassInfoCurrent;
 		private SchoolYearBussiness SchoolYearBus;
 		private SchoolYearModel SchoolYearCurrent;
+		private SubjectBussiness SubjectBus;
+		private SubjectModel SubjectCurrent;
 		private bool ClassFormEditing = false;
 		private bool SchoolFormEditing = false;
+		private bool SubjectFormEditing = false;
 
 		public UcTrainingInfo()
 		{
@@ -59,7 +62,7 @@ namespace QuanLySV.Controls
 			}
 		}
 
-		public void LoadBussiness(ClassInfoBussiness classInfoBussiness, SchoolYearBussiness schoolYearBussiness)
+		public void LoadBussiness(ClassInfoBussiness classInfoBussiness, SchoolYearBussiness schoolYearBussiness, SubjectBussiness subjectBussiness)
 		{
 			ClassInfoBus = classInfoBussiness;
 			ClassInfoCurrent = new ClassInfoModel();
@@ -68,6 +71,10 @@ namespace QuanLySV.Controls
 			SchoolYearBus = schoolYearBussiness;
 			SchoolYearCurrent = new SchoolYearModel();
 			LoadSchoolYearData(true);
+
+			SubjectBus = subjectBussiness;
+			SubjectCurrent = new SubjectModel();
+			LoadSubjectData(true);
         }
 		// End define
 
@@ -263,6 +270,14 @@ namespace QuanLySV.Controls
 		}
 		// End SchoolYear
 
+		// Subject
+		private void LoadSubjectData(bool forceReload = false)
+		{
+			DataTable dt = SubjectBus.FillSubject(forceReload);
+			DgvSubject.AutoGenerateColumns = false;
+			DgvSubject.DataSource = dt;
+		}
+
 		private void BtnTempSaveSubject_Click(object sender, EventArgs e)
 		{
 			string message = null;
@@ -272,14 +287,84 @@ namespace QuanLySV.Controls
 				return;
 			}
 
+			if (SubjectFormEditing)
+			{
+				string oldSubjectId = SubjectCurrent.SubjectId;
+				// Update subject after edit
+				SetSubjectCurrent();
+				SubjectCurrent.SubjectId = oldSubjectId;
+				SubjectBus.UpdateSubject(SubjectCurrent, oldSubjectId);
+				SubjectFormEditing = false;
+			}
+			else
+			{
+				SetSubjectCurrent();
+				SubjectCurrent.SubjectId = SubjectBus.GenerateSubjectId();
+				SubjectBus.CreatNewSubject(SubjectCurrent);
+			}
+
+			ResetForm(TrainingInfoTab.Subject);
 			message = "Thành công";
 			MessageBox.Show(message);
 		}
 
+		private void SetSubjectCurrent()
+		{
+			SubjectCurrent.SubjectId = TbxSubjectId.Text;
+			SubjectCurrent.SubjectName = TbxSubjectName.Text;
+            SubjectCurrent.Credits = Convert.ToInt32(NumSubjectCredit.Value);
+			SubjectCurrent.Description = TbxSubjectDescription.Text;
+			SubjectCurrent.Status = ChkSubjectStatus.Checked ? SubjectModel.ACTIVE : SubjectModel.INACTIVE;
+		}
+
+		private void DgvSubject_CellContentClick(object sender, DataGridViewCellEventArgs e)
+		{
+			if (e.RowIndex < 0)
+			{
+				return;
+			}
+
+			DataGridViewRow row = DgvSubject.Rows[e.RowIndex];
+
+			if (e.ColumnIndex == DgvColSubjectAction.Index)
+			{
+				DataRowView rowView = (DataRowView)row.DataBoundItem;
+				string subjectId = rowView["SUBJECTID"].ToString();
+				string subjectName = rowView["SUBJECTNAME"].ToString();
+				DeleteTrainingInfo(subjectId, subjectName, TrainingInfoTab.Subject);
+				return;
+			}
+		}
+
+		private void DgvSubject_SelectionChanged(object sender, EventArgs e)
+		{
+			DataGridViewRow row = DgvSubject.CurrentRow;
+			if (row == null)
+			{
+				ResetForm(TrainingInfoTab.Subject);
+				return;
+			}
+
+			DataRowView rowView = (DataRowView)row.DataBoundItem;
+			int credits = Convert.ToInt32(rowView["CREDITS"]);
+
+			TbxSubjectName.Text = rowView["SUBJECTNAME"].ToString();
+			NumSubjectCredit.Value = Math.Max(NumSubjectCredit.Minimum, Math.Min(NumSubjectCredit.Maximum, credits));
+			TbxSubjectDescription.Text = rowView["DESCRIPTION"].ToString();
+			ChkSubjectStatus.Checked = Convert.ToInt32(rowView["STATUS"]) == SubjectModel.ACTIVE;
+			BtnTempSaveSubject.Text = "Cập nhật";
+
+			SetSubjectCurrent();
+			// Keep the original id so the update finds the right row
+			SubjectCurrent.SubjectId = rowView["SUBJECTID"].ToString();
+			SubjectFormEditing = true;
+		}
+		// End Subject
+
 		private void BtnSave_Click(object sender, EventArgs e)
 		{
 			string message = "Thành công";
-			if (!ClassInfoBus.SaveAll() || !SchoolYearBus.SaveAll())
+			if (!ClassInfoBus.SaveAll() || !SchoolYearBus.SaveAll() || !SubjectBus.SaveAll())
 			{
 				message = "Lưu thất bại";
 			}
@@ -353,7 +438,13 @@ namespace QuanLySV.Controls
 					SchoolFormEditing = false;
 					break;
 				case TrainingInfoTab.Subject:
-					TabTraingInfo.SelectedTab = TpgSubject;
+					TbxSubjectId.Text = null;
+					TbxSubjectName.Text = null;
+                    NumSubjectCredit.Value = NumSubjectCredit.Minimum;
+					TbxSubjectDescription.Text = null;
+					ChkSubjectStatus.Checked = false;
+					BtnTempSaveSubject.Text = "Thêm";
+					SubjectFormEditing = false;
 					break;
 			}
 		}
@@ -394,7 +485,18 @@ namespace QuanLySV.Controls
 					}
 					break;
 				case TrainingInfoTab.Subject:
-					TabTraingInfo.SelectedTab = TpgSubject;
+					if (MessageBox.Show("Xóa môn học " + trainingInfoName + "?", "Xác nhận", MessageBoxButtons.YesNo) == DialogResult.Yes)
+					{
+						if (SubjectBus.DeleteSubject(trainingInfoId))
+						{
+							ResetForm(tab);
+							success = true;
+						}
+					}
+					else
+					{
+						return;
+					}
 					break;
 			}
 

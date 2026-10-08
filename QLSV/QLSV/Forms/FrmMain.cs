@@ -17,12 +17,14 @@ namespace QuanLySV.Forms
 		private StudentBussiness StudentBus;
 		private ClassInfoBussiness ClassInfoBus;
 		private SchoolYearBussiness SchoolYearBus;
+		private SubjectBussiness SubjectBus;
 
 		public FrmMain()
 		{
 			StudentBus = new StudentBussiness();
 			ClassInfoBus = new ClassInfoBussiness();
 			SchoolYearBus = new SchoolYearBussiness();
+			SubjectBus = new SubjectBussiness();
 			InitializeComponent();
 		}
 
@@ -52,7 +54,7 @@ namespace QuanLySV.Forms
 		private void MnuQldm_Click(object sender, EventArgs e)
 		{
 			UcTrainingInfo uc = new UcTrainingInfo();
-			uc.LoadBussiness(ClassInfoBus, SchoolYearBus);
+			uc.LoadBussiness(ClassInfoBus, SchoolYearBus, SubjectBus);
 			ShowUc(uc);
 		}
 	}
