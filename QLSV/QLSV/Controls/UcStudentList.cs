@@ -67,7 +67,7 @@ namespace QuanLySV.Controls
 
 		private void CbxSex_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			string name = TxtNameFilter.Text;
+			string name = TbxNameFilter.Text;
 			int sex = (int)CbxSex.SelectedValue;
 			DataTable dt = StudentBus.Filter(name, sex);
 			DgvStudentList.DataSource = dt;
@@ -78,14 +78,14 @@ namespace QuanLySV.Controls
 			filter();
 		}
 
-		private void TxtNameFilter_TextChanged(object sender, EventArgs e)
+		private void TbxNameFilter_TextChanged(object sender, EventArgs e)
 		{
 			filter();
         }
 
 		private void filter()
 		{
-			string name = TxtNameFilter.Text;
+			string name = TbxNameFilter.Text;
 			int sex = -1;
 			if (CbxSex.SelectedValue is int)
 			{

@@ -37,11 +37,11 @@
 			this.LblSubjectName = new System.Windows.Forms.Label();
 			this.CbxSubjectName = new System.Windows.Forms.ComboBox();
 			this.LblScore = new System.Windows.Forms.Label();
-			this.TxtScore = new System.Windows.Forms.TextBox();
+			this.TbxScore = new System.Windows.Forms.TextBox();
 			this.LblScoreLetter = new System.Windows.Forms.Label();
 			this.CbxScoreLetter = new System.Windows.Forms.TextBox();
 			this.LblNote = new System.Windows.Forms.Label();
-			this.TxtNote = new System.Windows.Forms.TextBox();
+			this.TbxNote = new System.Windows.Forms.TextBox();
 			this.BtnSave = new System.Windows.Forms.Button();
 			this.BtnAddSchoolYear = new System.Windows.Forms.Button();
 			this.BtnAddClass = new System.Windows.Forms.Button();
@@ -133,12 +133,12 @@
 			this.LblScore.TabIndex = 0;
 			this.LblScore.Text = "Điểm số";
 			// 
-			// TxtScore
+			// TbxScore
 			// 
-			this.TxtScore.Location = new System.Drawing.Point(180, 65);
-			this.TxtScore.Name = "TxtScore";
-			this.TxtScore.Size = new System.Drawing.Size(145, 20);
-			this.TxtScore.TabIndex = 2;
+			this.TbxScore.Location = new System.Drawing.Point(180, 65);
+			this.TbxScore.Name = "TbxScore";
+			this.TbxScore.Size = new System.Drawing.Size(145, 20);
+			this.TbxScore.TabIndex = 2;
 			// 
 			// LblScoreLetter
 			// 
@@ -166,14 +166,14 @@
 			this.LblNote.TabIndex = 0;
 			this.LblNote.Text = "Ghi chú";
 			// 
-			// TxtNote
+			// TbxNote
 			// 
-			this.TxtNote.AcceptsReturn = true;
-			this.TxtNote.Location = new System.Drawing.Point(5, 115);
-			this.TxtNote.Multiline = true;
-			this.TxtNote.Name = "TxtNote";
-			this.TxtNote.Size = new System.Drawing.Size(505, 85);
-			this.TxtNote.TabIndex = 2;
+			this.TbxNote.AcceptsReturn = true;
+			this.TbxNote.Location = new System.Drawing.Point(5, 115);
+			this.TbxNote.Multiline = true;
+			this.TbxNote.Name = "TbxNote";
+			this.TbxNote.Size = new System.Drawing.Size(505, 85);
+			this.TbxNote.TabIndex = 2;
 			// 
 			// BtnSave
 			// 
@@ -277,8 +277,8 @@
 			this.Controls.Add(this.BtnAddSchoolYear);
 			this.Controls.Add(this.BtnSave);
 			this.Controls.Add(this.CbxScoreLetter);
-			this.Controls.Add(this.TxtNote);
-			this.Controls.Add(this.TxtScore);
+			this.Controls.Add(this.TbxNote);
+			this.Controls.Add(this.TbxScore);
 			this.Controls.Add(this.CbxSemester);
 			this.Controls.Add(this.LblSemester);
 			this.Controls.Add(this.CbxClassName);
@@ -312,11 +312,11 @@
 		private System.Windows.Forms.Label LblSubjectName;
 		private System.Windows.Forms.ComboBox CbxSubjectName;
 		private System.Windows.Forms.Label LblScore;
-		private System.Windows.Forms.TextBox TxtScore;
+		private System.Windows.Forms.TextBox TbxScore;
 		private System.Windows.Forms.Label LblScoreLetter;
 		private System.Windows.Forms.TextBox CbxScoreLetter;
 		private System.Windows.Forms.Label LblNote;
-		private System.Windows.Forms.TextBox TxtNote;
+		private System.Windows.Forms.TextBox TbxNote;
 		private System.Windows.Forms.Button BtnSave;
 		private System.Windows.Forms.Button BtnAddSchoolYear;
 		private System.Windows.Forms.Button BtnAddClass;

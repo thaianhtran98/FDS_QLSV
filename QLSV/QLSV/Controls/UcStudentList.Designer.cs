@@ -39,7 +39,7 @@
 			this.PnlFilter = new System.Windows.Forms.Panel();
 			this.LblNotification = new System.Windows.Forms.Label();
 			this.CbxSex = new System.Windows.Forms.ComboBox();
-			this.TxtNameFilter = new System.Windows.Forms.TextBox();
+			this.TbxNameFilter = new System.Windows.Forms.TextBox();
 			this.LblSex = new System.Windows.Forms.Label();
 			this.LblNameFilter = new System.Windows.Forms.Label();
 			this.PnlStudentList = new System.Windows.Forms.Panel();
@@ -141,7 +141,7 @@
 			this.PnlFilter.Controls.Add(this.BtnSave);
 			this.PnlFilter.Controls.Add(this.LblNotification);
 			this.PnlFilter.Controls.Add(this.CbxSex);
-			this.PnlFilter.Controls.Add(this.TxtNameFilter);
+			this.PnlFilter.Controls.Add(this.TbxNameFilter);
 			this.PnlFilter.Controls.Add(this.LblSex);
 			this.PnlFilter.Controls.Add(this.LblNameFilter);
 			this.PnlFilter.Dock = System.Windows.Forms.DockStyle.Top;
@@ -167,13 +167,13 @@
 			this.CbxSex.TabIndex = 2;
 			this.CbxSex.SelectedIndexChanged += new System.EventHandler(this.CbxSex_SelectedIndexChanged_1);
 			// 
-			// TxtNameFilter
+			// TbxNameFilter
 			// 
-			this.TxtNameFilter.Location = new System.Drawing.Point(25, 5);
-			this.TxtNameFilter.Name = "TxtNameFilter";
-			this.TxtNameFilter.Size = new System.Drawing.Size(100, 20);
-			this.TxtNameFilter.TabIndex = 1;
-			this.TxtNameFilter.TextChanged += new System.EventHandler(this.TxtNameFilter_TextChanged);
+			this.TbxNameFilter.Location = new System.Drawing.Point(25, 5);
+			this.TbxNameFilter.Name = "TbxNameFilter";
+			this.TbxNameFilter.Size = new System.Drawing.Size(100, 20);
+			this.TbxNameFilter.TabIndex = 1;
+			this.TbxNameFilter.TextChanged += new System.EventHandler(this.TbxNameFilter_TextChanged);
 			// 
 			// LblSex
 			// 
@@ -233,7 +233,7 @@
 
 		private System.Windows.Forms.Panel PnlFilter;
 		private System.Windows.Forms.ComboBox CbxSex;
-		private System.Windows.Forms.TextBox TxtNameFilter;
+		private System.Windows.Forms.TextBox TbxNameFilter;
 		private System.Windows.Forms.Label LblSex;
 		private System.Windows.Forms.Label LblNameFilter;
 		private System.Windows.Forms.Panel PnlStudentList;

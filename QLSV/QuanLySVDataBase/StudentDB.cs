@@ -84,13 +84,21 @@ namespace QuanLySVDataBase
 
 		public DataTable FillData(bool forceReload = false)
 		{
-			if (DBStudent == null || forceReload)
+			try
 			{
-				DBStudent = new DataTable("StudentDataTable");
-				_adapter.Fill(DBStudent);
-			}
+				if (DBStudent == null || forceReload)
+				{
+					DBStudent = new DataTable("StudentDataTable");
+					_adapter.Fill(DBStudent);
+				}
 
-			return DBStudent;
+				return DBStudent;
+			}
+			catch (Exception)
+			{
+				return null;
+			}
+			
 		}
 
 		public bool CreatNewStudent(StudentModel student)
@@ -100,18 +108,7 @@ namespace QuanLySVDataBase
 				FillData();
 			}
 			DataRow newRow = DBStudent.NewRow();
-			newRow["STUDENTID"] = student.StudentId;
-			newRow["NAME"] = student.Name;
-			newRow["SEX"] = student.Sex;
-			newRow["BIRTHOFDATE"] = student.BirthOfDate;
-			newRow["BIRTHLOCAL"] = student.BirthLocal;
-			newRow["VNEID"] = student.VneId;
-			newRow["DATEOFISSUE"] = student.DateOfIssue;
-			newRow["LOCALOFISSUE"] = student.LocalOfIssue;
-			newRow["HOMETOWN"] = student.Hometown;
-			newRow["PLACEOFRESIDENCE"] = student.PlaceOfResidence;
-			newRow["NUMBERPHONE"] = student.NumberPhone;
-			newRow["STATUS"] = student.Status;
+			SetRowValues(newRow, student);
 			DBStudent.Rows.Add(newRow);
 			
 			return true;
@@ -122,19 +119,8 @@ namespace QuanLySVDataBase
 			DataRow updateRow = FindStudentById(studentId);
 			if (updateRow != null)
 			{
-				updateRow["STUDENTID"] = student.StudentId;
-				updateRow["NAME"] = student.Name;
-				updateRow["SEX"] = student.Sex;
-				updateRow["BIRTHOFDATE"] = student.BirthOfDate;
-				updateRow["BIRTHLOCAL"] = student.BirthLocal;
-				updateRow["VNEID"] = student.VneId;
-				updateRow["DATEOFISSUE"] = student.DateOfIssue;
-				updateRow["LOCALOFISSUE"] = student.LocalOfIssue;
-				updateRow["HOMETOWN"] = student.Hometown;
-				updateRow["PLACEOFRESIDENCE"] = student.PlaceOfResidence;
-				updateRow["NUMBERPHONE"] = student.NumberPhone;
-				updateRow["STATUS"] = student.Status;
-				return true;
+				SetRowValues(updateRow, student);
+                return true;
 			}
 			else
 			{
@@ -223,6 +209,22 @@ namespace QuanLySVDataBase
 			}
 
 			return null;
+		}
+
+		private void SetRowValues(DataRow row, StudentModel student)
+		{
+			row["STUDENTID"] = student.StudentId;
+			row["NAME"] = student.Name;
+			row["SEX"] = student.Sex;
+			row["BIRTHOFDATE"] = student.BirthOfDate;
+			row["BIRTHLOCAL"] = student.BirthLocal;
+			row["VNEID"] = student.VneId;
+			row["DATEOFISSUE"] = student.DateOfIssue;
+			row["LOCALOFISSUE"] = student.LocalOfIssue;
+			row["HOMETOWN"] = student.Hometown;
+			row["PLACEOFRESIDENCE"] = student.PlaceOfResidence;
+			row["NUMBERPHONE"] = student.NumberPhone;
+			row["STATUS"] = student.Status;
 		}
 	}
 }

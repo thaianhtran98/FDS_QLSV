@@ -43,14 +43,14 @@ namespace QuanLySV.Controls
 
 			if(StudentCurrent != null)
 			{
-				TxtName.Text = StudentCurrent.Name;
-				TxtStudentId.Text = StudentCurrent.StudentId;
-				TxtBirthLocal.Text = StudentCurrent.BirthLocal;
+				TbxName.Text = StudentCurrent.Name;
+				TbxStudentId.Text = StudentCurrent.StudentId;
+				TbxBirthLocal.Text = StudentCurrent.BirthLocal;
 				MtxNumberphone.Text = StudentCurrent.NumberPhone;
-				TxtVneId.Text = StudentCurrent.VneId;
-				TxtLocalOfIssue.Text = StudentCurrent.LocalOfIssue;
-				TxtHometown.Text = StudentCurrent.Hometown;
-				TxtPlaceOfResidence.Text = StudentCurrent.PlaceOfResidence;
+				TbxVneId.Text = StudentCurrent.VneId;
+				TbxLocalOfIssue.Text = StudentCurrent.LocalOfIssue;
+				TbxHometown.Text = StudentCurrent.Hometown;
+				TbxPlaceOfResidence.Text = StudentCurrent.PlaceOfResidence;
 				DtpBirthOfDate.Value = StudentCurrent.BirthOfDate;
 				DtpDateOfIssue.Value = StudentCurrent.DateOfIssue;
 				foreach (Control ctl in PnlSex.Controls)
@@ -65,7 +65,7 @@ namespace QuanLySV.Controls
 					}
 				}
 
-				TxtStudentId.Enabled = false;
+				TbxStudentId.Enabled = false;
 				ChkStatus.Visible = true;
                 ChkStatus.Checked = StudentCurrent.Status == StudentModel.ACTIVE;
 
@@ -97,17 +97,17 @@ namespace QuanLySV.Controls
 				return;
 			}
 
-			StudentCurrent.Name = TxtName.Text;
+			StudentCurrent.Name = TbxName.Text;
 			StudentCurrent.Status = StudentModel.ACTIVE;
-			StudentCurrent.StudentId = TxtStudentId.Text;
+			StudentCurrent.StudentId = TbxStudentId.Text;
 			StudentCurrent.BirthOfDate = DtpBirthOfDate.Value;
-			StudentCurrent.BirthLocal = TxtBirthLocal.Text;
+			StudentCurrent.BirthLocal = TbxBirthLocal.Text;
 			StudentCurrent.NumberPhone = MtxNumberphone.Text;
-			StudentCurrent.VneId = TxtVneId.Text;
+			StudentCurrent.VneId = TbxVneId.Text;
 			StudentCurrent.DateOfIssue = DtpDateOfIssue.Value;
-			StudentCurrent.LocalOfIssue = TxtLocalOfIssue.Text;
-			StudentCurrent.Hometown = TxtHometown.Text;
-			StudentCurrent.PlaceOfResidence = TxtPlaceOfResidence.Text;
+			StudentCurrent.LocalOfIssue = TbxLocalOfIssue.Text;
+			StudentCurrent.Hometown = TbxHometown.Text;
+			StudentCurrent.PlaceOfResidence = TbxPlaceOfResidence.Text;
 
 			if (IsEdit)
 			{
@@ -136,12 +136,12 @@ namespace QuanLySV.Controls
 		private bool Validator(out string message)
 		{
 			message = "Lỗi:";
-			string studentID = TxtStudentId.Text;
+			string studentID = TbxStudentId.Text;
             if (studentID == "")
 			{
 				message += "\r\nVui lòng nhập MSSV";
 			}
-			if(TxtName.Text == "")
+			if(TbxName.Text == "")
 			{
 				message += "\r\nVui lòng nhập Họ tên";
 			}

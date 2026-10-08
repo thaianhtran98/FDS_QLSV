@@ -24,9 +24,6 @@ namespace QuanLySVDataBase
 		private OracleCommand updateSql;
 		private OracleCommand deleteSql;
 
-		// Temporary id for new rows, trigger TRG_STUDENT_ACADEMIC_BI replaces ids <= 0 by sequence
-		private long _newAcademicId = 0;
-
 		public StudentAcademicDB()
 		{
 			OracleConnection conn = new OracleConnection(DBHelper.ConnectionString);
@@ -85,7 +82,6 @@ namespace QuanLySVDataBase
 			{
 				DBStudentAcademic = new DataTable("StudentAcademicDataTable");
 				_adapter.Fill(DBStudentAcademic);
-				_newAcademicId = 0;
 			}
 
 			return DBStudentAcademic;
@@ -98,7 +94,6 @@ namespace QuanLySVDataBase
 				FillData();
 			}
 			DataRow newRow = DBStudentAcademic.NewRow();
-			newRow["ACADEMICID"] = --_newAcademicId;
 			SetRowValues(newRow, academic);
 			DBStudentAcademic.Rows.Add(newRow);
 
@@ -146,36 +141,6 @@ namespace QuanLySVDataBase
 			return DBStudentAcademic != null && DBStudentAcademic.GetChanges() != null;
 		}
 
-		// Filter student academic data in table
-		public DataTable FilterStudentAcademic(string studentId = null, string classId = null, string schoolYearId = null, string subjectId = null, int semester = -1)
-		{
-			ArrayList filters = new ArrayList();
-			if (studentId != null)
-			{
-				filters.Add("STUDENTID = '" + studentId.Replace("'", "''") + "'");
-			}
-			if (classId != null)
-			{
-				filters.Add("CLASSID = '" + classId.Replace("'", "''") + "'");
-			}
-			if (schoolYearId != null)
-			{
-				filters.Add("SCHOOLYEARID = '" + schoolYearId.Replace("'", "''") + "'");
-			}
-			if (subjectId != null)
-			{
-				filters.Add("SUBJECTID = '" + subjectId.Replace("'", "''") + "'");
-			}
-			if (semester >= 0)
-			{
-				filters.Add("SEMESTER = " + semester);
-			}
-
-			DataTable dataTable = DBStudentAcademic.Copy();
-			dataTable.DefaultView.RowFilter = string.Join(" AND ", filters.ToArray());
-			return dataTable;
-		}
-
 		public DataRow FindStudentAcademicById(long academicId)
 		{
 			foreach (DataRow academicRow in DBStudentAcademic.Rows)
@@ -185,7 +150,7 @@ namespace QuanLySVDataBase
 					continue;
 				}
 
-				if (Convert.ToInt64(academicRow["ACADEMICID"]) == academicId)
+				if (Convert.ToInt32(academicRow["ACADEMICID"]) == academicId)
 				{
 					return academicRow;
 				}

@@ -15,9 +15,14 @@ namespace QuanLySV.Forms
 	public partial class FrmMain : Form
 	{
 		private StudentBussiness StudentBus;
+		private ClassInfoBussiness ClassInfoBus;
+		private SchoolYearBussiness SchoolYearBus;
+
 		public FrmMain()
 		{
 			StudentBus = new StudentBussiness();
+			ClassInfoBus = new ClassInfoBussiness();
+			SchoolYearBus = new SchoolYearBussiness();
 			InitializeComponent();
 		}
 
@@ -46,7 +51,8 @@ namespace QuanLySV.Forms
 
 		private void MnuQldm_Click(object sender, EventArgs e)
 		{
-			UserControl uc = new UcTrainingInfo();
+			UcTrainingInfo uc = new UcTrainingInfo();
+			uc.LoadBussiness(ClassInfoBus, SchoolYearBus);
 			ShowUc(uc);
 		}
 	}

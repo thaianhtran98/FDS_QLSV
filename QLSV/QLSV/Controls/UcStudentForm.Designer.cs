@@ -41,22 +41,22 @@
 			this.RbtFemale = new System.Windows.Forms.RadioButton();
 			this.LblSex = new System.Windows.Forms.Label();
 			this.RbtMale = new System.Windows.Forms.RadioButton();
-			this.TxtHometown = new System.Windows.Forms.TextBox();
-			this.TxtPlaceOfResidence = new System.Windows.Forms.TextBox();
+			this.TbxHometown = new System.Windows.Forms.TextBox();
+			this.TbxPlaceOfResidence = new System.Windows.Forms.TextBox();
 			this.LblHometown = new System.Windows.Forms.Label();
 			this.LblPlaceOfResidence = new System.Windows.Forms.Label();
-			this.TxtLocalOfIssue = new System.Windows.Forms.TextBox();
+			this.TbxLocalOfIssue = new System.Windows.Forms.TextBox();
 			this.LblLocalOfIssue = new System.Windows.Forms.Label();
-			this.TxtVneId = new System.Windows.Forms.TextBox();
+			this.TbxVneId = new System.Windows.Forms.TextBox();
 			this.LblVneId = new System.Windows.Forms.Label();
-			this.TxtBirthLocal = new System.Windows.Forms.TextBox();
+			this.TbxBirthLocal = new System.Windows.Forms.TextBox();
 			this.LblDateOfIssue = new System.Windows.Forms.Label();
 			this.LblBirthLocal = new System.Windows.Forms.Label();
 			this.LblNumberPhone = new System.Windows.Forms.Label();
 			this.LblBirthOfDate = new System.Windows.Forms.Label();
-			this.TxtName = new System.Windows.Forms.TextBox();
+			this.TbxName = new System.Windows.Forms.TextBox();
 			this.LblName = new System.Windows.Forms.Label();
-			this.TxtStudentId = new System.Windows.Forms.TextBox();
+			this.TbxStudentId = new System.Windows.Forms.TextBox();
 			this.LblStudentId = new System.Windows.Forms.Label();
 			this.TpgLearning = new System.Windows.Forms.TabPage();
 			this.PnlBodyTpgLearning = new System.Windows.Forms.Panel();
@@ -113,22 +113,22 @@
 			this.TpgInfoStudent.Controls.Add(this.DtpDateOfIssue);
 			this.TpgInfoStudent.Controls.Add(this.DtpBirthOfDate);
 			this.TpgInfoStudent.Controls.Add(this.PnlSex);
-			this.TpgInfoStudent.Controls.Add(this.TxtHometown);
-			this.TpgInfoStudent.Controls.Add(this.TxtPlaceOfResidence);
+			this.TpgInfoStudent.Controls.Add(this.TbxHometown);
+			this.TpgInfoStudent.Controls.Add(this.TbxPlaceOfResidence);
 			this.TpgInfoStudent.Controls.Add(this.LblHometown);
 			this.TpgInfoStudent.Controls.Add(this.LblPlaceOfResidence);
-			this.TpgInfoStudent.Controls.Add(this.TxtLocalOfIssue);
+			this.TpgInfoStudent.Controls.Add(this.TbxLocalOfIssue);
 			this.TpgInfoStudent.Controls.Add(this.LblLocalOfIssue);
-			this.TpgInfoStudent.Controls.Add(this.TxtVneId);
+			this.TpgInfoStudent.Controls.Add(this.TbxVneId);
 			this.TpgInfoStudent.Controls.Add(this.LblVneId);
-			this.TpgInfoStudent.Controls.Add(this.TxtBirthLocal);
+			this.TpgInfoStudent.Controls.Add(this.TbxBirthLocal);
 			this.TpgInfoStudent.Controls.Add(this.LblDateOfIssue);
 			this.TpgInfoStudent.Controls.Add(this.LblBirthLocal);
 			this.TpgInfoStudent.Controls.Add(this.LblNumberPhone);
 			this.TpgInfoStudent.Controls.Add(this.LblBirthOfDate);
-			this.TpgInfoStudent.Controls.Add(this.TxtName);
+			this.TpgInfoStudent.Controls.Add(this.TbxName);
 			this.TpgInfoStudent.Controls.Add(this.LblName);
-			this.TpgInfoStudent.Controls.Add(this.TxtStudentId);
+			this.TpgInfoStudent.Controls.Add(this.TbxStudentId);
 			this.TpgInfoStudent.Controls.Add(this.LblStudentId);
 			this.TpgInfoStudent.Location = new System.Drawing.Point(4, 22);
 			this.TpgInfoStudent.Name = "TpgInfoStudent";
@@ -231,19 +231,19 @@
 			this.RbtMale.UseVisualStyleBackColor = true;
 			this.RbtMale.CheckedChanged += new System.EventHandler(this.SexCheckedChanged);
 			// 
-			// TxtHometown
+			// TbxHometown
 			// 
-			this.TxtHometown.Location = new System.Drawing.Point(95, 155);
-			this.TxtHometown.Name = "TxtHometown";
-			this.TxtHometown.Size = new System.Drawing.Size(530, 20);
-			this.TxtHometown.TabIndex = 22;
+			this.TbxHometown.Location = new System.Drawing.Point(95, 155);
+			this.TbxHometown.Name = "TbxHometown";
+			this.TbxHometown.Size = new System.Drawing.Size(530, 20);
+			this.TbxHometown.TabIndex = 22;
 			// 
-			// TxtPlaceOfResidence
+			// TbxPlaceOfResidence
 			// 
-			this.TxtPlaceOfResidence.Location = new System.Drawing.Point(95, 125);
-			this.TxtPlaceOfResidence.Name = "TxtPlaceOfResidence";
-			this.TxtPlaceOfResidence.Size = new System.Drawing.Size(530, 20);
-			this.TxtPlaceOfResidence.TabIndex = 21;
+			this.TbxPlaceOfResidence.Location = new System.Drawing.Point(95, 125);
+			this.TbxPlaceOfResidence.Name = "TbxPlaceOfResidence";
+			this.TbxPlaceOfResidence.Size = new System.Drawing.Size(530, 20);
+			this.TbxPlaceOfResidence.TabIndex = 21;
 			// 
 			// LblHometown
 			// 
@@ -263,12 +263,12 @@
 			this.LblPlaceOfResidence.Text = "Nơi ở thường trú: ";
 			this.LblPlaceOfResidence.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// TxtLocalOfIssue
+			// TbxLocalOfIssue
 			// 
-			this.TxtLocalOfIssue.Location = new System.Drawing.Point(260, 95);
-			this.TxtLocalOfIssue.Name = "TxtLocalOfIssue";
-			this.TxtLocalOfIssue.Size = new System.Drawing.Size(155, 20);
-			this.TxtLocalOfIssue.TabIndex = 20;
+			this.TbxLocalOfIssue.Location = new System.Drawing.Point(260, 95);
+			this.TbxLocalOfIssue.Name = "TbxLocalOfIssue";
+			this.TbxLocalOfIssue.Size = new System.Drawing.Size(155, 20);
+			this.TbxLocalOfIssue.TabIndex = 20;
 			// 
 			// LblLocalOfIssue
 			// 
@@ -279,12 +279,12 @@
 			this.LblLocalOfIssue.Text = "Nơi cấp: ";
 			this.LblLocalOfIssue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// TxtVneId
+			// TbxVneId
 			// 
-			this.TxtVneId.Location = new System.Drawing.Point(65, 95);
-			this.TxtVneId.Name = "TxtVneId";
-			this.TxtVneId.Size = new System.Drawing.Size(140, 20);
-			this.TxtVneId.TabIndex = 19;
+			this.TbxVneId.Location = new System.Drawing.Point(65, 95);
+			this.TbxVneId.Name = "TbxVneId";
+			this.TbxVneId.Size = new System.Drawing.Size(140, 20);
+			this.TbxVneId.TabIndex = 19;
 			// 
 			// LblVneId
 			// 
@@ -295,12 +295,12 @@
 			this.LblVneId.Text = "CCCD: ";
 			this.LblVneId.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// TxtBirthLocal
+			// TbxBirthLocal
 			// 
-			this.TxtBirthLocal.Location = new System.Drawing.Point(55, 65);
-			this.TxtBirthLocal.Name = "TxtBirthLocal";
-			this.TxtBirthLocal.Size = new System.Drawing.Size(365, 20);
-			this.TxtBirthLocal.TabIndex = 18;
+			this.TbxBirthLocal.Location = new System.Drawing.Point(55, 65);
+			this.TbxBirthLocal.Name = "TbxBirthLocal";
+			this.TbxBirthLocal.Size = new System.Drawing.Size(365, 20);
+			this.TbxBirthLocal.TabIndex = 18;
 			// 
 			// LblDateOfIssue
 			// 
@@ -338,12 +338,12 @@
 			this.LblBirthOfDate.Text = "Năm sinh: ";
 			this.LblBirthOfDate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// TxtName
+			// TbxName
 			// 
-			this.TxtName.Location = new System.Drawing.Point(255, 5);
-			this.TxtName.Name = "TxtName";
-			this.TxtName.Size = new System.Drawing.Size(160, 20);
-			this.TxtName.TabIndex = 17;
+			this.TbxName.Location = new System.Drawing.Point(255, 5);
+			this.TbxName.Name = "TbxName";
+			this.TbxName.Size = new System.Drawing.Size(160, 20);
+			this.TbxName.TabIndex = 17;
 			// 
 			// LblName
 			// 
@@ -354,12 +354,12 @@
 			this.LblName.Text = "Họ tên: ";
 			this.LblName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// TxtStudentId
+			// TbxStudentId
 			// 
-			this.TxtStudentId.Location = new System.Drawing.Point(60, 5);
-			this.TxtStudentId.Name = "TxtStudentId";
-			this.TxtStudentId.Size = new System.Drawing.Size(140, 20);
-			this.TxtStudentId.TabIndex = 23;
+			this.TbxStudentId.Location = new System.Drawing.Point(60, 5);
+			this.TbxStudentId.Name = "TbxStudentId";
+			this.TbxStudentId.Size = new System.Drawing.Size(140, 20);
+			this.TbxStudentId.TabIndex = 23;
 			// 
 			// LblStudentId
 			// 
@@ -542,21 +542,21 @@
 		private System.Windows.Forms.RadioButton RbtFemale;
 		private System.Windows.Forms.Label LblSex;
 		private System.Windows.Forms.RadioButton RbtMale;
-		private System.Windows.Forms.TextBox TxtHometown;
-		private System.Windows.Forms.TextBox TxtPlaceOfResidence;
+		private System.Windows.Forms.TextBox TbxHometown;
+		private System.Windows.Forms.TextBox TbxPlaceOfResidence;
 		private System.Windows.Forms.Label LblHometown;
 		private System.Windows.Forms.Label LblPlaceOfResidence;
-		private System.Windows.Forms.TextBox TxtLocalOfIssue;
+		private System.Windows.Forms.TextBox TbxLocalOfIssue;
 		private System.Windows.Forms.Label LblLocalOfIssue;
-		private System.Windows.Forms.TextBox TxtVneId;
+		private System.Windows.Forms.TextBox TbxVneId;
 		private System.Windows.Forms.Label LblVneId;
-		private System.Windows.Forms.TextBox TxtBirthLocal;
+		private System.Windows.Forms.TextBox TbxBirthLocal;
 		private System.Windows.Forms.Label LblDateOfIssue;
 		private System.Windows.Forms.Label LblBirthLocal;
 		private System.Windows.Forms.Label LblBirthOfDate;
-		private System.Windows.Forms.TextBox TxtName;
+		private System.Windows.Forms.TextBox TbxName;
 		private System.Windows.Forms.Label LblName;
-		private System.Windows.Forms.TextBox TxtStudentId;
+		private System.Windows.Forms.TextBox TbxStudentId;
 		private System.Windows.Forms.Label LblStudentId;
 		private System.Windows.Forms.TabPage TpgLearning;
 		private System.Windows.Forms.Panel PnlBodyTpgLearning;
