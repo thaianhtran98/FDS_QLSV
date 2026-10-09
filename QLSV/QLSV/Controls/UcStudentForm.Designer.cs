@@ -28,10 +28,11 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.PnlMain = new System.Windows.Forms.Panel();
 			this.TabStudent = new System.Windows.Forms.TabControl();
 			this.TpgInfoStudent = new System.Windows.Forms.TabPage();
+			this.ChkStatus = new System.Windows.Forms.CheckBox();
 			this.MtxNumberphone = new System.Windows.Forms.MaskedTextBox();
 			this.LblRequired1 = new System.Windows.Forms.Label();
 			this.LblRequired = new System.Windows.Forms.Label();
@@ -61,18 +62,18 @@
 			this.TpgLearning = new System.Windows.Forms.TabPage();
 			this.PnlBodyTpgLearning = new System.Windows.Forms.Panel();
 			this.DgvLearningList = new System.Windows.Forms.DataGridView();
+			this.PnlHeaderTpgLearning = new System.Windows.Forms.Panel();
+			this.BtnCreateLearning = new System.Windows.Forms.Button();
+			this.PnlFooter = new System.Windows.Forms.FlowLayoutPanel();
+			this.BtnSave = new System.Windows.Forms.Button();
 			this.SchoolYearName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Semester = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.ClassName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.SubjectName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Score = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.ScoreLetter = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Action = new System.Windows.Forms.DataGridViewButtonColumn();
-			this.PnlHeaderTpgLearning = new System.Windows.Forms.Panel();
-			this.BtnCreateLearning = new System.Windows.Forms.Button();
-			this.PnlFooter = new System.Windows.Forms.FlowLayoutPanel();
-			this.BtnSave = new System.Windows.Forms.Button();
-			this.ChkStatus = new System.Windows.Forms.CheckBox();
+			this.ColEdit = new System.Windows.Forms.DataGridViewButtonColumn();
+			this.ColDelete = new System.Windows.Forms.DataGridViewButtonColumn();
 			this.PnlMain.SuspendLayout();
 			this.TabStudent.SuspendLayout();
 			this.TpgInfoStudent.SuspendLayout();
@@ -137,6 +138,17 @@
 			this.TpgInfoStudent.TabIndex = 0;
 			this.TpgInfoStudent.Text = "Thông tin sinh viên";
 			this.TpgInfoStudent.UseVisualStyleBackColor = true;
+			// 
+			// ChkStatus
+			// 
+			this.ChkStatus.AutoSize = true;
+			this.ChkStatus.Location = new System.Drawing.Point(10, 190);
+			this.ChkStatus.Name = "ChkStatus";
+			this.ChkStatus.Size = new System.Drawing.Size(126, 17);
+			this.ChkStatus.TabIndex = 30;
+			this.ChkStatus.Text = "Trạng thái hoạt động";
+			this.ChkStatus.UseVisualStyleBackColor = true;
+			this.ChkStatus.Visible = false;
 			// 
 			// MtxNumberphone
 			// 
@@ -360,6 +372,7 @@
 			this.TbxStudentId.Name = "TbxStudentId";
 			this.TbxStudentId.Size = new System.Drawing.Size(140, 20);
 			this.TbxStudentId.TabIndex = 23;
+			this.TbxStudentId.TextChanged += new System.EventHandler(this.TbxStudentId_TextChanged);
 			// 
 			// LblStudentId
 			// 
@@ -403,60 +416,15 @@
             this.SubjectName,
             this.Score,
             this.ScoreLetter,
-            this.Action});
+            this.ColEdit,
+            this.ColDelete});
 			this.DgvLearningList.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.DgvLearningList.Location = new System.Drawing.Point(0, 0);
 			this.DgvLearningList.Name = "DgvLearningList";
 			this.DgvLearningList.ReadOnly = true;
 			this.DgvLearningList.Size = new System.Drawing.Size(629, 429);
 			this.DgvLearningList.TabIndex = 0;
-			// 
-			// SchoolYearName
-			// 
-			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			this.SchoolYearName.DefaultCellStyle = dataGridViewCellStyle2;
-			this.SchoolYearName.HeaderText = "Năm học";
-			this.SchoolYearName.Name = "SchoolYearName";
-			this.SchoolYearName.ReadOnly = true;
-			// 
-			// Semester
-			// 
-			this.Semester.HeaderText = "Học kỳ";
-			this.Semester.Name = "Semester";
-			this.Semester.ReadOnly = true;
-			// 
-			// ClassName
-			// 
-			this.ClassName.HeaderText = "Lớp học";
-			this.ClassName.Name = "ClassName";
-			this.ClassName.ReadOnly = true;
-			// 
-			// SubjectName
-			// 
-			this.SubjectName.HeaderText = "Môn học";
-			this.SubjectName.Name = "SubjectName";
-			this.SubjectName.ReadOnly = true;
-			// 
-			// Score
-			// 
-			this.Score.HeaderText = "Điểm";
-			this.Score.Name = "Score";
-			this.Score.ReadOnly = true;
-			// 
-			// ScoreLetter
-			// 
-			this.ScoreLetter.HeaderText = "Điểm chữ";
-			this.ScoreLetter.Name = "ScoreLetter";
-			this.ScoreLetter.ReadOnly = true;
-			// 
-			// Action
-			// 
-			this.Action.HeaderText = "Sửa/Xóa";
-			this.Action.Name = "Action";
-			this.Action.ReadOnly = true;
-			this.Action.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.Action.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			this.Action.Text = "";
+			this.DgvLearningList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvLearningList_CellContentClick);
 			// 
 			// PnlHeaderTpgLearning
 			// 
@@ -496,16 +464,68 @@
 			this.BtnSave.UseVisualStyleBackColor = true;
 			this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
 			// 
-			// ChkStatus
+			// SchoolYearName
 			// 
-			this.ChkStatus.AutoSize = true;
-			this.ChkStatus.Location = new System.Drawing.Point(10, 190);
-			this.ChkStatus.Name = "ChkStatus";
-			this.ChkStatus.Size = new System.Drawing.Size(126, 17);
-			this.ChkStatus.TabIndex = 30;
-			this.ChkStatus.Text = "Trạng thái hoạt động";
-			this.ChkStatus.UseVisualStyleBackColor = true;
-			this.ChkStatus.Visible = false;
+			this.SchoolYearName.DataPropertyName = "SchoolYearName";
+			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			this.SchoolYearName.DefaultCellStyle = dataGridViewCellStyle1;
+			this.SchoolYearName.HeaderText = "Năm học";
+			this.SchoolYearName.Name = "SchoolYearName";
+			this.SchoolYearName.ReadOnly = true;
+			// 
+			// Semester
+			// 
+			this.Semester.DataPropertyName = "Semester";
+			this.Semester.HeaderText = "Học kỳ";
+			this.Semester.Name = "Semester";
+			this.Semester.ReadOnly = true;
+			// 
+			// ClassName
+			// 
+			this.ClassName.DataPropertyName = "ClassName";
+			this.ClassName.HeaderText = "Lớp học";
+			this.ClassName.Name = "ClassName";
+			this.ClassName.ReadOnly = true;
+			// 
+			// SubjectName
+			// 
+			this.SubjectName.DataPropertyName = "SubjectName";
+			this.SubjectName.HeaderText = "Môn học";
+			this.SubjectName.Name = "SubjectName";
+			this.SubjectName.ReadOnly = true;
+			// 
+			// Score
+			// 
+			this.Score.DataPropertyName = "Score";
+			this.Score.HeaderText = "Điểm";
+			this.Score.Name = "Score";
+			this.Score.ReadOnly = true;
+			// 
+			// ScoreLetter
+			// 
+			this.ScoreLetter.DataPropertyName = "Score_Letter";
+			this.ScoreLetter.HeaderText = "Điểm chữ";
+			this.ScoreLetter.Name = "ScoreLetter";
+			this.ScoreLetter.ReadOnly = true;
+			// 
+			// ColEdit
+			// 
+			this.ColEdit.HeaderText = "";
+			this.ColEdit.Name = "ColEdit";
+			this.ColEdit.ReadOnly = true;
+			this.ColEdit.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+			this.ColEdit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			this.ColEdit.Text = "Sửa";
+			this.ColEdit.UseColumnTextForButtonValue = true;
+			// 
+			// ColDelete
+			// 
+			this.ColDelete.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.ColDelete.HeaderText = "";
+			this.ColDelete.Name = "ColDelete";
+			this.ColDelete.ReadOnly = true;
+			this.ColDelete.Text = "Xóa";
+			this.ColDelete.UseColumnTextForButtonValue = true;
 			// 
 			// UcStudentForm
 			// 
@@ -563,17 +583,18 @@
 		private System.Windows.Forms.DataGridView DgvLearningList;
 		private System.Windows.Forms.Panel PnlHeaderTpgLearning;
 		private System.Windows.Forms.Button BtnCreateLearning;
+		private System.Windows.Forms.Label LblRequired1;
+		private System.Windows.Forms.Label LblRequired;
+		private System.Windows.Forms.MaskedTextBox MtxNumberphone;
+		private System.Windows.Forms.Label LblNumberPhone;
+		private System.Windows.Forms.CheckBox ChkStatus;
 		private System.Windows.Forms.DataGridViewTextBoxColumn SchoolYearName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Semester;
 		private System.Windows.Forms.DataGridViewTextBoxColumn ClassName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn SubjectName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Score;
 		private System.Windows.Forms.DataGridViewTextBoxColumn ScoreLetter;
-		private System.Windows.Forms.DataGridViewButtonColumn Action;
-		private System.Windows.Forms.Label LblRequired1;
-		private System.Windows.Forms.Label LblRequired;
-		private System.Windows.Forms.MaskedTextBox MtxNumberphone;
-		private System.Windows.Forms.Label LblNumberPhone;
-		private System.Windows.Forms.CheckBox ChkStatus;
+		private System.Windows.Forms.DataGridViewButtonColumn ColEdit;
+		private System.Windows.Forms.DataGridViewButtonColumn ColDelete;
 	}
 }

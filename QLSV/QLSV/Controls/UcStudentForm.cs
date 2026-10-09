@@ -18,26 +18,35 @@ namespace QuanLySV.Controls
 	{
 		private StudentModel StudentCurrent;
 		private StudentBussiness StudentBus;
+		private StudentAcademicBussiness StudentAcademicBus;
 		private bool IsEdit = false;
 		private string StudentIdSelected = null;
+		private bool Loading = false;
 
 		public UcStudentForm()
 		{
+			Loading = true;
 			StudentCurrent = new StudentModel();
 			InitializeComponent();
+			Loading = false;
 		}
 
-		public void InitLoad(StudentBussiness studentBussiness, string studentId = null)
+		public void InitLoad(StudentBussiness studentBussiness, StudentAcademicBussiness studentAcademicBussiness, string studentId = null)
 		{
+			Loading = true;
 			StudentBus = studentBussiness;
+			StudentAcademicBus = studentAcademicBussiness;
+			
 			if (studentId != null)
 			{
 				LoadStudentById(studentId);
 			}
-        }								
+			Loading = false;
+		}								
 
 		private void LoadStudentById(string studentId)
 		{
+			Loading = true;
 			StudentIdSelected = studentId;
 			StudentCurrent = StudentBus.FindStudentById(studentId);
 
@@ -70,7 +79,9 @@ namespace QuanLySV.Controls
                 ChkStatus.Checked = StudentCurrent.Status == StudentModel.ACTIVE;
 
 				IsEdit = true;
+				LoadStudentAcademic(TbxStudentId.Text);
             }
+			Loading = false;
 		}
 
 		private void SexCheckedChanged(object sender, EventArgs e)
@@ -86,7 +97,20 @@ namespace QuanLySV.Controls
                     }
 				}
 			}
-		}																   
+		}
+
+		// start StudentAcademic
+		private void LoadStudentAcademic(string studentId)
+		{
+			DataTable studentAcademicDt = StudentAcademicBus.FillStudentAcademic(studentId);
+			if (studentAcademicDt != null)
+			{
+				DgvLearningList.AutoGenerateColumns = false;
+				DgvLearningList.DataSource = studentAcademicDt;
+			}
+		}
+		
+		// end StudentAcademic																   
 
 		private void BtnSave_Click(object sender, EventArgs e)
 		{
@@ -125,8 +149,15 @@ namespace QuanLySV.Controls
 
 		private void BtnCreateLearning_Click(object sender, EventArgs e)
 		{
-			FrmStudentAcademic fr = new FrmStudentAcademic();
-			
+			if (TbxStudentId.Text == null || TbxStudentId.Text == "")
+			{
+				MessageBox.Show("Hãy nhập mã SV");
+				return;
+			}
+			string studentId = TbxStudentId.Text;
+			StudentAcademicBus.FillStudentAcademic(studentId);
+			FrmStudentAcademic fr = new FrmStudentAcademic(StudentAcademicBus, null, studentId);
+
 			if (fr.ShowDialog() == DialogResult.OK)
 			{
 				fr.Dispose();
@@ -151,6 +182,44 @@ namespace QuanLySV.Controls
 			}
 
 			return message == "Lỗi:" ? true : false;  
+		}
+
+		private void TbxStudentId_TextChanged(object sender, EventArgs e)
+		{
+			if (Loading) return; 
+			string studentId = TbxStudentId.Text;
+			StudentAcademicBus.UpdateStudentId(studentId);
+		}
+
+		private void DgvLearningList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+		{
+			if (e.RowIndex < 0)
+			{
+				return;
+			}
+
+			DataGridViewRow row = DgvLearningList.Rows[e.RowIndex];
+
+			if (e.ColumnIndex == ColEdit.Index)
+			{
+				DataRowView rowView = (DataRowView)row.DataBoundItem;
+				DataRow r = rowView.Row;
+				StudentAcademicModel studentMod = new StudentAcademicModel();
+				studentMod.StudentId = r["StudentId"].ToString();
+				studentMod.ClassId = r["ClassId"].ToString();
+				studentMod.SchoolYearId = r["SchoolYearId"].ToString();
+				studentMod.SubjectId = r["SubjectId"].ToString();
+				studentMod.Semester = Convert.ToInt32(r["Semester"]);
+				studentMod.Score = Convert.ToDecimal(r["Score"]);
+				studentMod.ScoreLetter = r["Score_Letter"].ToString();
+				studentMod.Note = r["Note"].ToString();
+				studentMod.Status = StudentAcademicModel.ACTIVE;
+				FrmStudentAcademic fr = new FrmStudentAcademic(StudentAcademicBus, studentMod, StudentIdSelected);
+				if (fr.ShowDialog() == DialogResult.OK)
+				{
+					fr.Dispose();
+				}
+			}
 		}
 	}
 }

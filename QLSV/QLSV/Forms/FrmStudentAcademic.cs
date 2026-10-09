@@ -9,14 +9,45 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using QuanLySV.Forms;
 using QuanLySV.Controls;
+using QuanLySVBussiness;
+using QuanLySVModel;
 
 namespace QuanLySV.Forms
 {
 	public partial class FrmStudentAcademic : Form
 	{
-		public FrmStudentAcademic()
+		private ClassInfoBussiness ClassBus;
+		private SchoolYearBussiness SchoolYearBus;
+		private SubjectBussiness SubjectBus;
+		private StudentAcademicBussiness StudentAcademicBus;
+		private StudentAcademicModel StudentAcademiCurrent;
+		private string StudentId;
+		private bool IsEditing = false;
+
+		private const int HK1 = 1;
+		private const int HK2 = 2;
+		private const int HK3 = 3;
+
+		public FrmStudentAcademic(StudentAcademicBussiness studentAcademicBussiness, StudentAcademicModel studentAcademic, string studentId)
 		{
+			ClassBus = new ClassInfoBussiness();
+			SchoolYearBus = new SchoolYearBussiness();
+			SubjectBus = new SubjectBussiness();
+			StudentAcademicBus = studentAcademicBussiness;
 			InitializeComponent();
+			LoadDataComboBox();
+			StudentId = studentId;
+			if (studentAcademic == null)
+			{
+				StudentAcademiCurrent = new StudentAcademicModel();
+			}
+			else
+			{
+				StudentAcademiCurrent = studentAcademic;
+				SetStudentAcademiCurrentToForm();
+				IsEditing = true;
+				BtnSave.Text = "Cập nhật";
+            }
 		}
 
 		private void ShowDialogAddTrainingInfo(TrainingInfoTab tabInit)
@@ -25,7 +56,6 @@ namespace QuanLySV.Forms
 
 			if (fr.ShowDialog() == DialogResult.OK)
 			{
-				
 				fr.Dispose();
 			}
 		}
@@ -54,8 +84,49 @@ namespace QuanLySV.Forms
 				return;
 			}
 
-			message = "Lưu tạm thành công";
+			message = "Thêm thành công";
+			if (IsEditing)
+			{
+				SetFormToStudentAcademiCurrent();
+				StudentAcademicBus.CreateRowStudentAcademic(StudentAcademiCurrent);
+				resetForm();
+			}
+			else
+			{
+				SetFormToStudentAcademiCurrent();
+				StudentAcademicBus.CreateRowStudentAcademic(StudentAcademiCurrent);
+				resetForm();
+			}
+			
+
 			MessageBox.Show(message);
+		}
+
+		private void SetFormToStudentAcademiCurrent()
+		{
+			StudentAcademiCurrent.StudentId = StudentId;
+			StudentAcademiCurrent.ClassId = CbxClassName.SelectedValue.ToString();
+			StudentAcademiCurrent.ClassName = CbxClassName.Text;
+			StudentAcademiCurrent.SchoolYearId = CbxSchoolYear.SelectedValue.ToString();
+			StudentAcademiCurrent.SchoolYearName = CbxSchoolYear.Text;
+			StudentAcademiCurrent.SubjectId = CbxSubjectName.SelectedValue.ToString();
+			StudentAcademiCurrent.SubjectName = CbxSubjectName.Text;
+			StudentAcademiCurrent.Score = Convert.ToDecimal(TbxScore.Text);
+			StudentAcademiCurrent.ScoreLetter = TbxScoreLetter.Text;
+			StudentAcademiCurrent.Semester = Convert.ToInt32(CbxSemester.SelectedValue);
+			StudentAcademiCurrent.Note = TbxNote.Text;
+			StudentAcademiCurrent.Status = StudentAcademicModel.ACTIVE;
+		}
+
+		private void SetStudentAcademiCurrentToForm()
+		{
+			CbxClassName.SelectedValue = StudentAcademiCurrent.ClassId;
+			CbxSchoolYear.SelectedValue = StudentAcademiCurrent.SchoolYearId;
+			CbxSubjectName.SelectedValue = StudentAcademiCurrent.SubjectId;
+			CbxSemester.SelectedItem = StudentAcademiCurrent.Semester;
+			TbxNote.Text = StudentAcademiCurrent.Note;
+			TbxScore.Text = StudentAcademiCurrent.Score.ToString();
+			TbxScoreLetter.Text = StudentAcademiCurrent.ScoreLetter;
 		}
 
 		private bool Validator(out string errMessage)
@@ -80,5 +151,58 @@ namespace QuanLySV.Forms
 
 			return errMessage == "Lỗi:" ? true : false;
 		}
+
+		private void LoadDataComboBox()
+		{
+			DataTable classDt = ClassBus.FillClassInfo();
+			DataRow r1 = classDt.NewRow();
+			r1["ClassId"] = "";
+			r1["ClassName"] = "-- Chọn lớp --";
+			classDt.Rows.InsertAt(r1, 0);
+			CbxClassName.DataSource = classDt;
+			CbxClassName.DisplayMember = "ClassName";
+			CbxClassName.ValueMember = "ClassId";
+
+			DataTable schoolYearDt = SchoolYearBus.FillSchoolYear();
+			DataRow r2 = schoolYearDt.NewRow();
+			r2["SchoolYearId"] = "";
+			r2["SchoolYearName"] = "-- Chọn Năm học --";
+			schoolYearDt.Rows.InsertAt(r2, 0);
+			CbxSchoolYear.DataSource = schoolYearDt;
+			CbxSchoolYear.DisplayMember = "SchoolYearName";
+			CbxSchoolYear.ValueMember = "SchoolYearId";
+
+			DataTable subjectDt = SubjectBus.FillSubject();
+			DataRow r3 = subjectDt.NewRow();
+			r3["SubjectId"] = "";
+			r3["SubjectName"] = "-- Chọn Môn học --";
+			subjectDt.Rows.InsertAt(r3, 0);
+			CbxSubjectName.DataSource = subjectDt;
+			CbxSubjectName.DisplayMember = "SubjectName";
+			CbxSubjectName.ValueMember = "SubjectId";
+
+			CbxSemester.DataSource = new int[] { HK1, HK2, HK3 };
+		}
+
+		private void resetForm()
+		{
+			CbxClassName.SelectedValue = "";
+			CbxSchoolYear.SelectedValue = "";
+			CbxSubjectName.SelectedValue = "";
+			CbxSemester.SelectedItem = HK1;
+			TbxNote.Text = "";
+			TbxScore.Text = "";
+			TbxScoreLetter.Text = "";
+			BtnSave.Text = "Thêm";
+		}
+
+		private void TbxScore_TextChanged(object sender, EventArgs e)
+		{
+			if (TbxScore != null && TbxScore.Text != null && TbxScore.Text != "")
+			{
+				decimal score = Convert.ToDecimal(TbxScore.Text);
+				TbxScoreLetter.Text = StudentAcademicBus.ConvertScoreToLetter(score);
+			}
+        }
 	}
 }

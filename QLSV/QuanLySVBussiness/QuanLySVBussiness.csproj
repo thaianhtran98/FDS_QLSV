@@ -45,7 +45,7 @@
     <Compile Include="SchoolYearBussiness.cs" />
     <Compile Include="SubjectBussiness.cs" />
     <Compile Include="ClassInfoBussiness.cs" />
-    <Compile Include="TrainingInfoBussiness.cs" />
+    <Compile Include="StudentAcademicBussiness.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

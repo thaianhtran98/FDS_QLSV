@@ -39,7 +39,7 @@
 			this.LblScore = new System.Windows.Forms.Label();
 			this.TbxScore = new System.Windows.Forms.TextBox();
 			this.LblScoreLetter = new System.Windows.Forms.Label();
-			this.CbxScoreLetter = new System.Windows.Forms.TextBox();
+			this.TbxScoreLetter = new System.Windows.Forms.TextBox();
 			this.LblNote = new System.Windows.Forms.Label();
 			this.TbxNote = new System.Windows.Forms.TextBox();
 			this.BtnSave = new System.Windows.Forms.Button();
@@ -139,6 +139,7 @@
 			this.TbxScore.Name = "TbxScore";
 			this.TbxScore.Size = new System.Drawing.Size(145, 20);
 			this.TbxScore.TabIndex = 2;
+			this.TbxScore.TextChanged += new System.EventHandler(this.TbxScore_TextChanged);
 			// 
 			// LblScoreLetter
 			// 
@@ -149,13 +150,13 @@
 			this.LblScoreLetter.TabIndex = 0;
 			this.LblScoreLetter.Text = "Điểm chữ";
 			// 
-			// CbxScoreLetter
+			// TbxScoreLetter
 			// 
-			this.CbxScoreLetter.Enabled = false;
-			this.CbxScoreLetter.Location = new System.Drawing.Point(350, 65);
-			this.CbxScoreLetter.Name = "CbxScoreLetter";
-			this.CbxScoreLetter.Size = new System.Drawing.Size(160, 20);
-			this.CbxScoreLetter.TabIndex = 2;
+			this.TbxScoreLetter.Enabled = false;
+			this.TbxScoreLetter.Location = new System.Drawing.Point(350, 65);
+			this.TbxScoreLetter.Name = "TbxScoreLetter";
+			this.TbxScoreLetter.Size = new System.Drawing.Size(160, 20);
+			this.TbxScoreLetter.TabIndex = 2;
 			// 
 			// LblNote
 			// 
@@ -276,7 +277,7 @@
 			this.Controls.Add(this.BtnAddClass);
 			this.Controls.Add(this.BtnAddSchoolYear);
 			this.Controls.Add(this.BtnSave);
-			this.Controls.Add(this.CbxScoreLetter);
+			this.Controls.Add(this.TbxScoreLetter);
 			this.Controls.Add(this.TbxNote);
 			this.Controls.Add(this.TbxScore);
 			this.Controls.Add(this.CbxSemester);
@@ -314,7 +315,7 @@
 		private System.Windows.Forms.Label LblScore;
 		private System.Windows.Forms.TextBox TbxScore;
 		private System.Windows.Forms.Label LblScoreLetter;
-		private System.Windows.Forms.TextBox CbxScoreLetter;
+		private System.Windows.Forms.TextBox TbxScoreLetter;
 		private System.Windows.Forms.Label LblNote;
 		private System.Windows.Forms.TextBox TbxNote;
 		private System.Windows.Forms.Button BtnSave;

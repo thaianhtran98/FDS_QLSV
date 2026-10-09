@@ -16,6 +16,7 @@ namespace QuanLySV.Controls
 	public partial class UcStudentList : UserControl
 	{
 		private StudentBussiness StudentBus;
+		private StudentAcademicBussiness StudentAcademicBus;
 
 		private class GenderItem
 		{
@@ -28,8 +29,9 @@ namespace QuanLySV.Controls
 			InitializeComponent();
         }
 
-		public void InitLoad(StudentBussiness studentBussiness)
+		public void InitLoad(StudentBussiness studentBussiness, StudentAcademicBussiness studentAcademicBussiness)
 		{
+			StudentAcademicBus = studentAcademicBussiness;
 			StudentBus = studentBussiness;
 			LoadData();
 			LoadFilterList();
@@ -108,7 +110,7 @@ namespace QuanLySV.Controls
 			if (e.ColumnIndex == DgvColEdit.Index)
 			{
 				UcStudentForm uc = new UcStudentForm();
-				uc.InitLoad(StudentBus, studentId);
+				uc.InitLoad(StudentBus, StudentAcademicBus, studentId);
 				uc.Dock = DockStyle.Fill;
 
 				Control parent = this.Parent;
