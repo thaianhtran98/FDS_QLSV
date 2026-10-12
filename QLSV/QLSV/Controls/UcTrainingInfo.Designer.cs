@@ -185,7 +185,9 @@
             this.DgvListClass.Size = new System.Drawing.Size(315, 273);
             this.DgvListClass.TabIndex = 0;
             this.DgvListClass.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvListClass_CellContentClick);
-            this.DgvListClass.SelectionChanged += new System.EventHandler(this.DgvListClass_SelectionChanged);
+            this.DgvListClass.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvListClass_CellClick);
+            this.DgvListClass.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.Dgv_DataBindingComplete);
+            this.DgvListClass.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Dgv_MouseDown);
             // 
             // ClassId
             // 
@@ -368,7 +370,9 @@
             this.DgvListSchoolYear.Size = new System.Drawing.Size(315, 273);
             this.DgvListSchoolYear.TabIndex = 1;
             this.DgvListSchoolYear.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvListSchoolYear_CellContentClick);
-            this.DgvListSchoolYear.SelectionChanged += new System.EventHandler(this.DgvListSchoolYear_SelectionChanged);
+            this.DgvListSchoolYear.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvListSchoolYear_CellClick);
+            this.DgvListSchoolYear.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.Dgv_DataBindingComplete);
+            this.DgvListSchoolYear.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Dgv_MouseDown);
             // 
             // SchoolYearName
             // 
@@ -573,7 +577,9 @@
             this.DgvSubject.Size = new System.Drawing.Size(315, 273);
             this.DgvSubject.TabIndex = 1;
             this.DgvSubject.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvSubject_CellContentClick);
-            this.DgvSubject.SelectionChanged += new System.EventHandler(this.DgvSubject_SelectionChanged);
+            this.DgvSubject.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvSubject_CellClick);
+            this.DgvSubject.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.Dgv_DataBindingComplete);
+            this.DgvSubject.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Dgv_MouseDown);
             // 
             // PnlSubjectForm
             // 

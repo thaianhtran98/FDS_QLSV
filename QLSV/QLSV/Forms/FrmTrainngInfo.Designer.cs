@@ -28,27 +28,13 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.BtnSelected = new System.Windows.Forms.Button();
 			this.PnlMain = new System.Windows.Forms.Panel();
 			this.UcTrainingInfo = new QuanLySV.Controls.UcTrainingInfo();
 			this.PnlMain.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// BtnSelected
-			// 
-			this.BtnSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.BtnSelected.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.BtnSelected.Location = new System.Drawing.Point(872, 521);
-			this.BtnSelected.Name = "BtnSelected";
-			this.BtnSelected.Size = new System.Drawing.Size(75, 23);
-			this.BtnSelected.TabIndex = 1;
-			this.BtnSelected.Text = "Chọn";
-			this.BtnSelected.UseVisualStyleBackColor = true;
-			this.BtnSelected.Click += new System.EventHandler(this.BtnSelected_Click);
-			// 
 			// PnlMain
 			// 
-			this.PnlMain.Controls.Add(this.BtnSelected);
 			this.PnlMain.Controls.Add(this.UcTrainingInfo);
 			this.PnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.PnlMain.Location = new System.Drawing.Point(0, 0);
@@ -82,7 +68,6 @@
 		}
 
 		#endregion
-		private System.Windows.Forms.Button BtnSelected;
 		private System.Windows.Forms.Panel PnlMain;
 		private Controls.UcTrainingInfo UcTrainingInfo;
 	}

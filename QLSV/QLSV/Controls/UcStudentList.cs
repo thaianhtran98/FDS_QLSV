@@ -154,7 +154,7 @@ namespace QuanLySV.Controls
 		{
             string errMessage = null;
 
-            if (StudentBus.SaveAll(out errMessage))
+            if (StudentBus.SaveAll(out errMessage) && StudentAcademicBus.SaveAll())
             {
 			    LoadData(true);
                 MessageBox.Show("Lưu thành công");
@@ -167,6 +167,10 @@ namespace QuanLySV.Controls
 
 		private void DgvStudentList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
 		{
+			if (e.RowIndex < 0)
+			{
+				return;
+			}
 			if (e.ColumnIndex != Sex.Index || e.Value == null || e.Value == DBNull.Value)
 			{
 				return;

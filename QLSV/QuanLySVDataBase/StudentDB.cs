@@ -105,7 +105,7 @@ namespace QuanLySVDataBase
 		{
 			if (DBStudent == null)
 			{
-				FillData();
+				FillData(true);
 			}
 			DataRow newRow = DBStudent.NewRow();
 			SetRowValues(newRow, student);
@@ -193,7 +193,7 @@ namespace QuanLySVDataBase
 		{
             if (DBStudent == null)
             {
-                FillData();
+                FillData(true);
             }
             foreach (DataRow studentRow in DBStudent.Rows)
 			{

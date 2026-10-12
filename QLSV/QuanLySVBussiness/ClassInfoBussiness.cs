@@ -15,7 +15,7 @@ namespace QuanLySVBussiness
 
 		public DataTable FillClassInfo(bool forceReload = false)
 		{
-			return _ClassInfoDB.FillData();
+			return _ClassInfoDB.FillData(forceReload);
 		}
 
 		public bool CreatNewClassInfo(ClassInfoModel classInfo)

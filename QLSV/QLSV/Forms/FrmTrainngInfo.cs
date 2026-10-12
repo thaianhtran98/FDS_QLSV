@@ -8,20 +8,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using QuanLySV.Controls;
+using QuanLySVBussiness;
 
 namespace QuanLySV.Forms
 {
 	public partial class FrmTrainngInfo : Form
 	{
-		public FrmTrainngInfo(TrainingInfoTab initTab)
+		public FrmTrainngInfo(TrainingInfoTab initTab, ClassInfoBussiness classInfoBussiness, SchoolYearBussiness schoolYearBussiness, SubjectBussiness subjectBussiness)
 		{
 			InitializeComponent();
 			UcTrainingInfo.Initialize(initTab);
-		}
-
-		private void BtnSelected_Click(object sender, EventArgs e)
-		{
-			MessageBox.Show("Bạn đã chọn ...");
+			UcTrainingInfo.LoadBussiness(classInfoBussiness, schoolYearBussiness, subjectBussiness);
 		}
 	}
 }

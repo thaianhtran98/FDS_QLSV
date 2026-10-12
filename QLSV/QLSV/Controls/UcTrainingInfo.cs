@@ -114,23 +114,25 @@ namespace QuanLySV.Controls
 			MessageBox.Show(message);
 		}
 
-		private void DgvListClass_SelectionChanged(object sender, EventArgs e)
+		// CellClick only fires on user click, not when the grid is bound/reloaded
+		private void DgvListClass_CellClick(object sender, DataGridViewCellEventArgs e)
 		{
-			DataGridViewRow row = DgvListClass.CurrentRow;
-			if (row == null)
-            {
-				ResetForm(TrainingInfoTab.Class);
+			// Header row or delete button (handled in CellContentClick)
+			if (e.RowIndex < 0 || e.ColumnIndex == DgvColActionDelete.Index)
+			{
 				return;
 			}
 
-			string classId = row.Cells["ClassId"].Value.ToString();
-			string className = row.Cells["ClassName"].Value.ToString();
-			string description = row.Cells["Description"].Value.ToString();
+			DataRowView rowView = DgvListClass.Rows[e.RowIndex].DataBoundItem as DataRowView;
+			if (rowView == null)
+			{
+				return;
+			}
 
-			TbxClassId.Text = classId;
-			TbxClassName.Text = className;
-			TbxDescriptionClass.Text = description;
-			ChkStatusClass.Checked = true;
+			TbxClassId.Text = rowView["CLASSID"].ToString();
+			TbxClassName.Text = rowView["CLASSNAME"].ToString();
+			TbxDescriptionClass.Text = rowView["DESCRIPTION"].ToString();
+			ChkStatusClass.Checked = Convert.ToInt32(rowView["STATUS"]) == ClassInfoModel.ACTIVE;
 			BtnTempSaveClass.Text = "Cập nhật";
 
 			SetClassCurrent();
@@ -139,6 +141,11 @@ namespace QuanLySV.Controls
 
 		private void DgvListClass_CellContentClick(object sender, DataGridViewCellEventArgs e)
 		{
+			if (e.RowIndex < 0)
+			{
+				return;
+			}
+
 			DataGridViewRow row = DgvListClass.Rows[e.RowIndex];
 
 			if (e.ColumnIndex == DgvColActionDelete.Index)
@@ -244,18 +251,21 @@ namespace QuanLySV.Controls
 			}
 		}
 
-		private void DgvListSchoolYear_SelectionChanged(object sender, EventArgs e)
+		private void DgvListSchoolYear_CellClick(object sender, DataGridViewCellEventArgs e)
 		{
-			DataGridViewRow row = DgvListSchoolYear.CurrentRow;
-			if (row == null)
+			if (e.RowIndex < 0 || e.ColumnIndex == DgvColActionDeleteSchoolYear.Index)
 			{
-				ResetForm(TrainingInfoTab.SchoolYear);
 				return;
 			}
 
-			DataRowView rowView = (DataRowView)row.DataBoundItem;
-			int startYear = Convert.ToInt32(row.Cells["Start_Year"].Value);
-			int endYear = Convert.ToInt32(row.Cells["End_Year"].Value);
+			DataRowView rowView = DgvListSchoolYear.Rows[e.RowIndex].DataBoundItem as DataRowView;
+			if (rowView == null)
+			{
+				return;
+			}
+
+			int startYear = Convert.ToInt32(rowView["START_YEAR"]);
+			int endYear = Convert.ToInt32(rowView["END_YEAR"]);
 			int status = Convert.ToInt32(rowView["STATUS"]);
 
 			DtpStartYear.Value = new DateTime(startYear, 1, 1);
@@ -336,16 +346,19 @@ namespace QuanLySV.Controls
 			}
 		}
 
-		private void DgvSubject_SelectionChanged(object sender, EventArgs e)
+		private void DgvSubject_CellClick(object sender, DataGridViewCellEventArgs e)
 		{
-			DataGridViewRow row = DgvSubject.CurrentRow;
-			if (row == null)
+			if (e.RowIndex < 0 || e.ColumnIndex == DgvColSubjectAction.Index)
 			{
-				ResetForm(TrainingInfoTab.Subject);
 				return;
 			}
 
-			DataRowView rowView = (DataRowView)row.DataBoundItem;
+			DataRowView rowView = DgvSubject.Rows[e.RowIndex].DataBoundItem as DataRowView;
+			if (rowView == null)
+			{
+				return;
+			}
+
 			int credits = Convert.ToInt32(rowView["CREDITS"]);
 
 			TbxSubjectName.Text = rowView["SUBJECTNAME"].ToString();
@@ -360,6 +373,36 @@ namespace QuanLySV.Controls
 			SubjectFormEditing = true;
 		}
 		// End Subject
+
+		// Do not highlight the first row after binding, so the form starts empty
+		private void Dgv_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+		{
+			((DataGridView)sender).ClearSelection();
+		}
+
+		// Click on the empty area of the grid (no row/cell) -> clear selection and reset form
+		private void Dgv_MouseDown(object sender, MouseEventArgs e)
+		{
+			DataGridView dgv = (DataGridView)sender;
+			if (dgv.HitTest(e.X, e.Y).Type != DataGridViewHitTestType.None)
+			{
+				return;
+			}
+
+			dgv.ClearSelection();
+			if (dgv == DgvListClass)
+			{
+				ResetForm(TrainingInfoTab.Class);
+			}
+			else if (dgv == DgvListSchoolYear)
+			{
+				ResetForm(TrainingInfoTab.SchoolYear);
+			}
+			else if (dgv == DgvSubject)
+			{
+				ResetForm(TrainingInfoTab.Subject);
+			}
+		}
 
 		private void BtnSave_Click(object sender, EventArgs e)
 		{
@@ -429,6 +472,7 @@ namespace QuanLySV.Controls
 					TbxDescriptionClass.Text = null;
 					ChkStatusClass.Checked = false;
 					BtnTempSaveClass.Text = "Thêm";
+					ClassFormEditing = false;
 					break;
 				case TrainingInfoTab.SchoolYear:
 					DtpStartYear.Value = DateTime.Today;
@@ -507,5 +551,12 @@ namespace QuanLySV.Controls
 
 			MessageBox.Show(message);
 		}
+
+		public void LoadAllData()
+		{
+			LoadClassData(true);
+			LoadSubjectData(true);
+			LoadSchoolYearData(true);
+        }
 	}
 }

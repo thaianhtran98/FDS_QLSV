@@ -81,6 +81,10 @@ namespace QuanLySV.Controls
 				IsEdit = true;
 				LoadStudentAcademic(TbxStudentId.Text);
             }
+		  	else if(TbxStudentId.Text != null && TbxStudentId.Text != "") 
+			{
+				LoadStudentAcademic(TbxStudentId.Text);
+			}
 			Loading = false;
 		}
 
@@ -102,12 +106,9 @@ namespace QuanLySV.Controls
 		// start StudentAcademic
 		private void LoadStudentAcademic(string studentId)
 		{
-			DataTable studentAcademicDt = StudentAcademicBus.FillStudentAcademic(studentId);
-			if (studentAcademicDt != null)
-			{
-				DgvLearningList.AutoGenerateColumns = false;
-				DgvLearningList.DataSource = studentAcademicDt;
-			}
+			DataTable studentAcademicDt = StudentAcademicBus.FillStudentAcademic(studentId, true);
+			DgvLearningList.AutoGenerateColumns = false;
+			DgvLearningList.DataSource = studentAcademicDt;
 		}
 		
 		// end StudentAcademic																   
@@ -143,6 +144,7 @@ namespace QuanLySV.Controls
 				StudentBus.CreatNewStudent(StudentCurrent);
 			}
 
+			IsEdit = true;
 			message = "Lưu thành công";
             MessageBox.Show(message);
 		}
@@ -155,7 +157,9 @@ namespace QuanLySV.Controls
 				return;
 			}
 			string studentId = TbxStudentId.Text;
-			StudentAcademicBus.FillStudentAcademic(studentId);
+			// StudentAcademicBus.FillStudentAcademic(studentId);
+			LoadStudentAcademic(studentId);
+			
 			FrmStudentAcademic fr = new FrmStudentAcademic(StudentAcademicBus, null, studentId);
 
 			if (fr.ShowDialog() == DialogResult.OK)
@@ -199,26 +203,39 @@ namespace QuanLySV.Controls
 			}
 
 			DataGridViewRow row = DgvLearningList.Rows[e.RowIndex];
+			DataRowView rowView = (DataRowView)row.DataBoundItem;
+			DataRow r = rowView.Row;
+			StudentAcademicModel studentMod = new StudentAcademicModel();
+			studentMod.StudentId = r["StudentId"].ToString();
+			studentMod.ClassId = r["ClassId"].ToString();
+			studentMod.SchoolYearId = r["SchoolYearId"].ToString();
+			studentMod.SubjectId = r["SubjectId"].ToString();
+			studentMod.Semester = Convert.ToInt32(r["Semester"]);
+			if (r["Score"] != DBNull.Value)
+			{
+				studentMod.Score = Convert.ToDecimal(r["Score"]);
+			}
+			studentMod.ScoreLetter = r["Score_Letter"].ToString();
+			studentMod.Note = r["Note"].ToString();
+			studentMod.Status = StudentAcademicModel.ACTIVE;
 
 			if (e.ColumnIndex == ColEdit.Index)
 			{
-				DataRowView rowView = (DataRowView)row.DataBoundItem;
-				DataRow r = rowView.Row;
-				StudentAcademicModel studentMod = new StudentAcademicModel();
-				studentMod.StudentId = r["StudentId"].ToString();
-				studentMod.ClassId = r["ClassId"].ToString();
-				studentMod.SchoolYearId = r["SchoolYearId"].ToString();
-				studentMod.SubjectId = r["SubjectId"].ToString();
-				studentMod.Semester = Convert.ToInt32(r["Semester"]);
-				studentMod.Score = Convert.ToDecimal(r["Score"]);
-				studentMod.ScoreLetter = r["Score_Letter"].ToString();
-				studentMod.Note = r["Note"].ToString();
-				studentMod.Status = StudentAcademicModel.ACTIVE;
-				FrmStudentAcademic fr = new FrmStudentAcademic(StudentAcademicBus, studentMod, StudentIdSelected);
+				FrmStudentAcademic fr = new FrmStudentAcademic(StudentAcademicBus, studentMod, StudentIdSelected, r);
 				if (fr.ShowDialog() == DialogResult.OK)
 				{
 					fr.Dispose();
 				}
+			}
+			else if (e.ColumnIndex == ColDelete.Index)
+			{
+				if (MessageBox.Show("Xóa kết quả học tập " + "Năm học" + studentMod.SchoolYearName + "HK:" + studentMod.Semester + "?", "Xác nhận", MessageBoxButtons.YesNo) == DialogResult.Yes)
+				{
+					if (StudentAcademicBus.DeleteStudentAcademic(r))
+					{
+						MessageBox.Show("Xóa thành công");
+                    }
+                }
 			}
 		}
 	}

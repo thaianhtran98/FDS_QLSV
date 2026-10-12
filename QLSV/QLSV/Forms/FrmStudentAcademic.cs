@@ -23,16 +23,18 @@ namespace QuanLySV.Forms
 		private StudentAcademicModel StudentAcademiCurrent;
 		private string StudentId;
 		private bool IsEditing = false;
+		private DataRow RowEditing;
 
 		private const int HK1 = 1;
 		private const int HK2 = 2;
 		private const int HK3 = 3;
 
-		public FrmStudentAcademic(StudentAcademicBussiness studentAcademicBussiness, StudentAcademicModel studentAcademic, string studentId)
+		public FrmStudentAcademic(StudentAcademicBussiness studentAcademicBussiness, StudentAcademicModel studentAcademic, string studentId, DataRow row = null)
 		{
 			ClassBus = new ClassInfoBussiness();
 			SchoolYearBus = new SchoolYearBussiness();
 			SubjectBus = new SubjectBussiness();
+			RowEditing = row;
 			StudentAcademicBus = studentAcademicBussiness;
 			InitializeComponent();
 			LoadDataComboBox();
@@ -52,12 +54,10 @@ namespace QuanLySV.Forms
 
 		private void ShowDialogAddTrainingInfo(TrainingInfoTab tabInit)
 		{
-			FrmTrainngInfo fr = new FrmTrainngInfo(tabInit);
-
-			if (fr.ShowDialog() == DialogResult.OK)
-			{
-				fr.Dispose();
-			}
+			FrmTrainngInfo fr = new FrmTrainngInfo(tabInit, ClassBus, SchoolYearBus, SubjectBus);
+			fr.ShowDialog();
+			fr.Dispose();
+			LoadDataComboBox();
 		}
 
 		private void BtnAddSchoolYear_Click(object sender, EventArgs e)
@@ -87,9 +87,11 @@ namespace QuanLySV.Forms
 			message = "Thêm thành công";
 			if (IsEditing)
 			{
-				SetFormToStudentAcademiCurrent();
-				StudentAcademicBus.CreateRowStudentAcademic(StudentAcademiCurrent);
+				message = "Cập nhật thành công";
+				SetFormToStudentAcademiCurrent();								
+				StudentAcademicBus.UpdateRowStudentAcademic(StudentAcademiCurrent, RowEditing);
 				resetForm();
+				this.Close();
 			}
 			else
 			{
@@ -111,11 +113,17 @@ namespace QuanLySV.Forms
 			StudentAcademiCurrent.SchoolYearName = CbxSchoolYear.Text;
 			StudentAcademiCurrent.SubjectId = CbxSubjectName.SelectedValue.ToString();
 			StudentAcademiCurrent.SubjectName = CbxSubjectName.Text;
-			StudentAcademiCurrent.Score = Convert.ToDecimal(TbxScore.Text);
 			StudentAcademiCurrent.ScoreLetter = TbxScoreLetter.Text;
-			StudentAcademiCurrent.Semester = Convert.ToInt32(CbxSemester.SelectedValue);
 			StudentAcademiCurrent.Note = TbxNote.Text;
 			StudentAcademiCurrent.Status = StudentAcademicModel.ACTIVE;
+			if (TbxScore.Text != "")
+			{
+				StudentAcademiCurrent.Score = Convert.ToDecimal(TbxScore.Text);
+			}
+			if (CbxSemester.Text != "")
+			{
+				StudentAcademiCurrent.Semester = Convert.ToInt32(CbxSemester.SelectedValue);
+			}
 		}
 
 		private void SetStudentAcademiCurrentToForm()
@@ -132,20 +140,20 @@ namespace QuanLySV.Forms
 		private bool Validator(out string errMessage)
 		{
 			errMessage = "Lỗi:";
-			if (CbxSchoolYear.Text == "")
+			if (CbxSchoolYear.SelectedValue !=  null && CbxSchoolYear.SelectedValue.ToString() == "")
 			{
 				errMessage += "\r\nVui lòng chọn Năm học";
 			}
-			if (CbxSemester.Text == "")
+			if (CbxSemester.SelectedValue != null && CbxSemester.SelectedValue.ToString() == "")
 			{
 				errMessage += "\r\nVui lòng chọn Học kỳ";
 			}
-			if (CbxClassName.Text == "")
-			{
+			if (CbxClassName.SelectedValue !=  null && CbxClassName.SelectedValue.ToString() == "")
+				{
 				errMessage += "\r\nVui lòng chọn Lớp";
 			}
-			if (CbxSubjectName.Text == "")
-			{
+			if (CbxSubjectName.SelectedValue !=  null && CbxSubjectName.SelectedValue.ToString() == "")
+				{
 				errMessage += "\r\nVui lòng chọn Môn học";
 			}
 
@@ -154,34 +162,47 @@ namespace QuanLySV.Forms
 
 		private void LoadDataComboBox()
 		{
-			DataTable classDt = ClassBus.FillClassInfo();
+			// Keep current selection so reloading does not clear what the user picked
+			object classId = CbxClassName.SelectedValue;
+			object schoolYearId = CbxSchoolYear.SelectedValue;
+			object subjectId = CbxSubjectName.SelectedValue;
+
+			// Copy() so the placeholder row is not added to the bussiness table (SaveAll would insert it)
+			DataTable classDt = ClassBus.FillClassInfo().Copy();
 			DataRow r1 = classDt.NewRow();
 			r1["ClassId"] = "";
 			r1["ClassName"] = "-- Chọn lớp --";
 			classDt.Rows.InsertAt(r1, 0);
-			CbxClassName.DataSource = classDt;
 			CbxClassName.DisplayMember = "ClassName";
 			CbxClassName.ValueMember = "ClassId";
+			CbxClassName.DataSource = classDt;
 
-			DataTable schoolYearDt = SchoolYearBus.FillSchoolYear();
+			DataTable schoolYearDt = SchoolYearBus.FillSchoolYear().Copy();
 			DataRow r2 = schoolYearDt.NewRow();
 			r2["SchoolYearId"] = "";
 			r2["SchoolYearName"] = "-- Chọn Năm học --";
 			schoolYearDt.Rows.InsertAt(r2, 0);
-			CbxSchoolYear.DataSource = schoolYearDt;
 			CbxSchoolYear.DisplayMember = "SchoolYearName";
 			CbxSchoolYear.ValueMember = "SchoolYearId";
+			CbxSchoolYear.DataSource = schoolYearDt;
 
-			DataTable subjectDt = SubjectBus.FillSubject();
+			DataTable subjectDt = SubjectBus.FillSubject().Copy();
 			DataRow r3 = subjectDt.NewRow();
 			r3["SubjectId"] = "";
 			r3["SubjectName"] = "-- Chọn Môn học --";
 			subjectDt.Rows.InsertAt(r3, 0);
-			CbxSubjectName.DataSource = subjectDt;
 			CbxSubjectName.DisplayMember = "SubjectName";
 			CbxSubjectName.ValueMember = "SubjectId";
+			CbxSubjectName.DataSource = subjectDt;
 
-			CbxSemester.DataSource = new int[] { HK1, HK2, HK3 };
+			if (classId != null) CbxClassName.SelectedValue = classId;
+			if (schoolYearId != null) CbxSchoolYear.SelectedValue = schoolYearId;
+			if (subjectId != null) CbxSubjectName.SelectedValue = subjectId;
+
+			if (CbxSemester.DataSource == null)
+			{
+				CbxSemester.DataSource = new int[] { HK1, HK2, HK3 };
+			}
 		}
 
 		private void resetForm()

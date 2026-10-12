@@ -24,9 +24,9 @@ namespace QuanLySVBussiness
 			return true;
 		}
 
-		public bool UpdateRowStudentAcademic(StudentAcademicModel academic)
+		public bool UpdateRowStudentAcademic(StudentAcademicModel academic, DataRow RowEditing)
 		{
-			_StudentAcademicDB.CreateRowStudentAcademic(academic);
+			_StudentAcademicDB.UpdateRowStudentAcademic(academic, RowEditing);
 			return true;
 		}
 
@@ -49,5 +49,16 @@ namespace QuanLySVBussiness
 		{
 			_StudentAcademicDB.UpdateStudentId(newStudentId);
         }
-	}
+
+		public bool SaveAll()
+		{
+			_StudentAcademicDB.SaveAll();
+			return true;
+		}
+		
+		public bool DeleteStudentAcademic(DataRow RowDelete)
+		{
+			return _StudentAcademicDB.DeleteStudentAcademic(RowDelete);
+		}
+    }
 }

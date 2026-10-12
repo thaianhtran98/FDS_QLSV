@@ -35,8 +35,7 @@ namespace QuanLySVDataBase
 				"FROM STUDENT_ACADEMIC SA " +
 				"LEFT JOIN CLASS C ON C.CLASSID = SA.CLASSID " +
 				"LEFT JOIN SCHOOL_YEAR SY ON SY.SCHOOLYEARID = SA.SCHOOLYEARID " +
-				"LEFT JOIN SUBJECT SJ ON SJ.SUBJECTID = SA.SUBJECTID " +
-				"WHERE SA.STUDENTID = :STUDENTID", conn);
+				"LEFT JOIN SUBJECT SJ ON SJ.SUBJECTID = SA.SUBJECTID", conn);
 			fillSql.BindByName = true;
 
 			// Insert Command
@@ -85,12 +84,9 @@ namespace QuanLySVDataBase
 				if (DBStudentAcademic == null || forceReload)
 				{
 					DBStudentAcademic = new DataTable("StudentAcademicDataTable");
-					fillSql.Parameters.Add(new OracleParameter { ParameterName = ":STUDENTID", Value = studentId });
 					_adapter.Fill(DBStudentAcademic);
 				}
-
-				return DBStudentAcademic;
-			}
+			}							
 			catch (Exception)
 			{
 				return null;
@@ -105,16 +101,46 @@ namespace QuanLySVDataBase
 			return true;
         }
 
+		public bool UpdateRowStudentAcademic(StudentAcademicModel academic, DataRow RowEditing)
+		{
+			SetRowValues(RowEditing, academic);
+			return true;
+		}
+
 		public void UpdateStudentId(string newStudentId)
 		{
+			if (DBStudentAcademic == null)
+			{
+				return;
+			}
 			foreach (DataRow r in DBStudentAcademic.Rows)
 			{
 				r["STUDENTID"] = newStudentId;
 			}
 		}
 
+		public bool SaveAll()
+		{
+			try
+			{
+				_adapter.Update(DBStudentAcademic);
+				return true;
+			} 
+			catch(Exception ex)
+			{
+				throw ex;
+			}
+		}
+
+		public bool DeleteStudentAcademic(DataRow RowDelete)
+		{
+			RowDelete.Delete();
+			return true;
+		}
+
 		private void SetRowValues(DataRow row, StudentAcademicModel academic)
 		{
+			row["ACADEMICID"] = academic.AcademicId == 0 ? DBNull.Value : (object)academic.AcademicId;
 			row["STUDENTID"] = academic.StudentId;
 			row["CLASSID"] = academic.ClassId;
 			row["CLASSNAME"] = academic.ClassName;

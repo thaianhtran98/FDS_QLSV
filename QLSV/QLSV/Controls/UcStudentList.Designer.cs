@@ -29,6 +29,14 @@
 		private void InitializeComponent()
 		{
 			this.DgvStudentList = new System.Windows.Forms.DataGridView();
+			this.PnlFilter = new System.Windows.Forms.Panel();
+			this.BtnSave = new System.Windows.Forms.Button();
+			this.LblNotification = new System.Windows.Forms.Label();
+			this.CbxSex = new System.Windows.Forms.ComboBox();
+			this.TbxNameFilter = new System.Windows.Forms.TextBox();
+			this.LblSex = new System.Windows.Forms.Label();
+			this.LblNameFilter = new System.Windows.Forms.Label();
+			this.PnlStudentList = new System.Windows.Forms.Panel();
 			this.StudentId = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.StudentName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Sex = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -36,14 +44,6 @@
 			this.VneId = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.DgvColEdit = new System.Windows.Forms.DataGridViewButtonColumn();
 			this.DgvColDelete = new System.Windows.Forms.DataGridViewButtonColumn();
-			this.PnlFilter = new System.Windows.Forms.Panel();
-			this.LblNotification = new System.Windows.Forms.Label();
-			this.CbxSex = new System.Windows.Forms.ComboBox();
-			this.TbxNameFilter = new System.Windows.Forms.TextBox();
-			this.LblSex = new System.Windows.Forms.Label();
-			this.LblNameFilter = new System.Windows.Forms.Label();
-			this.PnlStudentList = new System.Windows.Forms.Panel();
-			this.BtnSave = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.DgvStudentList)).BeginInit();
 			this.PnlFilter.SuspendLayout();
 			this.PnlStudentList.SuspendLayout();
@@ -72,70 +72,6 @@
 			this.DgvStudentList.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DgvStudentList_CellFormatting);
 			this.DgvStudentList.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.DgvStudentList_RowPrePaint);
 			// 
-			// StudentId
-			// 
-			this.StudentId.DataPropertyName = "StudentId";
-			this.StudentId.FillWeight = 47.71573F;
-			this.StudentId.HeaderText = "MSSV";
-			this.StudentId.MinimumWidth = 100;
-			this.StudentId.Name = "StudentId";
-			this.StudentId.ReadOnly = true;
-			// 
-			// StudentName
-			// 
-			this.StudentName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-			this.StudentName.DataPropertyName = "Name";
-			this.StudentName.FillWeight = 152.2843F;
-			this.StudentName.HeaderText = "Họ Tên";
-			this.StudentName.MinimumWidth = 150;
-			this.StudentName.Name = "StudentName";
-			this.StudentName.ReadOnly = true;
-			// 
-			// Sex
-			// 
-			this.Sex.DataPropertyName = "Sex";
-			this.Sex.HeaderText = "Giới tính";
-			this.Sex.Name = "Sex";
-			this.Sex.ReadOnly = true;
-			// 
-			// BirthOfDate
-			// 
-			this.BirthOfDate.DataPropertyName = "BirthOfDate";
-			this.BirthOfDate.HeaderText = "Ngày sinh";
-			this.BirthOfDate.MinimumWidth = 200;
-			this.BirthOfDate.Name = "BirthOfDate";
-			this.BirthOfDate.ReadOnly = true;
-			this.BirthOfDate.Width = 200;
-			// 
-			// VneId
-			// 
-			this.VneId.DataPropertyName = "VneId";
-			this.VneId.HeaderText = "CCCD";
-			this.VneId.MinimumWidth = 200;
-			this.VneId.Name = "VneId";
-			this.VneId.ReadOnly = true;
-			this.VneId.Width = 200;
-			// 
-			// DgvColEdit
-			// 
-			this.DgvColEdit.HeaderText = "Sửa";
-			this.DgvColEdit.Name = "DgvColEdit";
-			this.DgvColEdit.ReadOnly = true;
-			this.DgvColEdit.Text = "Sửa";
-			this.DgvColEdit.UseColumnTextForButtonValue = true;
-			this.DgvColEdit.Width = 50;
-			// 
-			// DgvColDelete
-			// 
-			this.DgvColDelete.HeaderText = "Xóa";
-			this.DgvColDelete.Name = "DgvColDelete";
-			this.DgvColDelete.ReadOnly = true;
-			this.DgvColDelete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.DgvColDelete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			this.DgvColDelete.Text = "Xóa";
-			this.DgvColDelete.UseColumnTextForButtonValue = true;
-			this.DgvColDelete.Width = 50;
-			// 
 			// PnlFilter
 			// 
 			this.PnlFilter.Controls.Add(this.BtnSave);
@@ -149,6 +85,17 @@
 			this.PnlFilter.Name = "PnlFilter";
 			this.PnlFilter.Size = new System.Drawing.Size(1053, 40);
 			this.PnlFilter.TabIndex = 0;
+			// 
+			// BtnSave
+			// 
+			this.BtnSave.Location = new System.Drawing.Point(335, 5);
+			this.BtnSave.Name = "BtnSave";
+			this.BtnSave.Size = new System.Drawing.Size(75, 23);
+			this.BtnSave.TabIndex = 4;
+			this.BtnSave.Text = "Lưu";
+			this.BtnSave.UseVisualStyleBackColor = true;
+			this.BtnSave.Visible = false;
+			this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
 			// 
 			// LblNotification
 			// 
@@ -202,16 +149,69 @@
 			this.PnlStudentList.Size = new System.Drawing.Size(1053, 369);
 			this.PnlStudentList.TabIndex = 1;
 			// 
-			// BtnSave
+			// StudentId
 			// 
-			this.BtnSave.Location = new System.Drawing.Point(335, 5);
-			this.BtnSave.Name = "BtnSave";
-			this.BtnSave.Size = new System.Drawing.Size(75, 23);
-			this.BtnSave.TabIndex = 4;
-			this.BtnSave.Text = "Lưu";
-			this.BtnSave.UseVisualStyleBackColor = true;
-			this.BtnSave.Visible = false;
-			this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
+			this.StudentId.DataPropertyName = "StudentId";
+			this.StudentId.FillWeight = 47.71573F;
+			this.StudentId.HeaderText = "MSSV";
+			this.StudentId.MinimumWidth = 100;
+			this.StudentId.Name = "StudentId";
+			this.StudentId.ReadOnly = true;
+			// 
+			// StudentName
+			// 
+			this.StudentName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.StudentName.DataPropertyName = "Name";
+			this.StudentName.FillWeight = 152.2843F;
+			this.StudentName.HeaderText = "Họ Tên";
+			this.StudentName.MinimumWidth = 310;
+			this.StudentName.Name = "StudentName";
+			this.StudentName.ReadOnly = true;
+			// 
+			// Sex
+			// 
+			this.Sex.DataPropertyName = "Sex";
+			this.Sex.HeaderText = "Giới tính";
+			this.Sex.Name = "Sex";
+			this.Sex.ReadOnly = true;
+			// 
+			// BirthOfDate
+			// 
+			this.BirthOfDate.DataPropertyName = "BirthOfDate";
+			this.BirthOfDate.HeaderText = "Ngày sinh";
+			this.BirthOfDate.MinimumWidth = 200;
+			this.BirthOfDate.Name = "BirthOfDate";
+			this.BirthOfDate.ReadOnly = true;
+			this.BirthOfDate.Width = 200;
+			// 
+			// VneId
+			// 
+			this.VneId.DataPropertyName = "VneId";
+			this.VneId.HeaderText = "CCCD";
+			this.VneId.MinimumWidth = 200;
+			this.VneId.Name = "VneId";
+			this.VneId.ReadOnly = true;
+			this.VneId.Width = 200;
+			// 
+			// DgvColEdit
+			// 
+			this.DgvColEdit.HeaderText = "Sửa";
+			this.DgvColEdit.Name = "DgvColEdit";
+			this.DgvColEdit.ReadOnly = true;
+			this.DgvColEdit.Text = "Sửa";
+			this.DgvColEdit.UseColumnTextForButtonValue = true;
+			this.DgvColEdit.Width = 50;
+			// 
+			// DgvColDelete
+			// 
+			this.DgvColDelete.HeaderText = "Xóa";
+			this.DgvColDelete.Name = "DgvColDelete";
+			this.DgvColDelete.ReadOnly = true;
+			this.DgvColDelete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.DgvColDelete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			this.DgvColDelete.Text = "Xóa";
+			this.DgvColDelete.UseColumnTextForButtonValue = true;
+			this.DgvColDelete.Width = 50;
 			// 
 			// UcStudentList
 			// 
@@ -238,6 +238,8 @@
 		private System.Windows.Forms.Label LblNameFilter;
 		private System.Windows.Forms.Panel PnlStudentList;
 		private System.Windows.Forms.DataGridView DgvStudentList;
+		private System.Windows.Forms.Label LblNotification;
+		private System.Windows.Forms.Button BtnSave;
 		private System.Windows.Forms.DataGridViewTextBoxColumn StudentId;
 		private System.Windows.Forms.DataGridViewTextBoxColumn StudentName;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Sex;
@@ -245,7 +247,5 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn VneId;
 		private System.Windows.Forms.DataGridViewButtonColumn DgvColEdit;
 		private System.Windows.Forms.DataGridViewButtonColumn DgvColDelete;
-		private System.Windows.Forms.Label LblNotification;
-		private System.Windows.Forms.Button BtnSave;
 	}
 }
