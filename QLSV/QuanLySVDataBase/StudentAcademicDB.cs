@@ -77,7 +77,7 @@ namespace QuanLySVDataBase
 			_adapter.DeleteCommand = deleteSql;
 		}
 
-		public DataTable FillData(string studentId, bool forceReload = false)
+		public DataView FillData(string studentId, bool forceReload = false)
 		{
 			try
 			{
@@ -86,7 +86,10 @@ namespace QuanLySVDataBase
 					DBStudentAcademic = new DataTable("StudentAcademicDataTable");
 					_adapter.Fill(DBStudentAcademic);
 				}
-			}							
+
+				string filter = "STUDENTID = '" + (studentId ?? "").Replace("'", "''") + "'";
+				return new DataView(DBStudentAcademic, filter, "", DataViewRowState.CurrentRows);
+			}
 			catch (Exception)
 			{
 				return null;

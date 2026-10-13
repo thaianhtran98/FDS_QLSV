@@ -164,7 +164,6 @@
 			this.StudentName.DataPropertyName = "Name";
 			this.StudentName.FillWeight = 152.2843F;
 			this.StudentName.HeaderText = "Họ Tên";
-			this.StudentName.MinimumWidth = 310;
 			this.StudentName.Name = "StudentName";
 			this.StudentName.ReadOnly = true;
 			// 

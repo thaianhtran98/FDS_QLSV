@@ -79,7 +79,7 @@ namespace QuanLySV.Controls
                 ChkStatus.Checked = StudentCurrent.Status == StudentModel.ACTIVE;
 
 				IsEdit = true;
-				LoadStudentAcademic(TbxStudentId.Text);
+				LoadStudentAcademic(studentId);
             }
 		  	else if(TbxStudentId.Text != null && TbxStudentId.Text != "") 
 			{
@@ -106,14 +106,14 @@ namespace QuanLySV.Controls
 		// start StudentAcademic
 		private void LoadStudentAcademic(string studentId)
 		{
-			DataTable studentAcademicDt = StudentAcademicBus.FillStudentAcademic(studentId, true);
+			DataView studentAcademicView = StudentAcademicBus.FillStudentAcademic(studentId);
 			DgvLearningList.AutoGenerateColumns = false;
-			DgvLearningList.DataSource = studentAcademicDt;
+			DgvLearningList.DataSource = studentAcademicView;
 		}
 		
 		// end StudentAcademic																   
 
-		private void BtnSave_Click(object sender, EventArgs e)
+		private void BtnTempSave_Click(object sender, EventArgs e)
 		{
 			string message = null;
             if (!Validator(out message))
@@ -188,13 +188,6 @@ namespace QuanLySV.Controls
 			return message == "Lỗi:" ? true : false;  
 		}
 
-		private void TbxStudentId_TextChanged(object sender, EventArgs e)
-		{
-			if (Loading) return; 
-			string studentId = TbxStudentId.Text;
-			StudentAcademicBus.UpdateStudentId(studentId);
-		}
-
 		private void DgvLearningList_CellContentClick(object sender, DataGridViewCellEventArgs e)
 		{
 			if (e.RowIndex < 0)
@@ -237,6 +230,22 @@ namespace QuanLySV.Controls
                     }
                 }
 			}
+		}
+
+		private void TbxStudentId_Leave(object sender, EventArgs e)
+		{
+			if (Loading) return;
+			string studentId = TbxStudentId.Text;
+			StudentModel student = StudentBus.FindStudentById(studentId);
+			if (student != null)
+			{
+				TbxStudentId.ForeColor = Color.Red;
+				TbxStudentId.Focus();
+				MessageBox.Show("Mã sinh viên đã tồn tại, nhập lại mã sinh viên");
+				return;
+            }
+			TbxStudentId.ForeColor = Color.Black;
+			StudentAcademicBus.UpdateStudentId(studentId);
 		}
 	}
 }

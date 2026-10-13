@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.PnlMain = new System.Windows.Forms.Panel();
 			this.TabStudent = new System.Windows.Forms.TabControl();
 			this.TpgInfoStudent = new System.Windows.Forms.TabPage();
@@ -62,10 +62,6 @@
 			this.TpgLearning = new System.Windows.Forms.TabPage();
 			this.PnlBodyTpgLearning = new System.Windows.Forms.Panel();
 			this.DgvLearningList = new System.Windows.Forms.DataGridView();
-			this.PnlHeaderTpgLearning = new System.Windows.Forms.Panel();
-			this.BtnCreateLearning = new System.Windows.Forms.Button();
-			this.PnlFooter = new System.Windows.Forms.FlowLayoutPanel();
-			this.BtnSave = new System.Windows.Forms.Button();
 			this.SchoolYearName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Semester = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.ClassName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -74,6 +70,10 @@
 			this.ScoreLetter = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.ColEdit = new System.Windows.Forms.DataGridViewButtonColumn();
 			this.ColDelete = new System.Windows.Forms.DataGridViewButtonColumn();
+			this.PnlHeaderTpgLearning = new System.Windows.Forms.Panel();
+			this.BtnCreateLearning = new System.Windows.Forms.Button();
+			this.PnlFooter = new System.Windows.Forms.FlowLayoutPanel();
+			this.BtnSave = new System.Windows.Forms.Button();
 			this.PnlMain.SuspendLayout();
 			this.TabStudent.SuspendLayout();
 			this.TpgInfoStudent.SuspendLayout();
@@ -372,7 +372,7 @@
 			this.TbxStudentId.Name = "TbxStudentId";
 			this.TbxStudentId.Size = new System.Drawing.Size(140, 20);
 			this.TbxStudentId.TabIndex = 23;
-			this.TbxStudentId.TextChanged += new System.EventHandler(this.TbxStudentId_TextChanged);
+			this.TbxStudentId.Leave += new System.EventHandler(this.TbxStudentId_Leave);
 			// 
 			// LblStudentId
 			// 
@@ -426,49 +426,11 @@
 			this.DgvLearningList.TabIndex = 0;
 			this.DgvLearningList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvLearningList_CellContentClick);
 			// 
-			// PnlHeaderTpgLearning
-			// 
-			this.PnlHeaderTpgLearning.Controls.Add(this.BtnCreateLearning);
-			this.PnlHeaderTpgLearning.Dock = System.Windows.Forms.DockStyle.Top;
-			this.PnlHeaderTpgLearning.Location = new System.Drawing.Point(3, 3);
-			this.PnlHeaderTpgLearning.Name = "PnlHeaderTpgLearning";
-			this.PnlHeaderTpgLearning.Size = new System.Drawing.Size(629, 27);
-			this.PnlHeaderTpgLearning.TabIndex = 0;
-			// 
-			// BtnCreateLearning
-			// 
-			this.BtnCreateLearning.Location = new System.Drawing.Point(0, 0);
-			this.BtnCreateLearning.Name = "BtnCreateLearning";
-			this.BtnCreateLearning.Size = new System.Drawing.Size(75, 25);
-			this.BtnCreateLearning.TabIndex = 0;
-			this.BtnCreateLearning.Text = "Thêm mới";
-			this.BtnCreateLearning.UseVisualStyleBackColor = true;
-			this.BtnCreateLearning.Click += new System.EventHandler(this.BtnCreateLearning_Click);
-			// 
-			// PnlFooter
-			// 
-			this.PnlFooter.Controls.Add(this.BtnSave);
-			this.PnlFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.PnlFooter.Location = new System.Drawing.Point(0, 460);
-			this.PnlFooter.Name = "PnlFooter";
-			this.PnlFooter.Size = new System.Drawing.Size(643, 28);
-			this.PnlFooter.TabIndex = 1;
-			// 
-			// BtnSave
-			// 
-			this.BtnSave.Location = new System.Drawing.Point(3, 3);
-			this.BtnSave.Name = "BtnSave";
-			this.BtnSave.Size = new System.Drawing.Size(76, 22);
-			this.BtnSave.TabIndex = 1;
-			this.BtnSave.Text = "Lưu";
-			this.BtnSave.UseVisualStyleBackColor = true;
-			this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
-			// 
 			// SchoolYearName
 			// 
 			this.SchoolYearName.DataPropertyName = "SchoolYearName";
-			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			this.SchoolYearName.DefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			this.SchoolYearName.DefaultCellStyle = dataGridViewCellStyle3;
 			this.SchoolYearName.HeaderText = "Năm học";
 			this.SchoolYearName.Name = "SchoolYearName";
 			this.SchoolYearName.ReadOnly = true;
@@ -526,6 +488,44 @@
 			this.ColDelete.ReadOnly = true;
 			this.ColDelete.Text = "Xóa";
 			this.ColDelete.UseColumnTextForButtonValue = true;
+			// 
+			// PnlHeaderTpgLearning
+			// 
+			this.PnlHeaderTpgLearning.Controls.Add(this.BtnCreateLearning);
+			this.PnlHeaderTpgLearning.Dock = System.Windows.Forms.DockStyle.Top;
+			this.PnlHeaderTpgLearning.Location = new System.Drawing.Point(3, 3);
+			this.PnlHeaderTpgLearning.Name = "PnlHeaderTpgLearning";
+			this.PnlHeaderTpgLearning.Size = new System.Drawing.Size(629, 27);
+			this.PnlHeaderTpgLearning.TabIndex = 0;
+			// 
+			// BtnCreateLearning
+			// 
+			this.BtnCreateLearning.Location = new System.Drawing.Point(0, 0);
+			this.BtnCreateLearning.Name = "BtnCreateLearning";
+			this.BtnCreateLearning.Size = new System.Drawing.Size(75, 25);
+			this.BtnCreateLearning.TabIndex = 0;
+			this.BtnCreateLearning.Text = "Thêm mới";
+			this.BtnCreateLearning.UseVisualStyleBackColor = true;
+			this.BtnCreateLearning.Click += new System.EventHandler(this.BtnCreateLearning_Click);
+			// 
+			// PnlFooter
+			// 
+			this.PnlFooter.Controls.Add(this.BtnSave);
+			this.PnlFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.PnlFooter.Location = new System.Drawing.Point(0, 460);
+			this.PnlFooter.Name = "PnlFooter";
+			this.PnlFooter.Size = new System.Drawing.Size(643, 28);
+			this.PnlFooter.TabIndex = 1;
+			// 
+			// BtnSave
+			// 
+			this.BtnSave.Location = new System.Drawing.Point(3, 3);
+			this.BtnSave.Name = "BtnSave";
+			this.BtnSave.Size = new System.Drawing.Size(76, 22);
+			this.BtnSave.TabIndex = 1;
+			this.BtnSave.Text = "Lưu tạm";
+			this.BtnSave.UseVisualStyleBackColor = true;
+			this.BtnSave.Click += new System.EventHandler(this.BtnTempSave_Click);
 			// 
 			// UcStudentForm
 			// 

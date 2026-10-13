@@ -13,7 +13,7 @@ namespace QuanLySVBussiness
 	{
 		StudentAcademicDB _StudentAcademicDB = new StudentAcademicDB();
 
-		public DataTable FillStudentAcademic(string studentId, bool forceReload = false)
+		public DataView FillStudentAcademic(string studentId, bool forceReload = false)
 		{
 			return _StudentAcademicDB.FillData(studentId, forceReload);
 		}
