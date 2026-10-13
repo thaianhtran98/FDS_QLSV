@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace QuanLySVModel
 {
+    /// <summary>
+    /// Represents an academic record of a student: class, school year, subject, semester and score.
+    /// </summary>
     public class StudentAcademicModel
     {
 		/// <summary>

@@ -14,6 +14,9 @@ using QuanLySVModel;
 
 namespace QuanLySV.Forms
 {
+	/// <summary>
+	/// Dialog to add or edit an academic record (class, school year, subject, semester, score) of a student.
+	/// </summary>
 	public partial class FrmStudentAcademic : Form
 	{
 		private ClassInfoBussiness ClassBus;
@@ -29,6 +32,11 @@ namespace QuanLySV.Forms
 		private const int HK2 = 2;
 		private const int HK3 = 3;
 
+		/// <summary>
+		/// Initializes the dialog and loads the combo boxes.
+		/// When <paramref name="studentAcademic"/> is null the dialog is in add mode; otherwise the form is filled
+		/// with the record and switched to edit mode (<paramref name="row"/> is the cached row being edited).
+		/// </summary>
 		public FrmStudentAcademic(StudentAcademicBussiness studentAcademicBussiness, StudentAcademicModel studentAcademic, string studentId, DataRow row = null)
 		{
 			ClassBus = new ClassInfoBussiness();
@@ -52,6 +60,9 @@ namespace QuanLySV.Forms
             }
 		}
 
+		/// <summary>
+		/// Opens the training info dialog on the given tab, then reloads the combo boxes so new items appear.
+		/// </summary>
 		private void ShowDialogAddTrainingInfo(TrainingInfoTab tabInit)
 		{
 			FrmTrainngInfo fr = new FrmTrainngInfo(tabInit, ClassBus, SchoolYearBus, SubjectBus);
@@ -60,21 +71,34 @@ namespace QuanLySV.Forms
 			LoadDataComboBox();
 		}
 
+		/// <summary>
+		/// Opens the training info dialog on the School Year tab.
+		/// </summary>
 		private void BtnAddSchoolYear_Click(object sender, EventArgs e)
 		{
 			ShowDialogAddTrainingInfo(TrainingInfoTab.SchoolYear);
         }
 
+		/// <summary>
+		/// Opens the training info dialog on the Class tab.
+		/// </summary>
 		private void BtnAddClass_Click(object sender, EventArgs e)
 		{
 			ShowDialogAddTrainingInfo(TrainingInfoTab.Class);
 		}
 
+		/// <summary>
+		/// Opens the training info dialog on the Subject tab.
+		/// </summary>
 		private void BtnAddSubject_Click(object sender, EventArgs e)
 		{
 			ShowDialogAddTrainingInfo(TrainingInfoTab.Subject);
 		}
 
+		/// <summary>
+		/// Validates the form, then adds a new academic row or updates the edited row.
+		/// The dialog is closed after an update; in add mode the form is reset for the next record.
+		/// </summary>
 		private void BtnSave_Click(object sender, EventArgs e)
 		{
 			string message = null;
@@ -104,6 +128,9 @@ namespace QuanLySV.Forms
 			MessageBox.Show(message);
 		}
 
+		/// <summary>
+		/// Copies the values of the form controls into <c>StudentAcademiCurrent</c>.
+		/// </summary>
 		private void SetFormToStudentAcademiCurrent()
 		{
 			StudentAcademiCurrent.StudentId = StudentId;
@@ -126,6 +153,9 @@ namespace QuanLySV.Forms
 			}
 		}
 
+		/// <summary>
+		/// Fills the form controls with the values of <c>StudentAcademiCurrent</c>.
+		/// </summary>
 		private void SetStudentAcademiCurrentToForm()
 		{
 			CbxClassName.SelectedValue = StudentAcademiCurrent.ClassId;
@@ -137,6 +167,10 @@ namespace QuanLySV.Forms
 			TbxScoreLetter.Text = StudentAcademiCurrent.ScoreLetter;
 		}
 
+		/// <summary>
+		/// Checks that school year, semester, class and subject are selected.
+		/// Returns false and the error list in <paramref name="errMessage"/> when validation fails.
+		/// </summary>
 		private bool Validator(out string errMessage)
 		{
 			errMessage = "Lỗi:";
@@ -160,6 +194,10 @@ namespace QuanLySV.Forms
 			return errMessage == "Lỗi:" ? true : false;
 		}
 
+		/// <summary>
+		/// Binds the class, school year and subject combo boxes (with a placeholder item on top)
+		/// and the semester list, keeping the current selections.
+		/// </summary>
 		private void LoadDataComboBox()
 		{
 			// Keep current selection so reloading does not clear what the user picked
@@ -205,6 +243,9 @@ namespace QuanLySV.Forms
 			}
 		}
 
+		/// <summary>
+		/// Clears the form controls and switches the save button back to add mode.
+		/// </summary>
 		private void resetForm()
 		{
 			CbxClassName.SelectedValue = "";
@@ -217,6 +258,9 @@ namespace QuanLySV.Forms
 			BtnSave.Text = "Thêm";
 		}
 
+		/// <summary>
+		/// Recalculates the letter grade whenever the score changes.
+		/// </summary>
 		private void TbxScore_TextChanged(object sender, EventArgs e)
 		{
 			if (TbxScore != null && TbxScore.Text != null && TbxScore.Text != "")

@@ -8,11 +8,15 @@ using QuanLySVModel;
 namespace QuanLySVDataBase
 {
 	/// <summary>
-	/// Represents the school year.
+	/// Data access for the SCHOOL_YEAR table. Keeps an in-memory <see cref="DataTable"/> cache
+	/// and pushes pending changes to Oracle through an <see cref="OracleDataAdapter"/>.
 	/// </summary>
 	public class SchoolYearDB
 	{
 		private DBHelper DBHelper = new DBHelper();
+		/// <summary>
+		/// Gets or sets the cached SCHOOL_YEAR table.
+		/// </summary>
 		public DataTable DBSchoolYear
 		{
 			get; set;
@@ -24,6 +28,9 @@ namespace QuanLySVDataBase
 		private OracleCommand updateSql;
 		private OracleCommand deleteSql;
 
+		/// <summary>
+		/// Creates the SELECT/INSERT/UPDATE/DELETE commands and binds them to the data adapter.
+		/// </summary>
 		public SchoolYearDB()
 		{
 			OracleConnection conn = new OracleConnection(DBHelper.ConnectionString);
@@ -68,6 +75,10 @@ namespace QuanLySVDataBase
 			_adapter.DeleteCommand = deleteSql;
 		}
 
+		/// <summary>
+		/// Loads the SCHOOL_YEAR table (ordered by start year) into the cache
+		/// (only when it is empty or <paramref name="forceReload"/> is true) and returns it.
+		/// </summary>
 		public DataTable FillData(bool forceReload = false)
 		{
 			if (DBSchoolYear == null || forceReload)
@@ -79,6 +90,9 @@ namespace QuanLySVDataBase
 			return DBSchoolYear;
 		}
 
+		/// <summary>
+		/// Adds a new school year row to the cache. The row is written to the database only when <see cref="SaveAll"/> is called.
+		/// </summary>
 		public bool CreateNewSchoolYear(SchoolYearModel schoolYear)
 		{
 			if (DBSchoolYear == null)
@@ -96,6 +110,10 @@ namespace QuanLySVDataBase
 			return true;
 		}
 
+		/// <summary>
+		/// Updates the cached row of the school year with the given id (the id itself may change).
+		/// Returns false when the school year is not found.
+		/// </summary>
 		public bool UpdateSchoolYear(SchoolYearModel schoolYear, string schoolYearId)
 		{
 			DataRow updateRow = FindSchoolYearById(schoolYearId);
@@ -114,6 +132,9 @@ namespace QuanLySVDataBase
 			}
 		}
 
+		/// <summary>
+		/// Marks the cached row of the school year with the given id as deleted. Returns false when it is not found.
+		/// </summary>
 		public bool DeleteSchoolYear(string schoolYearId)
 		{
 			DataRow deleteRow = FindSchoolYearById(schoolYearId);
@@ -125,6 +146,9 @@ namespace QuanLySVDataBase
 			return false;
 		}
 
+		/// <summary>
+		/// Writes all pending changes (insert/update/delete) of the cache to the database.
+		/// </summary>
 		public bool SaveAll()
 		{
 			if (HasChanges())
@@ -134,12 +158,19 @@ namespace QuanLySVDataBase
 			return true;
 		}
 
+		/// <summary>
+		/// Checks whether the cache contains unsaved changes.
+		/// </summary>
 		public bool HasChanges()
 		{
 			return DBSchoolYear != null && DBSchoolYear.GetChanges() != null;
 		}
 
 		// Filter school year data in table
+		/// <summary>
+		/// Returns a copy of the cache whose default view is filtered by school year name (contains) and status.
+		/// A status value of -1 means no status filter.
+		/// </summary>
 		public DataTable FilterSchoolYear(string schoolYearName = null, int status = -1)
 		{
 			ArrayList filters = new ArrayList();
@@ -157,6 +188,9 @@ namespace QuanLySVDataBase
 			return dataTable;
 		}
 
+		/// <summary>
+		/// Finds the non-deleted row with the given school year id. Returns null when not found.
+		/// </summary>
 		public DataRow FindSchoolYearById(string schoolYearId)
 		{
 			foreach (DataRow schoolYearRow in DBSchoolYear.Rows)

@@ -8,11 +8,15 @@ using QuanLySVModel;
 namespace QuanLySVDataBase
 {
 	/// <summary>
-	/// Represents the student academic.
+	/// Data access for the STUDENT_ACADEMIC table (joined with CLASS, SCHOOL_YEAR and SUBJECT for display names).
+	/// Keeps an in-memory cache of all records and pushes pending changes to Oracle through an <see cref="OracleDataAdapter"/>.
 	/// </summary>
 	public class StudentAcademicDB
 	{
 		private DBHelper DBHelper = new DBHelper();
+		/// <summary>
+		/// Gets or sets the cached STUDENT_ACADEMIC table (records of all students).
+		/// </summary>
 		public DataTable DBStudentAcademic
 		{
 			get; set;
@@ -24,6 +28,9 @@ namespace QuanLySVDataBase
 		private OracleCommand updateSql;
 		private OracleCommand deleteSql;
 
+		/// <summary>
+		/// Creates the SELECT/INSERT/UPDATE/DELETE commands and binds them to the data adapter.
+		/// </summary>
 		public StudentAcademicDB()
 		{
 			OracleConnection conn = new OracleConnection(DBHelper.ConnectionString);
@@ -77,6 +84,10 @@ namespace QuanLySVDataBase
 			_adapter.DeleteCommand = deleteSql;
 		}
 
+		/// <summary>
+		/// Loads all academic records into the cache (only when it is empty or <paramref name="forceReload"/> is true)
+		/// and returns a view of the current rows of the given student. Returns null when loading fails.
+		/// </summary>
 		public DataView FillData(string studentId, bool forceReload = false)
 		{
 			try
@@ -96,6 +107,9 @@ namespace QuanLySVDataBase
 			}
 		}
 
+		/// <summary>
+		/// Adds a new academic record row to the cache.
+		/// </summary>
 		public bool CreateRowStudentAcademic(StudentAcademicModel academic)
 		{
 			DataRow newRow = DBStudentAcademic.NewRow();
@@ -104,12 +118,18 @@ namespace QuanLySVDataBase
 			return true;
         }
 
+		/// <summary>
+		/// Overwrites the given cached row with the values of the academic model.
+		/// </summary>
 		public bool UpdateRowStudentAcademic(StudentAcademicModel academic, DataRow RowEditing)
 		{
 			SetRowValues(RowEditing, academic);
 			return true;
 		}
 
+		/// <summary>
+		/// Sets the STUDENTID column of every cached row to <paramref name="newStudentId"/>.
+		/// </summary>
 		public void UpdateStudentId(string newStudentId)
 		{
 			if (DBStudentAcademic == null)
@@ -122,6 +142,9 @@ namespace QuanLySVDataBase
 			}
 		}
 
+		/// <summary>
+		/// Writes all pending changes (insert/update/delete) of the cache to the database. Exceptions are rethrown.
+		/// </summary>
 		public bool SaveAll()
 		{
 			try
@@ -135,12 +158,19 @@ namespace QuanLySVDataBase
 			}
 		}
 
+		/// <summary>
+		/// Marks the given academic record row as deleted.
+		/// </summary>
 		public bool DeleteStudentAcademic(DataRow RowDelete)
 		{
 			RowDelete.Delete();
 			return true;
 		}
 
+		/// <summary>
+		/// Copies the values of a <see cref="StudentAcademicModel"/> into the given row
+		/// (AcademicId 0 and a missing score are stored as DBNull).
+		/// </summary>
 		private void SetRowValues(DataRow row, StudentAcademicModel academic)
 		{
 			row["ACADEMICID"] = academic.AcademicId == 0 ? DBNull.Value : (object)academic.AcademicId;

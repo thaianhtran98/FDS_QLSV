@@ -12,6 +12,9 @@ using QuanLySVModel;
 
 namespace QuanLySV.Controls
 {
+	/// <summary>
+	/// Tabs of the training info screen. <see cref="AllTab"/> is used to validate every tab at once.
+	/// </summary>
 	public enum TrainingInfoTab
 	{
 		Class = 0,
@@ -20,6 +23,9 @@ namespace QuanLySV.Controls
 		AllTab = 3
 	}
 
+	/// <summary>
+	/// User control to manage classes, school years and subjects, each on its own tab.
+	/// </summary>
 	public partial class UcTrainingInfo : UserControl
 	{
 		// Define
@@ -33,12 +39,18 @@ namespace QuanLySV.Controls
 		private bool SchoolFormEditing = false;
 		private bool SubjectFormEditing = false;
 
+		/// <summary>
+		/// Initializes the components and the default school year values.
+		/// </summary>
 		public UcTrainingInfo()
 		{
 			InitializeComponent();
 			LoadInit();
         }
 
+		/// <summary>
+		/// Sets the default school year range (this year to next year) and its display name.
+		/// </summary>
 		private void LoadInit()
 		{
 			DtpStartYear.Value = DateTime.Today;
@@ -46,6 +58,9 @@ namespace QuanLySV.Controls
 			TbxSchoolYearName.Text = DtpStartYear.Value.ToString("yyyy") + " - " + DtpEndYear.Value.ToString("yyyy");
 		}
 
+		/// <summary>
+		/// Selects the tab shown first.
+		/// </summary>
 		public void Initialize(TrainingInfoTab initialTab = TrainingInfoTab.Class)
 		{
 			switch (initialTab)
@@ -62,6 +77,9 @@ namespace QuanLySV.Controls
 			}
 		}
 
+		/// <summary>
+		/// Injects the business objects, creates empty current models and reloads the three grids from the database.
+		/// </summary>
 		public void LoadBussiness(ClassInfoBussiness classInfoBussiness, SchoolYearBussiness schoolYearBussiness, SubjectBussiness subjectBussiness)
 		{
 			ClassInfoBus = classInfoBussiness;
@@ -79,6 +97,9 @@ namespace QuanLySV.Controls
 		// End define
 
 		// ClassInfo
+		/// <summary>
+		/// Binds the class table to the class grid.
+		/// </summary>
 		private void LoadClassData(bool forceReload = false)
 		{
 			DataTable dt = ClassInfoBus.FillClassInfo(forceReload);
@@ -86,6 +107,9 @@ namespace QuanLySV.Controls
 			DgvListClass.DataSource = dt;
 		}
 
+		/// <summary>
+		/// Validates the class form, then updates the selected class or adds a new one to the cache.
+		/// </summary>
 		private void BtnTempSaveClass_Click(object sender, EventArgs e)
 		{
 			string message = null;
@@ -115,6 +139,9 @@ namespace QuanLySV.Controls
 		}
 
 		// CellClick only fires on user click, not when the grid is bound/reloaded
+		/// <summary>
+		/// Loads the clicked class row into the form and switches the class form to edit mode.
+		/// </summary>
 		private void DgvListClass_CellClick(object sender, DataGridViewCellEventArgs e)
 		{
 			// Header row or delete button (handled in CellContentClick)
@@ -139,6 +166,9 @@ namespace QuanLySV.Controls
 			ClassFormEditing = true;
 		}
 
+		/// <summary>
+		/// Deletes the class when its delete button is clicked.
+		/// </summary>
 		private void DgvListClass_CellContentClick(object sender, DataGridViewCellEventArgs e)
 		{
 			if (e.RowIndex < 0)
@@ -157,6 +187,9 @@ namespace QuanLySV.Controls
 			}
 		}
 
+		/// <summary>
+		/// Copies the class form values into <c>ClassInfoCurrent</c>.
+		/// </summary>
 		private void SetClassCurrent()
 		{
 			ClassInfoCurrent.ClassId = TbxClassId.Text;
@@ -167,6 +200,9 @@ namespace QuanLySV.Controls
 		// End ClassInfo
 
 		// SchoolYear
+		/// <summary>
+		/// Binds the school year table to the school year grid.
+		/// </summary>
 		private void LoadSchoolYearData(bool forceReload = false)
 		{
 			DataTable dt = SchoolYearBus.FillSchoolYear(forceReload);
@@ -174,16 +210,26 @@ namespace QuanLySV.Controls
 			DgvListSchoolYear.DataSource = dt;
 		}
 
+		/// <summary>
+		/// Updates the school year name when the start year changes.
+		/// </summary>
 		private void DtpStartYear_ValueChanged(object sender, EventArgs e)
 		{
 			TbxSchoolYearName.Text = DtpStartYear.Value.ToString("yyyy") + " - " + DtpEndYear.Value.ToString("yyyy");
 		}
 
+		/// <summary>
+		/// Updates the school year name when the end year changes.
+		/// </summary>
 		private void DtpEndYear_ValueChanged(object sender, EventArgs e)
 		{
 			TbxSchoolYearName.Text = DtpStartYear.Value.ToString("yyyy") + " - " + DtpEndYear.Value.ToString("yyyy");
 		}
 
+		/// <summary>
+		/// Validates the school year form, rejects duplicated ids, then updates the selected school year
+		/// or adds a new one to the cache.
+		/// </summary>
 		private void BtnTempSaveSchoolYear_Click(object sender, EventArgs e)
 		{
 			string message = null;
@@ -223,6 +269,9 @@ namespace QuanLySV.Controls
 			MessageBox.Show(message);
 		}
 
+		/// <summary>
+		/// Copies the school year form values into <c>SchoolYearCurrent</c>; the id is built as NH{start}-{end}.
+		/// </summary>
 		private void SetSchoolYearCurrent()
 		{
 			SchoolYearCurrent.StartYear = DtpStartYear.Value.Year;
@@ -232,6 +281,9 @@ namespace QuanLySV.Controls
 			SchoolYearCurrent.Status = ChkStatusSchoolYear.Checked ? SchoolYearModel.ACTIVE : SchoolYearModel.INACTIVE;
 		}
 
+		/// <summary>
+		/// Deletes the school year when its delete button is clicked.
+		/// </summary>
 		private void DgvListSchoolYear_CellContentClick(object sender, DataGridViewCellEventArgs e)
 		{
 			if (e.RowIndex < 0)
@@ -251,6 +303,9 @@ namespace QuanLySV.Controls
 			}
 		}
 
+		/// <summary>
+		/// Loads the clicked school year row into the form and switches the school year form to edit mode.
+		/// </summary>
 		private void DgvListSchoolYear_CellClick(object sender, DataGridViewCellEventArgs e)
 		{
 			if (e.RowIndex < 0 || e.ColumnIndex == DgvColActionDeleteSchoolYear.Index)
@@ -281,6 +336,9 @@ namespace QuanLySV.Controls
 		// End SchoolYear
 
 		// Subject
+		/// <summary>
+		/// Binds the subject table to the subject grid.
+		/// </summary>
 		private void LoadSubjectData(bool forceReload = false)
 		{
 			DataTable dt = SubjectBus.FillSubject(forceReload);
@@ -288,6 +346,10 @@ namespace QuanLySV.Controls
 			DgvSubject.DataSource = dt;
 		}
 
+		/// <summary>
+		/// Validates the subject form, then updates the selected subject
+		/// or adds a new one (with an auto-generated MHxx id) to the cache.
+		/// </summary>
 		private void BtnTempSaveSubject_Click(object sender, EventArgs e)
 		{
 			string message = null;
@@ -318,6 +380,9 @@ namespace QuanLySV.Controls
 			MessageBox.Show(message);
 		}
 
+		/// <summary>
+		/// Copies the subject form values into <c>SubjectCurrent</c>.
+		/// </summary>
 		private void SetSubjectCurrent()
 		{
 			SubjectCurrent.SubjectId = TbxSubjectId.Text;
@@ -327,6 +392,9 @@ namespace QuanLySV.Controls
 			SubjectCurrent.Status = ChkSubjectStatus.Checked ? SubjectModel.ACTIVE : SubjectModel.INACTIVE;
 		}
 
+		/// <summary>
+		/// Deletes the subject when its delete button is clicked.
+		/// </summary>
 		private void DgvSubject_CellContentClick(object sender, DataGridViewCellEventArgs e)
 		{
 			if (e.RowIndex < 0)
@@ -346,6 +414,9 @@ namespace QuanLySV.Controls
 			}
 		}
 
+		/// <summary>
+		/// Loads the clicked subject row into the form and switches the subject form to edit mode.
+		/// </summary>
 		private void DgvSubject_CellClick(object sender, DataGridViewCellEventArgs e)
 		{
 			if (e.RowIndex < 0 || e.ColumnIndex == DgvColSubjectAction.Index)
@@ -375,12 +446,18 @@ namespace QuanLySV.Controls
 		// End Subject
 
 		// Do not highlight the first row after binding, so the form starts empty
+		/// <summary>
+		/// Clears the default selection after binding so no row is highlighted.
+		/// </summary>
 		private void Dgv_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
 		{
 			((DataGridView)sender).ClearSelection();
 		}
 
 		// Click on the empty area of the grid (no row/cell) -> clear selection and reset form
+		/// <summary>
+		/// Clicking the empty area of a grid clears the selection and resets the matching form.
+		/// </summary>
 		private void Dgv_MouseDown(object sender, MouseEventArgs e)
 		{
 			DataGridView dgv = (DataGridView)sender;
@@ -404,6 +481,9 @@ namespace QuanLySV.Controls
 			}
 		}
 
+		/// <summary>
+		/// Saves pending changes of classes, school years and subjects to the database.
+		/// </summary>
 		private void BtnSave_Click(object sender, EventArgs e)
 		{
 			string message = "Thành công";
@@ -415,6 +495,10 @@ namespace QuanLySV.Controls
 			MessageBox.Show(message);
 		}
 
+		/// <summary>
+		/// Validates the required fields of the given tab (or of every tab with <see cref="TrainingInfoTab.AllTab"/>).
+		/// Returns false and the error list in <paramref name="errMessage"/> when validation fails.
+		/// </summary>
 		private bool Validator(TrainingInfoTab tabInfo, out string errMessage)
 		{
 			errMessage = "Lỗi:";
@@ -462,6 +546,9 @@ namespace QuanLySV.Controls
 			return errMessage == "Lỗi:" ? true : false;
 		}
 
+		/// <summary>
+		/// Clears the form of the given tab and switches it back to add mode.
+		/// </summary>
 		private void ResetForm(TrainingInfoTab tab = TrainingInfoTab.Class)
 		{
 			switch (tab)
@@ -493,6 +580,10 @@ namespace QuanLySV.Controls
 			}
 		}
 
+		/// <summary>
+		/// Asks for confirmation, then marks the class, school year or subject with the given id as deleted
+		/// and shows the result.
+		/// </summary>
 		public void DeleteTrainingInfo(string trainingInfoId, string trainingInfoName, TrainingInfoTab tab = TrainingInfoTab.Class)
 		{
 			bool success = false;
@@ -552,6 +643,9 @@ namespace QuanLySV.Controls
 			MessageBox.Show(message);
 		}
 
+		/// <summary>
+		/// Reloads the three grids from the database.
+		/// </summary>
 		public void LoadAllData()
 		{
 			LoadClassData(true);

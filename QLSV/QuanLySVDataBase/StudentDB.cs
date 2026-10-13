@@ -13,12 +13,16 @@ using QuanLySVModel;
 namespace QuanLySVDataBase
 {
 	/// <summary>
-	/// Represents the student.
+	/// Data access for the STUDENT table. Keeps an in-memory <see cref="DataTable"/> cache
+	/// and pushes pending changes to Oracle through an <see cref="OracleDataAdapter"/>.
 	/// </summary>
 	public class StudentDB
 	{
 		private DBHelper DBHelper = new DBHelper();
 		private StudentModel StudentMod;
+		/// <summary>
+		/// Gets or sets the cached STUDENT table.
+		/// </summary>
 		public DataTable DBStudent
 		{
 			get; set;
@@ -30,6 +34,9 @@ namespace QuanLySVDataBase
 		private OracleCommand updateSql;
 		private OracleCommand deteleSql;
 
+		/// <summary>
+		/// Creates the SELECT/INSERT/UPDATE/DELETE commands and binds them to the data adapter.
+		/// </summary>
 		public StudentDB()
 		{
 			StudentMod = new StudentModel();
@@ -82,6 +89,10 @@ namespace QuanLySVDataBase
 			_adapter.DeleteCommand = deteleSql;
 		}
 
+		/// <summary>
+		/// Loads the STUDENT table into the cache (only when it is empty or <paramref name="forceReload"/> is true)
+		/// and returns it. Returns null when loading fails.
+		/// </summary>
 		public DataTable FillData(bool forceReload = false)
 		{
 			try
@@ -101,6 +112,9 @@ namespace QuanLySVDataBase
 			
 		}
 
+		/// <summary>
+		/// Adds a new student row to the cache. The row is written to the database only when <see cref="SaveAll"/> is called.
+		/// </summary>
 		public bool CreatNewStudent(StudentModel student)
 		{
 			if (DBStudent == null)
@@ -114,6 +128,9 @@ namespace QuanLySVDataBase
 			return true;
 		}
 
+		/// <summary>
+		/// Updates the cached row of the student with the given id. Returns false when the student is not found.
+		/// </summary>
 		public bool UpdateStudent(StudentModel student, string studentId)
 		{
 			DataRow updateRow = FindStudentById(studentId);
@@ -129,6 +146,9 @@ namespace QuanLySVDataBase
 
 		}
 
+		/// <summary>
+		/// Marks the cached row of the student with the given id as deleted. Returns false when the student is not found.
+		/// </summary>
 		public bool DeleteStudent(string studentId)
 		{
 			DataRow deleteRow = FindStudentById(studentId);
@@ -140,6 +160,10 @@ namespace QuanLySVDataBase
 			return false;
 		}
 
+		/// <summary>
+		/// Writes all pending changes (insert/update/delete) of the cache to the database.
+		/// Returns false and sets <paramref name="errMessage"/> when the save fails.
+		/// </summary>
 		public bool SaveAll(out string errMessage) {
             errMessage = null;
             try
@@ -157,12 +181,19 @@ namespace QuanLySVDataBase
 			}
 		}
 
+		/// <summary>
+		/// Checks whether the cache contains unsaved changes.
+		/// </summary>
 		public bool HasChanges()
 		{
 			return DBStudent != null && DBStudent.GetChanges() != null;
 		}
 
 		// Filter student data in table
+		/// <summary>
+		/// Returns a copy of the cache whose default view is filtered by name (contains) and sex.
+		/// A sex value of -1 means no sex filter.
+		/// </summary>
 		public DataTable FilterStudent(string name = null, int sex = -1)
 		{
 			ArrayList filters = new ArrayList();
@@ -189,6 +220,10 @@ namespace QuanLySVDataBase
 			return dataTable;
 		}
 
+		/// <summary>
+		/// Finds the non-deleted row with the given student id (loads the cache first if needed).
+		/// Returns null when not found.
+		/// </summary>
 		public DataRow FindStudentById(string studentId)
 		{
             if (DBStudent == null)
@@ -211,6 +246,9 @@ namespace QuanLySVDataBase
 			return null;
 		}
 
+		/// <summary>
+		/// Copies the values of a <see cref="StudentModel"/> into the given row.
+		/// </summary>
 		private void SetRowValues(DataRow row, StudentModel student)
 		{
 			row["STUDENTID"] = student.StudentId;

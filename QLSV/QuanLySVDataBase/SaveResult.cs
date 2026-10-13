@@ -3,34 +3,34 @@
 namespace QuanLySVDataBase
 {
 	/// <summary>
-	/// Represents the save result.
+	/// Represents the result of a batch save: success/failure counts and error messages.
 	/// </summary>
 	public class SaveResult
 	{
 		/// <summary>
-		/// Gets or sets the success.
+		/// Gets or sets the number of records saved successfully.
 		/// </summary>
 		public int Success { get; set; }
 		/// <summary>
-		/// Gets or sets the failed.
+		/// Gets or sets the number of records that failed to save.
 		/// </summary>
 		public int Failed { get; set; }
 		/// <summary>
-		/// Gets or sets the total.
+		/// Gets the total number of processed records (<see cref="Success"/> + <see cref="Failed"/>).
 		/// </summary>
 		public int Total { get { return Success + Failed; } }
 		/// <summary>
-		/// Gets or sets the errors.
+		/// Gets or sets the error messages collected during the save.
 		/// </summary>
 		public List<string> Errors { get; set; }
 
 		/// <summary>
-		/// Gets or sets the has success.
+		/// Gets a value indicating whether at least one record was saved successfully.
 		/// </summary>
 		public bool HasSuccess { get { return Success > 0; } }
 
 		/// <summary>
-		/// Handles the save result logic.
+		/// Initializes a new instance with an empty error list.
 		/// </summary>
 		public SaveResult()
 		{
@@ -38,7 +38,7 @@ namespace QuanLySVDataBase
 		}
 
 		/// <summary>
-		/// Handles the to string logic.
+		/// Returns a readable summary of the result (successes / total | failures).
 		/// </summary>
 		public override string ToString()
 		{

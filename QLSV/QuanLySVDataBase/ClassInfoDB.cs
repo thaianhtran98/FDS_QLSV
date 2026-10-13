@@ -8,11 +8,15 @@ using QuanLySVModel;
 namespace QuanLySVDataBase
 {
 	/// <summary>
-	/// Represents the class info.
+	/// Data access for the CLASS table. Keeps an in-memory <see cref="DataTable"/> cache
+	/// and pushes pending changes to Oracle through an <see cref="OracleDataAdapter"/>.
 	/// </summary>
 	public class ClassInfoDB
 	{
 		private DBHelper DBHelper = new DBHelper();
+		/// <summary>
+		/// Gets or sets the cached CLASS table.
+		/// </summary>
 		public DataTable DBClassInfo
 		{
 			get; set;
@@ -24,6 +28,9 @@ namespace QuanLySVDataBase
 		private OracleCommand updateSql;
 		private OracleCommand deleteSql;
 
+		/// <summary>
+		/// Creates the SELECT/INSERT/UPDATE/DELETE commands and binds them to the data adapter.
+		/// </summary>
 		public ClassInfoDB()
 		{
 			OracleConnection conn = new OracleConnection(DBHelper.ConnectionString);
@@ -66,6 +73,9 @@ namespace QuanLySVDataBase
 			_adapter.DeleteCommand = deleteSql;
 		}
 
+		/// <summary>
+		/// Loads the CLASS table into the cache (only when it is empty or <paramref name="forceReload"/> is true) and returns it.
+		/// </summary>
 		public DataTable FillData(bool forceReload = false)
 		{
 			if (DBClassInfo == null || forceReload)
@@ -77,6 +87,9 @@ namespace QuanLySVDataBase
 			return DBClassInfo;
 		}
 
+		/// <summary>
+		/// Adds a new class row to the cache. The row is written to the database only when <see cref="SaveAll"/> is called.
+		/// </summary>
 		public bool CreateNewClass(ClassInfoModel classInfo)
 		{
 			if (DBClassInfo == null)
@@ -93,6 +106,10 @@ namespace QuanLySVDataBase
 			return true;
 		}
 
+		/// <summary>
+		/// Updates the cached row of the class with the given id (the class id itself may change).
+		/// Returns false when the class is not found.
+		/// </summary>
 		public bool UpdateClass(ClassInfoModel classInfo, string classId)
 		{
 			DataRow updateRow = FindClassById(classId);
@@ -110,6 +127,9 @@ namespace QuanLySVDataBase
 			}
 		}
 
+		/// <summary>
+		/// Marks the cached row of the class with the given id as deleted. Returns false when the class is not found.
+		/// </summary>
 		public bool DeleteClass(string classId)
 		{
 			DataRow deleteRow = FindClassById(classId);
@@ -121,6 +141,9 @@ namespace QuanLySVDataBase
 			return false;
 		}
 
+		/// <summary>
+		/// Writes all pending changes (insert/update/delete) of the cache to the database.
+		/// </summary>
 		public bool SaveAll()
 		{
 			if (HasChanges())
@@ -130,12 +153,19 @@ namespace QuanLySVDataBase
 			return true;
 		}
 
+		/// <summary>
+		/// Checks whether the cache contains unsaved changes.
+		/// </summary>
 		public bool HasChanges()
 		{
 			return DBClassInfo != null && DBClassInfo.GetChanges() != null;
 		}
 
 		// Filter class data in table
+		/// <summary>
+		/// Returns a copy of the cache whose default view is filtered by class name (contains) and status.
+		/// A status value of -1 means no status filter.
+		/// </summary>
 		public DataTable FilterClass(string className = null, int status = -1)
 		{
 			ArrayList filters = new ArrayList();
@@ -153,6 +183,9 @@ namespace QuanLySVDataBase
 			return dataTable;
 		}
 
+		/// <summary>
+		/// Finds the non-deleted row with the given class id. Returns null when not found.
+		/// </summary>
 		public DataRow FindClassById(string classId)
 		{
 			foreach (DataRow classRow in DBClassInfo.Rows)

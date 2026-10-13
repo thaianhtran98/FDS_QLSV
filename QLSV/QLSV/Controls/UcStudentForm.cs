@@ -14,6 +14,9 @@ using QuanLySVModel;
 
 namespace QuanLySV.Controls
 {
+	/// <summary>
+	/// User control to create or edit a student and manage the student's academic records.
+	/// </summary>
 	public partial class UcStudentForm : UserControl
 	{
 		private StudentModel StudentCurrent;
@@ -23,6 +26,9 @@ namespace QuanLySV.Controls
 		private string StudentIdSelected = null;
 		private bool Loading = false;
 
+		/// <summary>
+		/// Initializes the control with an empty student model.
+		/// </summary>
 		public UcStudentForm()
 		{
 			Loading = true;
@@ -31,6 +37,9 @@ namespace QuanLySV.Controls
 			Loading = false;
 		}
 
+		/// <summary>
+		/// Injects the business objects. When <paramref name="studentId"/> is given, loads that student into the form (edit mode).
+		/// </summary>
 		public void InitLoad(StudentBussiness studentBussiness, StudentAcademicBussiness studentAcademicBussiness, string studentId = null)
 		{
 			Loading = true;
@@ -44,6 +53,10 @@ namespace QuanLySV.Controls
 			Loading = false;
 		}								
 
+		/// <summary>
+		/// Loads the student with the given id into the form controls and its academic records into the grid,
+		/// then switches the form to edit mode.
+		/// </summary>
 		private void LoadStudentById(string studentId)
 		{
 			Loading = true;
@@ -88,6 +101,9 @@ namespace QuanLySV.Controls
 			Loading = false;
 		}
 
+		/// <summary>
+		/// Updates <c>StudentCurrent.Sex</c> from the checked radio button (its Tag holds the sex value).
+		/// </summary>
 		private void SexCheckedChanged(object sender, EventArgs e)
 		{
 			foreach (Control ctl in PnlSex.Controls)
@@ -104,6 +120,9 @@ namespace QuanLySV.Controls
 		}
 
 		// start StudentAcademic
+		/// <summary>
+		/// Binds the academic records of the given student to the learning grid.
+		/// </summary>
 		private void LoadStudentAcademic(string studentId)
 		{
 			DataView studentAcademicView = StudentAcademicBus.FillStudentAcademic(studentId);
@@ -113,6 +132,10 @@ namespace QuanLySV.Controls
 		
 		// end StudentAcademic																   
 
+		/// <summary>
+		/// Validates the form, copies the values into <c>StudentCurrent</c>, then creates or updates
+		/// the student in the cache (saved to the database later from the student list).
+		/// </summary>
 		private void BtnTempSave_Click(object sender, EventArgs e)
 		{
 			string message = null;
@@ -149,6 +172,9 @@ namespace QuanLySV.Controls
             MessageBox.Show(message);
 		}
 
+		/// <summary>
+		/// Opens the dialog to add a new academic record for the student id entered in the form.
+		/// </summary>
 		private void BtnCreateLearning_Click(object sender, EventArgs e)
 		{
 			if (TbxStudentId.Text == null || TbxStudentId.Text == "")
@@ -168,6 +194,10 @@ namespace QuanLySV.Controls
 			}
 		}
 
+		/// <summary>
+		/// Checks the required fields and, in add mode, that the student id is not used yet.
+		/// Returns false and the error list in <paramref name="message"/> when validation fails.
+		/// </summary>
 		private bool Validator(out string message)
 		{
 			message = "Lỗi:";
@@ -188,6 +218,10 @@ namespace QuanLySV.Controls
 			return message == "Lỗi:" ? true : false;  
 		}
 
+		/// <summary>
+		/// Handles the Edit/Delete buttons of the learning grid: opens the edit dialog,
+		/// or deletes the academic record after confirmation.
+		/// </summary>
 		private void DgvLearningList_CellContentClick(object sender, DataGridViewCellEventArgs e)
 		{
 			if (e.RowIndex < 0)
@@ -232,6 +266,10 @@ namespace QuanLySV.Controls
 			}
 		}
 
+		/// <summary>
+		/// When leaving the student id box: warns if the id already exists,
+		/// otherwise applies the new id to the cached academic records.
+		/// </summary>
 		private void TbxStudentId_Leave(object sender, EventArgs e)
 		{
 			if (Loading) return;

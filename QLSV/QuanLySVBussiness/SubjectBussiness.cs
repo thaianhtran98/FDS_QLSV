@@ -9,20 +9,32 @@ using QuanLySVModel;
 
 namespace QuanLySVBussiness
 {
+	/// <summary>
+	/// Business layer for subjects; forwards calls to <see cref="SubjectDB"/> and maps rows to <see cref="SubjectModel"/>.
+	/// </summary>
 	public class SubjectBussiness
 	{
 		SubjectDB _SubjectDB = new SubjectDB();
 
+		/// <summary>
+		/// Returns the cached subject table, reloading it from the database when <paramref name="forceReload"/> is true.
+		/// </summary>
 		public DataTable FillSubject(bool forceReload = false)
 		{
 			return _SubjectDB.FillData(forceReload);
 		}
 
+		/// <summary>
+		/// Adds a new subject to the cache (not saved to the database yet).
+		/// </summary>
 		public bool CreatNewSubject(SubjectModel subject)
 		{
 			return _SubjectDB.CreateNewSubject(subject);
 		}
 
+		/// <summary>
+		/// Finds a subject by id and maps the row to a <see cref="SubjectModel"/>. Returns null when not found.
+		/// </summary>
 		public SubjectModel FindSubjectById(string subjectId)
 		{
 			DataRow subjectRow = _SubjectDB.FindSubjectById(subjectId);
@@ -41,6 +53,10 @@ namespace QuanLySVBussiness
 		}
 
 		// Generate next subject id (MH01, MH02, ...)
+		/// <summary>
+		/// Generates the next subject id (MH01, MH02, ...) from the highest existing MHxx id,
+		/// including rows that are deleted but not saved yet.
+		/// </summary>
 		public string GenerateSubjectId()
 		{
 			DataTable dt = _SubjectDB.FillData();
@@ -62,21 +78,33 @@ namespace QuanLySVBussiness
 			return "MH" + (maxNumber + 1).ToString("00");
 		}
 
+		/// <summary>
+		/// Updates the cached subject with the given id.
+		/// </summary>
 		public bool UpdateSubject(SubjectModel subject, string subjectId)
 		{
 			return _SubjectDB.UpdateSubject(subject, subjectId);
 		}
 
+		/// <summary>
+		/// Marks the subject with the given id as deleted in the cache.
+		/// </summary>
 		public bool DeleteSubject(string subjectId)
 		{
 			return _SubjectDB.DeleteSubject(subjectId);
 		}
 
+		/// <summary>
+		/// Checks whether there are unsaved subject changes.
+		/// </summary>
 		public bool HasChanges()
 		{
 			return _SubjectDB.HasChanges();
 		}
 
+		/// <summary>
+		/// Saves all pending subject changes to the database.
+		/// </summary>
 		public bool SaveAll()
 		{
 			return _SubjectDB.SaveAll();

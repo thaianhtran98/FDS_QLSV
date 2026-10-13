@@ -12,6 +12,9 @@ using QuanLySVBussiness;
 
 namespace QuanLySV.Forms
 {
+	/// <summary>
+	/// Main window. Owns the shared business objects and shows each screen (user control) in <c>PnlMain</c>.
+	/// </summary>
 	public partial class FrmMain : Form
 	{
 		private StudentBussiness StudentBus;
@@ -20,6 +23,9 @@ namespace QuanLySV.Forms
 		private SubjectBussiness SubjectBus;
 		private StudentAcademicBussiness StudentAcademicBus;
 
+		/// <summary>
+		/// Creates the shared business objects and initializes the form components.
+		/// </summary>
 		public FrmMain()
 		{
 			StudentBus = new StudentBussiness();
@@ -30,6 +36,9 @@ namespace QuanLySV.Forms
 			InitializeComponent();
 		}
 
+		/// <summary>
+		/// Replaces the content of <c>PnlMain</c> with the given user control (docked to fill).
+		/// </summary>
 		private void ShowUc(UserControl control)
 		{
 			PnlMain.Controls.Clear();
@@ -39,6 +48,9 @@ namespace QuanLySV.Forms
 			control.Focus();
 		}
 
+		/// <summary>
+		/// Opens the student list screen.
+		/// </summary>
 		private void MnuItemList_Click(object sender, EventArgs e)
 		{
 			UcStudentList uc = new UcStudentList();
@@ -46,6 +58,9 @@ namespace QuanLySV.Forms
 			ShowUc(uc);
 		}
 
+		/// <summary>
+		/// Opens an empty student form to create a new student.
+		/// </summary>
 		private void MnuItemCreate_Click(object sender, EventArgs e)
 		{
 			UcStudentForm uc = new UcStudentForm();
@@ -53,6 +68,9 @@ namespace QuanLySV.Forms
 			ShowUc(uc);
         }
 
+		/// <summary>
+		/// Opens the training info screen (classes, school years, subjects).
+		/// </summary>
 		private void MnuQldm_Click(object sender, EventArgs e)
 		{
 			UcTrainingInfo uc = new UcTrainingInfo();

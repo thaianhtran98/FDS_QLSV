@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace QuanLySVModel
 {
+    /// <summary>
+    /// Represents a subject.
+    /// </summary>
     public class SubjectModel
     {
 		/// <summary>
@@ -39,7 +42,7 @@ namespace QuanLySVModel
 		public int Status { get; set; }
 
 		/// <summary>
-		/// Handles the to string logic.
+		/// Returns the subject name (used as display text).
 		/// </summary>
 		public override string ToString() { return SubjectName; }
 	}

@@ -13,22 +13,34 @@ using QuanLySVModel;
 
 namespace QuanLySV.Controls
 {
+	/// <summary>
+	/// User control listing the students with name/sex filters and edit, delete and save actions.
+	/// </summary>
 	public partial class UcStudentList : UserControl
 	{
 		private StudentBussiness StudentBus;
 		private StudentAcademicBussiness StudentAcademicBus;
 
+		/// <summary>
+		/// Item of the sex filter combo box (display text and value).
+		/// </summary>
 		private class GenderItem
 		{
 			public int Value { get; set; }
 			public string Text { get; set; }
 		}
 
+		/// <summary>
+		/// Initializes the control components.
+		/// </summary>
 		public UcStudentList()
 		{
 			InitializeComponent();
         }
 
+		/// <summary>
+		/// Injects the business objects, then loads the student grid and the sex filter list.
+		/// </summary>
 		public void InitLoad(StudentBussiness studentBussiness, StudentAcademicBussiness studentAcademicBussiness)
 		{
 			StudentAcademicBus = studentAcademicBussiness;
@@ -37,6 +49,9 @@ namespace QuanLySV.Controls
 			LoadFilterList();
 		}
 
+		/// <summary>
+		/// Binds the student table to the grid and shows the save button/notification when there are unsaved changes.
+		/// </summary>
 		private void LoadData(bool forceReload = false)
 		{
 			DataTable dt = StudentBus.FillStudent(forceReload);
@@ -55,6 +70,9 @@ namespace QuanLySV.Controls
 			}
         }
 
+		/// <summary>
+		/// Fills the sex filter combo box (all / female / male).
+		/// </summary>
 		private void LoadFilterList()
 		{
 			ArrayList gender = new ArrayList();
@@ -67,6 +85,10 @@ namespace QuanLySV.Controls
 			CbxSex.DataSource = gender;
 		}
 
+		/// <summary>
+		/// Filters the grid by name and the selected sex.
+		/// Note: not wired to any event (the designer uses <see cref="CbxSex_SelectedIndexChanged_1"/>).
+		/// </summary>
 		private void CbxSex_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			string name = TbxNameFilter.Text;
@@ -75,16 +97,25 @@ namespace QuanLySV.Controls
 			DgvStudentList.DataSource = dt;
 		}
 
+		/// <summary>
+		/// Re-applies the filter when the selected sex changes.
+		/// </summary>
 		private void CbxSex_SelectedIndexChanged_1(object sender, EventArgs e)
 		{
 			filter();
 		}
 
+		/// <summary>
+		/// Re-applies the filter when the name filter text changes.
+		/// </summary>
 		private void TbxNameFilter_TextChanged(object sender, EventArgs e)
 		{
 			filter();
         }
 
+		/// <summary>
+		/// Filters the student grid by the name text and the selected sex (-1 = all).
+		/// </summary>
 		private void filter()
 		{
 			string name = TbxNameFilter.Text;
@@ -97,6 +128,10 @@ namespace QuanLySV.Controls
 			DgvStudentList.DataSource = dt;
 		}
 
+		/// <summary>
+		/// Handles the Edit/Delete buttons: opens the student form (edit mode) in the parent container,
+		/// or marks the student as deleted after confirmation.
+		/// </summary>
 		private void DgvStudentList_CellContentClick(object sender, DataGridViewCellEventArgs e)
 		{
 			if (e.RowIndex < 0)
@@ -127,6 +162,9 @@ namespace QuanLySV.Controls
 			}
 		}
 
+		/// <summary>
+		/// Colors each row by its state: added = light green, modified = light yellow, otherwise white.
+		/// </summary>
 		private void DgvStudentList_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
 		{
 			DataGridViewRow gridRow = DgvStudentList.Rows[e.RowIndex];
@@ -150,6 +188,9 @@ namespace QuanLySV.Controls
 			}
 		}
 
+		/// <summary>
+		/// Saves pending student and academic record changes to the database, then reloads the grid.
+		/// </summary>
 		private void BtnSave_Click(object sender, EventArgs e)
 		{
             string errMessage = null;
@@ -165,6 +206,9 @@ namespace QuanLySV.Controls
             }
         }
 
+		/// <summary>
+		/// Displays the sex column as "Nam"/"Nữ" instead of 1/0.
+		/// </summary>
 		private void DgvStudentList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
 		{
 			if (e.RowIndex < 0)

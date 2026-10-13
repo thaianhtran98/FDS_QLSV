@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace QuanLySVModel
 {
+    /// <summary>
+    /// Represents a student (personal information and status).
+    /// </summary>
     public class StudentModel
     {
 		/// <summary>
@@ -62,7 +65,7 @@ namespace QuanLySVModel
 		/// </summary>
 		public string LocalOfIssue { get; set; }
 		/// <summary>
-		/// Gets or sets the local.
+		/// Gets or sets the hometown.
 		/// </summary>
 		public string Hometown { get; set; }
 		/// <summary>

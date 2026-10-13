@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace QuanLySVModel
 {
+    /// <summary>
+    /// Represents a class.
+    /// </summary>
     public class ClassInfoModel
     {
 		/// <summary>
@@ -35,7 +38,7 @@ namespace QuanLySVModel
 		public int Status { get; set; }
 
 		/// <summary>
-		/// Handles the to string logic.
+		/// Returns the class name (used as display text).
 		/// </summary>
 		public override string ToString() { return ClassName; }
 	}
