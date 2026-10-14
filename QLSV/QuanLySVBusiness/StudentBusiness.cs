@@ -7,12 +7,12 @@ using System.Data;
 using QuanLySVDataBase;
 using QuanLySVModel;
 
-namespace QuanLySVBussiness
+namespace QuanLySVBusiness
 {
 	/// <summary>
 	/// Business layer for students; forwards calls to <see cref="StudentDB"/> and maps rows to <see cref="StudentModel"/>.
 	/// </summary>
-	public class StudentBussiness
+	public class StudentBusiness
 	{
 		StudentDB _StudentDB = new StudentDB();
 
@@ -21,7 +21,7 @@ namespace QuanLySVBussiness
 		/// </summary>
 		public DataTable FillStudent(bool forceReload = false)
 		{
-			return _StudentDB.FillData();
+			return _StudentDB.FillData(forceReload);
 		}
 
 		/// <summary>
@@ -35,9 +35,9 @@ namespace QuanLySVBussiness
 		/// <summary>
 		/// Adds a new student to the cache (not saved to the database yet).
 		/// </summary>
-		public bool CreatNewStudent(StudentModel student)
+		public bool CreateNewStudent(StudentModel student)
 		{
-			return _StudentDB.CreatNewStudent(student);
+			return _StudentDB.CreateNewStudent(student);
 		}
 
 		/// <summary>

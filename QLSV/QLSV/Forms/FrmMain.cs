@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using QuanLySV.Controls;
-using QuanLySVBussiness;
+using QuanLySVBusiness;
 
 namespace QuanLySV.Forms
 {
@@ -17,22 +17,22 @@ namespace QuanLySV.Forms
 	/// </summary>
 	public partial class FrmMain : Form
 	{
-		private StudentBussiness StudentBus;
-		private ClassInfoBussiness ClassInfoBus;
-		private SchoolYearBussiness SchoolYearBus;
-		private SubjectBussiness SubjectBus;
-		private StudentAcademicBussiness StudentAcademicBus;
+		private StudentBusiness StudentBus;
+		private ClassInfoBusiness ClassInfoBus;
+		private SchoolYearBusiness SchoolYearBus;
+		private SubjectBusiness SubjectBus;
+		private StudentAcademicBusiness StudentAcademicBus;
 
 		/// <summary>
 		/// Creates the shared business objects and initializes the form components.
 		/// </summary>
 		public FrmMain()
 		{
-			StudentBus = new StudentBussiness();
-			ClassInfoBus = new ClassInfoBussiness();
-			SchoolYearBus = new SchoolYearBussiness();
-			SubjectBus = new SubjectBussiness();
-			StudentAcademicBus = new StudentAcademicBussiness();
+			StudentBus = new StudentBusiness();
+			ClassInfoBus = new ClassInfoBusiness();
+			SchoolYearBus = new SchoolYearBusiness();
+			SubjectBus = new SubjectBusiness();
+			StudentAcademicBus = new StudentAcademicBusiness();
 			InitializeComponent();
 		}
 
@@ -74,7 +74,7 @@ namespace QuanLySV.Forms
 		private void MnuQldm_Click(object sender, EventArgs e)
 		{
 			UcTrainingInfo uc = new UcTrainingInfo();
-			uc.LoadBussiness(ClassInfoBus, SchoolYearBus, SubjectBus);
+			uc.LoadBusiness(ClassInfoBus, SchoolYearBus, SubjectBus);
 			ShowUc(uc);
 		}
 	}

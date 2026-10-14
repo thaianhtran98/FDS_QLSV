@@ -1,6 +1,6 @@
 ﻿namespace QuanLySV.Forms
 {
-	partial class FrmTrainngInfo
+	partial class FrmTrainingInfo
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -50,7 +50,7 @@
 			this.UcTrainingInfo.Size = new System.Drawing.Size(1033, 548);
 			this.UcTrainingInfo.TabIndex = 1;
 			// 
-			// FrmTrainngInfo
+			// FrmTrainingInfo
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -59,9 +59,9 @@
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
-			this.Name = "FrmTrainngInfo";
+			this.Name = "FrmTrainingInfo";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "FrmTrainngInfo";
+			this.Text = "FrmTrainingInfo";
 			this.PnlMain.ResumeLayout(false);
 			this.ResumeLayout(false);
 

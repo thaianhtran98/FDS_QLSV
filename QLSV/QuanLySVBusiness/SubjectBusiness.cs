@@ -7,12 +7,12 @@ using System.Data;
 using QuanLySVDataBase;
 using QuanLySVModel;
 
-namespace QuanLySVBussiness
+namespace QuanLySVBusiness
 {
 	/// <summary>
 	/// Business layer for subjects; forwards calls to <see cref="SubjectDB"/> and maps rows to <see cref="SubjectModel"/>.
 	/// </summary>
-	public class SubjectBussiness
+	public class SubjectBusiness
 	{
 		SubjectDB _SubjectDB = new SubjectDB();
 
@@ -27,7 +27,7 @@ namespace QuanLySVBussiness
 		/// <summary>
 		/// Adds a new subject to the cache (not saved to the database yet).
 		/// </summary>
-		public bool CreatNewSubject(SubjectModel subject)
+		public bool CreateNewSubject(SubjectModel subject)
 		{
 			return _SubjectDB.CreateNewSubject(subject);
 		}

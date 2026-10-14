@@ -32,7 +32,7 @@ namespace QuanLySVDataBase
 		private OracleCommand fillSql;
 		private OracleCommand createSql;
 		private OracleCommand updateSql;
-		private OracleCommand deteleSql;
+		private OracleCommand deleteSql;
 
 		/// <summary>
 		/// Creates the SELECT/INSERT/UPDATE/DELETE commands and binds them to the data adapter.
@@ -69,8 +69,8 @@ namespace QuanLySVDataBase
 			updateSql.BindByName = true;
 
 			// Delete Command
-			deteleSql = new OracleCommand("DELETE FROM STUDENT WHERE STUDENTID = :STUDENTID", conn);
-			deteleSql.BindByName = true;
+			deleteSql = new OracleCommand("DELETE FROM STUDENT WHERE STUDENTID = :STUDENTID", conn);
+			deleteSql.BindByName = true;
 			
 			// Add parameters
 			string[] columns = new[] { "STUDENTID", "NAME", "SEX", "BIRTHOFDATE", "BIRTHLOCAL", "VNEID", "DATEOFISSUE", "LOCALOFISSUE", "HOMETOWN", "PLACEOFRESIDENCE", "NUMBERPHONE", "STATUS" };
@@ -80,13 +80,13 @@ namespace QuanLySVDataBase
 				updateSql.Parameters.Add(new OracleParameter { ParameterName = column, SourceColumn = column });
 			}
 			updateSql.Parameters.Add(new OracleParameter { ParameterName = "STUDENTID_OLD", SourceColumn = "STUDENTID" });
-			deteleSql.Parameters.Add(new OracleParameter { ParameterName = "STUDENTID", SourceColumn = "STUDENTID" });
+			deleteSql.Parameters.Add(new OracleParameter { ParameterName = "STUDENTID", SourceColumn = "STUDENTID" });
 
 			_adapter = new OracleDataAdapter();
 			_adapter.SelectCommand = fillSql;
 			_adapter.InsertCommand = createSql;
 			_adapter.UpdateCommand = updateSql;
-			_adapter.DeleteCommand = deteleSql;
+			_adapter.DeleteCommand = deleteSql;
 		}
 
 		/// <summary>
@@ -115,7 +115,7 @@ namespace QuanLySVDataBase
 		/// <summary>
 		/// Adds a new student row to the cache. The row is written to the database only when <see cref="SaveAll"/> is called.
 		/// </summary>
-		public bool CreatNewStudent(StudentModel student)
+		public bool CreateNewStudent(StudentModel student)
 		{
 			if (DBStudent == null)
 			{

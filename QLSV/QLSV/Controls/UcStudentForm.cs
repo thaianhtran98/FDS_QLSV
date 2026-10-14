@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using QuanLySV.Forms;
 using System.Collections;
-using QuanLySVBussiness;
+using QuanLySVBusiness;
 using QuanLySVModel;
 
 namespace QuanLySV.Controls
@@ -20,11 +20,12 @@ namespace QuanLySV.Controls
 	public partial class UcStudentForm : UserControl
 	{
 		private StudentModel StudentCurrent;
-		private StudentBussiness StudentBus;
-		private StudentAcademicBussiness StudentAcademicBus;
+		private StudentBusiness StudentBus;
+		private StudentAcademicBusiness StudentAcademicBus;
 		private bool IsEdit = false;
 		private string StudentIdSelected = null;
 		private bool Loading = false;
+		private string OldStudentId = "";
 
 		/// <summary>
 		/// Initializes the control with an empty student model.
@@ -40,11 +41,11 @@ namespace QuanLySV.Controls
 		/// <summary>
 		/// Injects the business objects. When <paramref name="studentId"/> is given, loads that student into the form (edit mode).
 		/// </summary>
-		public void InitLoad(StudentBussiness studentBussiness, StudentAcademicBussiness studentAcademicBussiness, string studentId = null)
+		public void InitLoad(StudentBusiness studentBusiness, StudentAcademicBusiness studentAcademicBusiness, string studentId = null)
 		{
 			Loading = true;
-			StudentBus = studentBussiness;
-			StudentAcademicBus = studentAcademicBussiness;
+			StudentBus = studentBusiness;
+			StudentAcademicBus = studentAcademicBusiness;
 			
 			if (studentId != null)
 			{
@@ -164,7 +165,7 @@ namespace QuanLySV.Controls
 			}
 			else
 			{
-				StudentBus.CreatNewStudent(StudentCurrent);
+				StudentBus.CreateNewStudent(StudentCurrent);
 			}
 
 			IsEdit = true;
@@ -283,7 +284,18 @@ namespace QuanLySV.Controls
 				return;
             }
 			TbxStudentId.ForeColor = Color.Black;
-			StudentAcademicBus.UpdateStudentId(studentId);
+			if (OldStudentId != "")
+			{
+				StudentAcademicBus.UpdateStudentId(studentId, OldStudentId);
+			}
+		}
+
+		private void TabStudent_Selecting(object sender, TabControlCancelEventArgs e)
+		{
+			if (e.TabPage == TpgLearning)
+			{
+				OldStudentId = TbxStudentId.Text;
+			}
 		}
 	}
 }

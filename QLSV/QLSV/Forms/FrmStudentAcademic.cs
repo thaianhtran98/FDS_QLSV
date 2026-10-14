@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using QuanLySV.Forms;
 using QuanLySV.Controls;
-using QuanLySVBussiness;
+using QuanLySVBusiness;
 using QuanLySVModel;
 
 namespace QuanLySV.Forms
@@ -19,11 +19,11 @@ namespace QuanLySV.Forms
 	/// </summary>
 	public partial class FrmStudentAcademic : Form
 	{
-		private ClassInfoBussiness ClassBus;
-		private SchoolYearBussiness SchoolYearBus;
-		private SubjectBussiness SubjectBus;
-		private StudentAcademicBussiness StudentAcademicBus;
-		private StudentAcademicModel StudentAcademiCurrent;
+		private ClassInfoBusiness ClassBus;
+		private SchoolYearBusiness SchoolYearBus;
+		private SubjectBusiness SubjectBus;
+		private StudentAcademicBusiness StudentAcademicBus;
+		private StudentAcademicModel StudentAcademicCurrent;
 		private string StudentId;
 		private bool IsEditing = false;
 		private DataRow RowEditing;
@@ -37,24 +37,24 @@ namespace QuanLySV.Forms
 		/// When <paramref name="studentAcademic"/> is null the dialog is in add mode; otherwise the form is filled
 		/// with the record and switched to edit mode (<paramref name="row"/> is the cached row being edited).
 		/// </summary>
-		public FrmStudentAcademic(StudentAcademicBussiness studentAcademicBussiness, StudentAcademicModel studentAcademic, string studentId, DataRow row = null)
+		public FrmStudentAcademic(StudentAcademicBusiness studentAcademicBusiness, StudentAcademicModel studentAcademic, string studentId, DataRow row = null)
 		{
-			ClassBus = new ClassInfoBussiness();
-			SchoolYearBus = new SchoolYearBussiness();
-			SubjectBus = new SubjectBussiness();
+			ClassBus = new ClassInfoBusiness();
+			SchoolYearBus = new SchoolYearBusiness();
+			SubjectBus = new SubjectBusiness();
 			RowEditing = row;
-			StudentAcademicBus = studentAcademicBussiness;
+			StudentAcademicBus = studentAcademicBusiness;
 			InitializeComponent();
 			LoadDataComboBox();
 			StudentId = studentId;
 			if (studentAcademic == null)
 			{
-				StudentAcademiCurrent = new StudentAcademicModel();
+				StudentAcademicCurrent = new StudentAcademicModel();
 			}
 			else
 			{
-				StudentAcademiCurrent = studentAcademic;
-				SetStudentAcademiCurrentToForm();
+				StudentAcademicCurrent = studentAcademic;
+				SetStudentAcademicCurrentToForm();
 				IsEditing = true;
 				BtnSave.Text = "Cập nhật";
             }
@@ -65,7 +65,7 @@ namespace QuanLySV.Forms
 		/// </summary>
 		private void ShowDialogAddTrainingInfo(TrainingInfoTab tabInit)
 		{
-			FrmTrainngInfo fr = new FrmTrainngInfo(tabInit, ClassBus, SchoolYearBus, SubjectBus);
+			FrmTrainingInfo fr = new FrmTrainingInfo(tabInit, ClassBus, SchoolYearBus, SubjectBus);
 			fr.ShowDialog();
 			fr.Dispose();
 			LoadDataComboBox();
@@ -112,15 +112,15 @@ namespace QuanLySV.Forms
 			if (IsEditing)
 			{
 				message = "Cập nhật thành công";
-				SetFormToStudentAcademiCurrent();								
-				StudentAcademicBus.UpdateRowStudentAcademic(StudentAcademiCurrent, RowEditing);
+				SetFormToStudentAcademicCurrent();								
+				StudentAcademicBus.UpdateRowStudentAcademic(StudentAcademicCurrent, RowEditing);
 				resetForm();
 				this.Close();
 			}
 			else
 			{
-				SetFormToStudentAcademiCurrent();
-				StudentAcademicBus.CreateRowStudentAcademic(StudentAcademiCurrent);
+				SetFormToStudentAcademicCurrent();
+				StudentAcademicBus.CreateRowStudentAcademic(StudentAcademicCurrent);
 				resetForm();
 			}
 			
@@ -129,42 +129,42 @@ namespace QuanLySV.Forms
 		}
 
 		/// <summary>
-		/// Copies the values of the form controls into <c>StudentAcademiCurrent</c>.
+		/// Copies the values of the form controls into <c>StudentAcademicCurrent</c>.
 		/// </summary>
-		private void SetFormToStudentAcademiCurrent()
+		private void SetFormToStudentAcademicCurrent()
 		{
-			StudentAcademiCurrent.StudentId = StudentId;
-			StudentAcademiCurrent.ClassId = CbxClassName.SelectedValue.ToString();
-			StudentAcademiCurrent.ClassName = CbxClassName.Text;
-			StudentAcademiCurrent.SchoolYearId = CbxSchoolYear.SelectedValue.ToString();
-			StudentAcademiCurrent.SchoolYearName = CbxSchoolYear.Text;
-			StudentAcademiCurrent.SubjectId = CbxSubjectName.SelectedValue.ToString();
-			StudentAcademiCurrent.SubjectName = CbxSubjectName.Text;
-			StudentAcademiCurrent.ScoreLetter = TbxScoreLetter.Text;
-			StudentAcademiCurrent.Note = TbxNote.Text;
-			StudentAcademiCurrent.Status = StudentAcademicModel.ACTIVE;
+			StudentAcademicCurrent.StudentId = StudentId;
+			StudentAcademicCurrent.ClassId = CbxClassName.SelectedValue.ToString();
+			StudentAcademicCurrent.ClassName = CbxClassName.Text;
+			StudentAcademicCurrent.SchoolYearId = CbxSchoolYear.SelectedValue.ToString();
+			StudentAcademicCurrent.SchoolYearName = CbxSchoolYear.Text;
+			StudentAcademicCurrent.SubjectId = CbxSubjectName.SelectedValue.ToString();
+			StudentAcademicCurrent.SubjectName = CbxSubjectName.Text;
+			StudentAcademicCurrent.ScoreLetter = TbxScoreLetter.Text;
+			StudentAcademicCurrent.Note = TbxNote.Text;
+			StudentAcademicCurrent.Status = StudentAcademicModel.ACTIVE;
 			if (TbxScore.Text != "")
 			{
-				StudentAcademiCurrent.Score = Convert.ToDecimal(TbxScore.Text);
+				StudentAcademicCurrent.Score = Convert.ToDecimal(TbxScore.Text);
 			}
 			if (CbxSemester.Text != "")
 			{
-				StudentAcademiCurrent.Semester = Convert.ToInt32(CbxSemester.SelectedValue);
+				StudentAcademicCurrent.Semester = Convert.ToInt32(CbxSemester.SelectedValue);
 			}
 		}
 
 		/// <summary>
-		/// Fills the form controls with the values of <c>StudentAcademiCurrent</c>.
+		/// Fills the form controls with the values of <c>StudentAcademicCurrent</c>.
 		/// </summary>
-		private void SetStudentAcademiCurrentToForm()
+		private void SetStudentAcademicCurrentToForm()
 		{
-			CbxClassName.SelectedValue = StudentAcademiCurrent.ClassId;
-			CbxSchoolYear.SelectedValue = StudentAcademiCurrent.SchoolYearId;
-			CbxSubjectName.SelectedValue = StudentAcademiCurrent.SubjectId;
-			CbxSemester.SelectedItem = StudentAcademiCurrent.Semester;
-			TbxNote.Text = StudentAcademiCurrent.Note;
-			TbxScore.Text = StudentAcademiCurrent.Score.ToString();
-			TbxScoreLetter.Text = StudentAcademiCurrent.ScoreLetter;
+			CbxClassName.SelectedValue = StudentAcademicCurrent.ClassId;
+			CbxSchoolYear.SelectedValue = StudentAcademicCurrent.SchoolYearId;
+			CbxSubjectName.SelectedValue = StudentAcademicCurrent.SubjectId;
+			CbxSemester.SelectedItem = StudentAcademicCurrent.Semester;
+			TbxNote.Text = StudentAcademicCurrent.Note;
+			TbxScore.Text = StudentAcademicCurrent.Score.ToString();
+			TbxScoreLetter.Text = StudentAcademicCurrent.ScoreLetter;
 		}
 
 		/// <summary>
@@ -174,20 +174,20 @@ namespace QuanLySV.Forms
 		private bool Validator(out string errMessage)
 		{
 			errMessage = "Lỗi:";
-			if (CbxSchoolYear.SelectedValue !=  null && CbxSchoolYear.SelectedValue.ToString() == "")
+			if (string.IsNullOrEmpty(Convert.ToString(CbxSchoolYear.SelectedValue)))
 			{
 				errMessage += "\r\nVui lòng chọn Năm học";
 			}
-			if (CbxSemester.SelectedValue != null && CbxSemester.SelectedValue.ToString() == "")
+			if (string.IsNullOrEmpty(Convert.ToString(CbxSemester.SelectedValue)))
 			{
 				errMessage += "\r\nVui lòng chọn Học kỳ";
 			}
-			if (CbxClassName.SelectedValue !=  null && CbxClassName.SelectedValue.ToString() == "")
-				{
+			if (string.IsNullOrEmpty(Convert.ToString(CbxClassName.SelectedValue)))
+			{
 				errMessage += "\r\nVui lòng chọn Lớp";
 			}
-			if (CbxSubjectName.SelectedValue !=  null && CbxSubjectName.SelectedValue.ToString() == "")
-				{
+			if (string.IsNullOrEmpty(Convert.ToString(CbxSubjectName.SelectedValue)))
+			{
 				errMessage += "\r\nVui lòng chọn Môn học";
 			}
 
@@ -265,9 +265,21 @@ namespace QuanLySV.Forms
 		{
 			if (TbxScore != null && TbxScore.Text != null && TbxScore.Text != "")
 			{
-				decimal score = Convert.ToDecimal(TbxScore.Text);
-				TbxScoreLetter.Text = StudentAcademicBus.ConvertScoreToLetter(score);
+				decimal score;
+				if (decimal.TryParse(TbxScore.Text, out score))
+				{
+					TbxScore.ForeColor = Color.Black;
+					TbxScoreLetter.Text = StudentAcademicBus.ConvertScoreToLetter(score);
+				} else {
+					MessageBox.Show("Vui lòng nhập điểm hợp lệ");
+					TbxScore.ForeColor = Color.Red;
+				}
 			}
         }
+
+		private void BtnClose_Click(object sender, EventArgs e)
+		{
+			this.Close();
+		}
 	}
 }

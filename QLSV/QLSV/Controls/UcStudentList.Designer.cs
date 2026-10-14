@@ -112,7 +112,7 @@
 			this.CbxSex.Name = "CbxSex";
 			this.CbxSex.Size = new System.Drawing.Size(121, 21);
 			this.CbxSex.TabIndex = 2;
-			this.CbxSex.SelectedIndexChanged += new System.EventHandler(this.CbxSex_SelectedIndexChanged_1);
+			this.CbxSex.SelectedIndexChanged += new System.EventHandler(this.CbxSex_SelectedIndexChanged);
 			// 
 			// TbxNameFilter
 			// 

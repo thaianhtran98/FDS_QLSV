@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using QuanLySVBussiness;
+using QuanLySVBusiness;
 using System.Collections;
 using QuanLySVModel;
 
@@ -18,8 +18,8 @@ namespace QuanLySV.Controls
 	/// </summary>
 	public partial class UcStudentList : UserControl
 	{
-		private StudentBussiness StudentBus;
-		private StudentAcademicBussiness StudentAcademicBus;
+		private StudentBusiness StudentBus;
+		private StudentAcademicBusiness StudentAcademicBus;
 
 		/// <summary>
 		/// Item of the sex filter combo box (display text and value).
@@ -41,10 +41,10 @@ namespace QuanLySV.Controls
 		/// <summary>
 		/// Injects the business objects, then loads the student grid and the sex filter list.
 		/// </summary>
-		public void InitLoad(StudentBussiness studentBussiness, StudentAcademicBussiness studentAcademicBussiness)
+		public void InitLoad(StudentBusiness studentBusiness, StudentAcademicBusiness studentAcademicBusiness)
 		{
-			StudentAcademicBus = studentAcademicBussiness;
-			StudentBus = studentBussiness;
+			StudentAcademicBus = studentAcademicBusiness;
+			StudentBus = studentBusiness;
 			LoadData();
 			LoadFilterList();
 		}
@@ -86,21 +86,9 @@ namespace QuanLySV.Controls
 		}
 
 		/// <summary>
-		/// Filters the grid by name and the selected sex.
-		/// Note: not wired to any event (the designer uses <see cref="CbxSex_SelectedIndexChanged_1"/>).
-		/// </summary>
-		private void CbxSex_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			string name = TbxNameFilter.Text;
-			int sex = (int)CbxSex.SelectedValue;
-			DataTable dt = StudentBus.Filter(name, sex);
-			DgvStudentList.DataSource = dt;
-		}
-
-		/// <summary>
 		/// Re-applies the filter when the selected sex changes.
 		/// </summary>
-		private void CbxSex_SelectedIndexChanged_1(object sender, EventArgs e)
+		private void CbxSex_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			filter();
 		}

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuanLySV", "QLSV\QuanLySV.c
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuanLySVDataBase", "QuanLySVDataBase\QuanLySVDataBase.csproj", "{A02BDB70-992C-43BF-BA2E-2C4AC4936805}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuanLySVBussiness", "QuanLySVBussiness\QuanLySVBussiness.csproj", "{1C225ABC-8239-4638-997D-8F1763E05B10}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuanLySVBusiness", "QuanLySVBusiness\QuanLySVBusiness.csproj", "{1C225ABC-8239-4638-997D-8F1763E05B10}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuanLySVHelperUI", "QuanLySVHelperUI\QuanLySVHelperUI.csproj", "{56EE2C72-EE65-4CCB-897F-0DC863F73485}"
 EndProject

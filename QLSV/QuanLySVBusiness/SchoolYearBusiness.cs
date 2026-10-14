@@ -7,12 +7,12 @@ using System.Data;
 using QuanLySVDataBase;
 using QuanLySVModel;
 
-namespace QuanLySVBussiness
+namespace QuanLySVBusiness
 {
 	/// <summary>
 	/// Business layer for school years; forwards calls to <see cref="SchoolYearDB"/> and maps rows to <see cref="SchoolYearModel"/>.
 	/// </summary>
-	public class SchoolYearBussiness
+	public class SchoolYearBusiness
 	{
 		SchoolYearDB _SchoolYearDB = new SchoolYearDB();
 
@@ -27,7 +27,7 @@ namespace QuanLySVBussiness
 		/// <summary>
 		/// Adds a new school year to the cache (not saved to the database yet).
 		/// </summary>
-		public bool CreatNewSchoolYear(SchoolYearModel schoolYear)
+		public bool CreateNewSchoolYear(SchoolYearModel schoolYear)
 		{
 			return _SchoolYearDB.CreateNewSchoolYear(schoolYear);
 		}

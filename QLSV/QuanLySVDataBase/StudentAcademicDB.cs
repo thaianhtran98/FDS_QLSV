@@ -92,9 +92,14 @@ namespace QuanLySVDataBase
 		{
 			try
 			{
-				if (DBStudentAcademic == null || forceReload)
+				if (DBStudentAcademic == null)
 				{
 					DBStudentAcademic = new DataTable("StudentAcademicDataTable");
+					_adapter.Fill(DBStudentAcademic);
+				}
+				else if (forceReload)
+				{
+					DBStudentAcademic.Clear();
 					_adapter.Fill(DBStudentAcademic);
 				}
 
@@ -130,7 +135,7 @@ namespace QuanLySVDataBase
 		/// <summary>
 		/// Sets the STUDENTID column of every cached row to <paramref name="newStudentId"/>.
 		/// </summary>
-		public void UpdateStudentId(string newStudentId)
+		public void UpdateStudentId(string newStudentId, string oldStudentId)
 		{
 			if (DBStudentAcademic == null)
 			{
@@ -138,7 +143,10 @@ namespace QuanLySVDataBase
 			}
 			foreach (DataRow r in DBStudentAcademic.Rows)
 			{
-				r["STUDENTID"] = newStudentId;
+				if (r["STUDENTID"].ToString() == oldStudentId)
+				{
+					r["STUDENTID"] = newStudentId;
+				}
 			}
 		}
 
@@ -150,6 +158,8 @@ namespace QuanLySVDataBase
 			try
 			{
 				_adapter.Update(DBStudentAcademic);
+				DBStudentAcademic.Clear();
+				_adapter.Fill(DBStudentAcademic);
 				return true;
 			} 
 			catch(Exception ex)

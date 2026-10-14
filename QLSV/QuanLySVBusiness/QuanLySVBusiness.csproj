@@ -7,8 +7,8 @@
     <ProjectGuid>{1C225ABC-8239-4638-997D-8F1763E05B10}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>QuanLySVBussiness</RootNamespace>
-    <AssemblyName>QuanLySVBussiness</AssemblyName>
+    <RootNamespace>QuanLySVBusiness</RootNamespace>
+    <AssemblyName>QuanLySVBusiness</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -41,11 +41,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StudentBussiness.cs" />
-    <Compile Include="SchoolYearBussiness.cs" />
-    <Compile Include="SubjectBussiness.cs" />
-    <Compile Include="ClassInfoBussiness.cs" />
-    <Compile Include="StudentAcademicBussiness.cs" />
+    <Compile Include="StudentBusiness.cs" />
+    <Compile Include="SchoolYearBusiness.cs" />
+    <Compile Include="SubjectBusiness.cs" />
+    <Compile Include="ClassInfoBusiness.cs" />
+    <Compile Include="StudentAcademicBusiness.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

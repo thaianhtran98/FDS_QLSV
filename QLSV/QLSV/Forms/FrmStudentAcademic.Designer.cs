@@ -50,6 +50,7 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
+			this.BtnClose = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// LblSchoolYearName
@@ -264,11 +265,23 @@
 			this.label3.Text = "*";
 			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
+			// BtnClose
+			// 
+			this.BtnClose.Location = new System.Drawing.Point(440, 210);
+			this.BtnClose.Name = "BtnClose";
+			this.BtnClose.Size = new System.Drawing.Size(75, 23);
+			this.BtnClose.TabIndex = 6;
+			this.BtnClose.Text = "Đóng";
+			this.BtnClose.UseVisualStyleBackColor = true;
+			this.BtnClose.Click += new System.EventHandler(this.BtnClose_Click);
+			// 
 			// FrmStudentAcademic
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(520, 243);
+			this.ControlBox = false;
+			this.Controls.Add(this.BtnClose);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
@@ -326,5 +339,6 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Button BtnClose;
 	}
 }

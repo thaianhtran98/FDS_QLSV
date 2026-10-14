@@ -7,12 +7,12 @@ using System.Data;
 using QuanLySVDataBase;
 using QuanLySVModel;
 
-namespace QuanLySVBussiness
+namespace QuanLySVBusiness
 {
 	/// <summary>
 	/// Business layer for classes; forwards calls to <see cref="ClassInfoDB"/> and maps rows to <see cref="ClassInfoModel"/>.
 	/// </summary>
-	public class ClassInfoBussiness
+	public class ClassInfoBusiness
 	{
 		ClassInfoDB _ClassInfoDB = new ClassInfoDB();
 
@@ -27,7 +27,7 @@ namespace QuanLySVBussiness
 		/// <summary>
 		/// Adds a new class to the cache (not saved to the database yet).
 		/// </summary>
-		public bool CreatNewClassInfo(ClassInfoModel classInfo)
+		public bool CreateNewClassInfo(ClassInfoModel classInfo)
 		{
 			return _ClassInfoDB.CreateNewClass(classInfo);
 		}

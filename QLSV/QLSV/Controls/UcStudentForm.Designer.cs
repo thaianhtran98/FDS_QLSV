@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.PnlMain = new System.Windows.Forms.Panel();
 			this.TabStudent = new System.Windows.Forms.TabControl();
 			this.TpgInfoStudent = new System.Windows.Forms.TabPage();
@@ -104,6 +104,7 @@
 			this.TabStudent.SelectedIndex = 0;
 			this.TabStudent.Size = new System.Drawing.Size(643, 488);
 			this.TabStudent.TabIndex = 0;
+			this.TabStudent.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.TabStudent_Selecting);
 			// 
 			// TpgInfoStudent
 			// 
@@ -429,8 +430,8 @@
 			// SchoolYearName
 			// 
 			this.SchoolYearName.DataPropertyName = "SchoolYearName";
-			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			this.SchoolYearName.DefaultCellStyle = dataGridViewCellStyle3;
+			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			this.SchoolYearName.DefaultCellStyle = dataGridViewCellStyle1;
 			this.SchoolYearName.HeaderText = "Năm học";
 			this.SchoolYearName.Name = "SchoolYearName";
 			this.SchoolYearName.ReadOnly = true;

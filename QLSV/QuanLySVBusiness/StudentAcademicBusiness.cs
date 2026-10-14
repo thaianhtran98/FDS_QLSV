@@ -7,12 +7,12 @@ using System.Data;
 using QuanLySVDataBase;
 using QuanLySVModel;
 
-namespace QuanLySVBussiness
+namespace QuanLySVBusiness
 {
 	/// <summary>
 	/// Business layer for student academic records; forwards calls to <see cref="StudentAcademicDB"/>.
 	/// </summary>
-	public class StudentAcademicBussiness
+	public class StudentAcademicBusiness
 	{
 		StudentAcademicDB _StudentAcademicDB = new StudentAcademicDB();
 
@@ -64,9 +64,9 @@ namespace QuanLySVBussiness
 		/// <summary>
 		/// Sets the student id of the cached academic records to <paramref name="newStudentId"/>.
 		/// </summary>
-		public void UpdateStudentId(string newStudentId)
+		public void UpdateStudentId(string newStudentId, string oldStudentId)
 		{
-			_StudentAcademicDB.UpdateStudentId(newStudentId);
+			_StudentAcademicDB.UpdateStudentId(newStudentId, oldStudentId);
         }
 
 		/// <summary>

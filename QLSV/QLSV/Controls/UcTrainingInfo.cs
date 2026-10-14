@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using QuanLySVBussiness;
+using QuanLySVBusiness;
 using QuanLySVModel;
 
 namespace QuanLySV.Controls
@@ -29,11 +29,11 @@ namespace QuanLySV.Controls
 	public partial class UcTrainingInfo : UserControl
 	{
 		// Define
-		private ClassInfoBussiness ClassInfoBus;
+		private ClassInfoBusiness ClassInfoBus;
 		private ClassInfoModel ClassInfoCurrent;
-		private SchoolYearBussiness SchoolYearBus;
+		private SchoolYearBusiness SchoolYearBus;
 		private SchoolYearModel SchoolYearCurrent;
-		private SubjectBussiness SubjectBus;
+		private SubjectBusiness SubjectBus;
 		private SubjectModel SubjectCurrent;
 		private bool ClassFormEditing = false;
 		private bool SchoolFormEditing = false;
@@ -80,17 +80,17 @@ namespace QuanLySV.Controls
 		/// <summary>
 		/// Injects the business objects, creates empty current models and reloads the three grids from the database.
 		/// </summary>
-		public void LoadBussiness(ClassInfoBussiness classInfoBussiness, SchoolYearBussiness schoolYearBussiness, SubjectBussiness subjectBussiness)
+		public void LoadBusiness(ClassInfoBusiness classInfoBusiness, SchoolYearBusiness schoolYearBusiness, SubjectBusiness subjectBusiness)
 		{
-			ClassInfoBus = classInfoBussiness;
+			ClassInfoBus = classInfoBusiness;
 			ClassInfoCurrent = new ClassInfoModel();
 			LoadClassData(true);
 
-			SchoolYearBus = schoolYearBussiness;
+			SchoolYearBus = schoolYearBusiness;
 			SchoolYearCurrent = new SchoolYearModel();
 			LoadSchoolYearData(true);
 
-			SubjectBus = subjectBussiness;
+			SubjectBus = subjectBusiness;
 			SubjectCurrent = new SubjectModel();
 			LoadSubjectData(true);
         }
@@ -130,7 +130,7 @@ namespace QuanLySV.Controls
 			else
 			{
 				SetClassCurrent();
-				ClassInfoBus.CreatNewClassInfo(ClassInfoCurrent);
+				ClassInfoBus.CreateNewClassInfo(ClassInfoCurrent);
             }
 
 			ResetForm(TrainingInfoTab.Class);
@@ -261,7 +261,7 @@ namespace QuanLySV.Controls
 					MessageBox.Show("Năm học " + SchoolYearCurrent.SchoolYearName + " đã tồn tại");
 					return;
 				}
-				SchoolYearBus.CreatNewSchoolYear(SchoolYearCurrent);
+				SchoolYearBus.CreateNewSchoolYear(SchoolYearCurrent);
 			}
 
 			ResetForm(TrainingInfoTab.SchoolYear);
@@ -372,7 +372,7 @@ namespace QuanLySV.Controls
 			{
 				SetSubjectCurrent();
 				SubjectCurrent.SubjectId = SubjectBus.GenerateSubjectId();
-				SubjectBus.CreatNewSubject(SubjectCurrent);
+				SubjectBus.CreateNewSubject(SubjectCurrent);
 			}
 
 			ResetForm(TrainingInfoTab.Subject);
