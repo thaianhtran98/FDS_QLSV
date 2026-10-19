@@ -120,7 +120,6 @@ namespace QuanLySV.Controls
 			}
 		}
 
-		// start StudentAcademic
 		/// <summary>
 		/// Binds the academic records of the given student to the learning grid.
 		/// </summary>
@@ -131,8 +130,6 @@ namespace QuanLySV.Controls
 			DgvLearningList.DataSource = studentAcademicView;
 		}
 		
-		// end StudentAcademic																   
-
 		/// <summary>
 		/// Validates the form, copies the values into <c>StudentCurrent</c>, then creates or updates
 		/// the student in the cache (saved to the database later from the student list).
@@ -166,6 +163,9 @@ namespace QuanLySV.Controls
 			else
 			{
 				StudentBus.CreateNewStudent(StudentCurrent);
+				StudentIdSelected = StudentCurrent.StudentId;
+				ChkStatus.Visible = true;
+				ChkStatus.Checked = StudentCurrent.Status == StudentModel.ACTIVE;
 			}
 
 			IsEdit = true;
@@ -273,7 +273,7 @@ namespace QuanLySV.Controls
 		/// </summary>
 		private void TbxStudentId_Leave(object sender, EventArgs e)
 		{
-			if (Loading) return;
+			if (Loading || IsEdit) return;
 			string studentId = TbxStudentId.Text;
 			StudentModel student = StudentBus.FindStudentById(studentId);
 			if (student != null)

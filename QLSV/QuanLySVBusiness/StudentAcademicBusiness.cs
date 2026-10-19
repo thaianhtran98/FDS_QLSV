@@ -72,9 +72,10 @@ namespace QuanLySVBusiness
 		/// <summary>
 		/// Saves all pending academic record changes to the database.
 		/// </summary>
-		public bool SaveAll()
+		public bool SaveAll(out string errMessage)
 		{
-			_StudentAcademicDB.SaveAll();
+			errMessage = null;
+            _StudentAcademicDB.SaveAll(out errMessage);
 			return true;
 		}
 		

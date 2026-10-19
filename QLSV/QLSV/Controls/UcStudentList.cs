@@ -183,7 +183,7 @@ namespace QuanLySV.Controls
 		{
             string errMessage = null;
 
-            if (StudentBus.SaveAll(out errMessage) && StudentAcademicBus.SaveAll())
+            if (StudentBus.SaveAll(out errMessage) && StudentAcademicBus.SaveAll(out errMessage))
             {
 			    LoadData(true);
                 MessageBox.Show("Lưu thành công");

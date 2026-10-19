@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Data;
 using Oracle.ManagedDataAccess.Client;
@@ -153,9 +153,10 @@ namespace QuanLySVDataBase
 		/// <summary>
 		/// Writes all pending changes (insert/update/delete) of the cache to the database. Exceptions are rethrown.
 		/// </summary>
-		public bool SaveAll()
+		public bool SaveAll(out string errMessage)
 		{
-			try
+			errMessage = null;
+            try
 			{
 				_adapter.Update(DBStudentAcademic);
 				DBStudentAcademic.Clear();
@@ -164,7 +165,8 @@ namespace QuanLySVDataBase
 			} 
 			catch(Exception ex)
 			{
-				throw ex;
+				errMessage = "Lỗi khi lưu dữ liệu: " + ex.Message;
+				return false;
 			}
 		}
 

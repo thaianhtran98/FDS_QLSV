@@ -141,7 +141,8 @@ namespace QuanLySV.Forms
 			StudentAcademicCurrent.SubjectId = CbxSubjectName.SelectedValue.ToString();
 			StudentAcademicCurrent.SubjectName = CbxSubjectName.Text;
 			StudentAcademicCurrent.ScoreLetter = TbxScoreLetter.Text;
-			StudentAcademicCurrent.Note = TbxNote.Text;
+			StudentAcademicCurrent.Score = null;
+            StudentAcademicCurrent.Note = TbxNote.Text;
 			StudentAcademicCurrent.Status = StudentAcademicModel.ACTIVE;
 			if (TbxScore.Text != "")
 			{
@@ -233,9 +234,18 @@ namespace QuanLySV.Forms
 			CbxSubjectName.ValueMember = "SubjectId";
 			CbxSubjectName.DataSource = subjectDt;
 
-			if (classId != null) CbxClassName.SelectedValue = classId;
-			if (schoolYearId != null) CbxSchoolYear.SelectedValue = schoolYearId;
-			if (subjectId != null) CbxSubjectName.SelectedValue = subjectId;
+			if (classId != null)
+			{
+				CbxClassName.SelectedValue = classId;
+			}
+			if (schoolYearId != null)
+			{
+				CbxSchoolYear.SelectedValue = schoolYearId;
+			}
+			if (subjectId != null)
+			{
+				CbxSubjectName.SelectedValue = subjectId;
+			}
 
 			if (CbxSemester.DataSource == null)
 			{
@@ -270,7 +280,9 @@ namespace QuanLySV.Forms
 				{
 					TbxScore.ForeColor = Color.Black;
 					TbxScoreLetter.Text = StudentAcademicBus.ConvertScoreToLetter(score);
-				} else {
+				}
+				else
+				{
 					MessageBox.Show("Vui lòng nhập điểm hợp lệ");
 					TbxScore.ForeColor = Color.Red;
 				}
@@ -279,7 +291,7 @@ namespace QuanLySV.Forms
 
 		private void BtnClose_Click(object sender, EventArgs e)
 		{
-			this.Close();
+			this.Close(); 
 		}
 	}
 }
