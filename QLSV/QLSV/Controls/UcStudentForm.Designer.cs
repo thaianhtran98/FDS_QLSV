@@ -62,6 +62,10 @@
 			this.TpgLearning = new System.Windows.Forms.TabPage();
 			this.PnlBodyTpgLearning = new System.Windows.Forms.Panel();
 			this.DgvLearningList = new System.Windows.Forms.DataGridView();
+			this.PnlHeaderTpgLearning = new System.Windows.Forms.Panel();
+			this.BtnCreateLearning = new System.Windows.Forms.Button();
+			this.PnlFooter = new System.Windows.Forms.FlowLayoutPanel();
+			this.BtnSave = new System.Windows.Forms.Button();
 			this.SchoolYearName = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Semester = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.ClassName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -70,10 +74,6 @@
 			this.ScoreLetter = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.ColEdit = new System.Windows.Forms.DataGridViewButtonColumn();
 			this.ColDelete = new System.Windows.Forms.DataGridViewButtonColumn();
-			this.PnlHeaderTpgLearning = new System.Windows.Forms.Panel();
-			this.BtnCreateLearning = new System.Windows.Forms.Button();
-			this.PnlFooter = new System.Windows.Forms.FlowLayoutPanel();
-			this.BtnSave = new System.Windows.Forms.Button();
 			this.PnlMain.SuspendLayout();
 			this.TabStudent.SuspendLayout();
 			this.TpgInfoStudent.SuspendLayout();
@@ -427,69 +427,6 @@
 			this.DgvLearningList.TabIndex = 0;
 			this.DgvLearningList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvLearningList_CellContentClick);
 			// 
-			// SchoolYearName
-			// 
-			this.SchoolYearName.DataPropertyName = "SchoolYearName";
-			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			this.SchoolYearName.DefaultCellStyle = dataGridViewCellStyle1;
-			this.SchoolYearName.HeaderText = "Năm học";
-			this.SchoolYearName.Name = "SchoolYearName";
-			this.SchoolYearName.ReadOnly = true;
-			// 
-			// Semester
-			// 
-			this.Semester.DataPropertyName = "Semester";
-			this.Semester.HeaderText = "Học kỳ";
-			this.Semester.Name = "Semester";
-			this.Semester.ReadOnly = true;
-			// 
-			// ClassName
-			// 
-			this.ClassName.DataPropertyName = "ClassName";
-			this.ClassName.HeaderText = "Lớp học";
-			this.ClassName.Name = "ClassName";
-			this.ClassName.ReadOnly = true;
-			// 
-			// SubjectName
-			// 
-			this.SubjectName.DataPropertyName = "SubjectName";
-			this.SubjectName.HeaderText = "Môn học";
-			this.SubjectName.Name = "SubjectName";
-			this.SubjectName.ReadOnly = true;
-			// 
-			// Score
-			// 
-			this.Score.DataPropertyName = "Score";
-			this.Score.HeaderText = "Điểm";
-			this.Score.Name = "Score";
-			this.Score.ReadOnly = true;
-			// 
-			// ScoreLetter
-			// 
-			this.ScoreLetter.DataPropertyName = "Score_Letter";
-			this.ScoreLetter.HeaderText = "Điểm chữ";
-			this.ScoreLetter.Name = "ScoreLetter";
-			this.ScoreLetter.ReadOnly = true;
-			// 
-			// ColEdit
-			// 
-			this.ColEdit.HeaderText = "";
-			this.ColEdit.Name = "ColEdit";
-			this.ColEdit.ReadOnly = true;
-			this.ColEdit.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-			this.ColEdit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			this.ColEdit.Text = "Sửa";
-			this.ColEdit.UseColumnTextForButtonValue = true;
-			// 
-			// ColDelete
-			// 
-			this.ColDelete.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.ColDelete.HeaderText = "";
-			this.ColDelete.Name = "ColDelete";
-			this.ColDelete.ReadOnly = true;
-			this.ColDelete.Text = "Xóa";
-			this.ColDelete.UseColumnTextForButtonValue = true;
-			// 
 			// PnlHeaderTpgLearning
 			// 
 			this.PnlHeaderTpgLearning.Controls.Add(this.BtnCreateLearning);
@@ -527,6 +464,73 @@
 			this.BtnSave.Text = "Lưu tạm";
 			this.BtnSave.UseVisualStyleBackColor = true;
 			this.BtnSave.Click += new System.EventHandler(this.BtnTempSave_Click);
+			// 
+			// SchoolYearName
+			// 
+			this.SchoolYearName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.SchoolYearName.DataPropertyName = "SchoolYearName";
+			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			this.SchoolYearName.DefaultCellStyle = dataGridViewCellStyle1;
+			this.SchoolYearName.HeaderText = "Năm học";
+			this.SchoolYearName.Name = "SchoolYearName";
+			this.SchoolYearName.ReadOnly = true;
+			// 
+			// Semester
+			// 
+			this.Semester.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.Semester.DataPropertyName = "Semester";
+			this.Semester.HeaderText = "Học kỳ";
+			this.Semester.Name = "Semester";
+			this.Semester.ReadOnly = true;
+			// 
+			// ClassName
+			// 
+			this.ClassName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.ClassName.DataPropertyName = "ClassName";
+			this.ClassName.HeaderText = "Lớp học";
+			this.ClassName.Name = "ClassName";
+			this.ClassName.ReadOnly = true;
+			// 
+			// SubjectName
+			// 
+			this.SubjectName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.SubjectName.DataPropertyName = "SubjectName";
+			this.SubjectName.HeaderText = "Môn học";
+			this.SubjectName.Name = "SubjectName";
+			this.SubjectName.ReadOnly = true;
+			// 
+			// Score
+			// 
+			this.Score.DataPropertyName = "Score";
+			this.Score.HeaderText = "Điểm";
+			this.Score.Name = "Score";
+			this.Score.ReadOnly = true;
+			// 
+			// ScoreLetter
+			// 
+			this.ScoreLetter.DataPropertyName = "Score_Letter";
+			this.ScoreLetter.HeaderText = "Điểm chữ";
+			this.ScoreLetter.Name = "ScoreLetter";
+			this.ScoreLetter.ReadOnly = true;
+			// 
+			// ColEdit
+			// 
+			this.ColEdit.HeaderText = "";
+			this.ColEdit.Name = "ColEdit";
+			this.ColEdit.ReadOnly = true;
+			this.ColEdit.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+			this.ColEdit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			this.ColEdit.Text = "Sửa";
+			this.ColEdit.UseColumnTextForButtonValue = true;
+			// 
+			// ColDelete
+			// 
+			this.ColDelete.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.ColDelete.HeaderText = "";
+			this.ColDelete.Name = "ColDelete";
+			this.ColDelete.ReadOnly = true;
+			this.ColDelete.Text = "Xóa";
+			this.ColDelete.UseColumnTextForButtonValue = true;
 			// 
 			// UcStudentForm
 			// 

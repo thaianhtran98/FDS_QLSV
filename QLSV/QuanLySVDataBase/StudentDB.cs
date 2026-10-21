@@ -19,7 +19,6 @@ namespace QuanLySVDataBase
 	public class StudentDB
 	{
 		private DBHelper DBHelper = new DBHelper();
-		private StudentModel StudentMod;
 		/// <summary>
 		/// Gets or sets the cached STUDENT table.
 		/// </summary>
@@ -39,7 +38,7 @@ namespace QuanLySVDataBase
 		/// </summary>
 		public StudentDB()
 		{
-			StudentMod = new StudentModel();
+			StudentModel StudentMod = new StudentModel();
 			OracleConnection conn = new OracleConnection(DBHelper.ConnectionString);
 
 			// Select Command
@@ -164,7 +163,8 @@ namespace QuanLySVDataBase
 		/// Writes all pending changes (insert/update/delete) of the cache to the database.
 		/// Returns false and sets <paramref name="errMessage"/> when the save fails.
 		/// </summary>
-		public bool SaveAll(out string errMessage) {
+		public bool SaveAll(out string errMessage)
+		{
             errMessage = null;
             try
 			{

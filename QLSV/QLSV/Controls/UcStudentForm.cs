@@ -257,7 +257,7 @@ namespace QuanLySV.Controls
 			}
 			else if (e.ColumnIndex == ColDelete.Index)
 			{
-				if (MessageBox.Show("Xóa kết quả học tập " + "Năm học" + studentMod.SchoolYearName + "HK:" + studentMod.Semester + "?", "Xác nhận", MessageBoxButtons.YesNo) == DialogResult.Yes)
+				if (MessageBox.Show("Xóa kết quả học tập " + "Năm học " + studentMod.SchoolYearName + " HK: " + studentMod.Semester + "?", "Xác nhận", MessageBoxButtons.YesNo) == DialogResult.Yes)
 				{
 					if (StudentAcademicBus.DeleteStudentAcademic(r))
 					{

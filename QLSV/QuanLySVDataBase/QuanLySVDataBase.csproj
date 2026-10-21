@@ -44,7 +44,6 @@
   <ItemGroup>
     <Compile Include="ClassInfoDB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SaveResult.cs" />
     <Compile Include="SchoolYearDB.cs" />
     <Compile Include="StudentDB.cs" />
     <Compile Include="StudentAcademicDB.cs" />

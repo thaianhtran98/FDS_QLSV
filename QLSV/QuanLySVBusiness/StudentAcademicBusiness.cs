@@ -36,9 +36,9 @@ namespace QuanLySVBusiness
 		/// <summary>
 		/// Updates the given cached academic record row with the values of the model.
 		/// </summary>
-		public bool UpdateRowStudentAcademic(StudentAcademicModel academic, DataRow RowEditing)
+		public bool UpdateRowStudentAcademic(StudentAcademicModel academic, DataRow rowEditing)
 		{
-			_StudentAcademicDB.UpdateRowStudentAcademic(academic, RowEditing);
+			_StudentAcademicDB.UpdateRowStudentAcademic(academic, rowEditing);
 			return true;
 		}
 
@@ -82,9 +82,9 @@ namespace QuanLySVBusiness
 		/// <summary>
 		/// Marks the given academic record row as deleted.
 		/// </summary>
-		public bool DeleteStudentAcademic(DataRow RowDelete)
+		public bool DeleteStudentAcademic(DataRow rowDelete)
 		{
-			return _StudentAcademicDB.DeleteStudentAcademic(RowDelete);
+			return _StudentAcademicDB.DeleteStudentAcademic(rowDelete);
 		}
     }
 }

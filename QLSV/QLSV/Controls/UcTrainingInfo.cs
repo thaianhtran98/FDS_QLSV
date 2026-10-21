@@ -239,28 +239,16 @@ namespace QuanLySV.Controls
 				return;
 			}
 
+			SetSchoolYearCurrent();
 			if (SchoolFormEditing)
 			{
 				string oldSchoolYearId = SchoolYearCurrent.SchoolYearId;
 				// Update school year after edit
-				SetSchoolYearCurrent();
-				if (SchoolYearCurrent.SchoolYearId != oldSchoolYearId && SchoolYearBus.FindSchoolYearById(SchoolYearCurrent.SchoolYearId) != null)
-				{
-					SchoolYearCurrent.SchoolYearId = oldSchoolYearId;
-					MessageBox.Show("Năm học " + SchoolYearCurrent.SchoolYearName + " đã tồn tại");
-					return;
-				}
 				SchoolYearBus.UpdateSchoolYear(SchoolYearCurrent, oldSchoolYearId);
 				SchoolFormEditing = false;
 			}
 			else
 			{
-				SetSchoolYearCurrent();
-				if (SchoolYearBus.FindSchoolYearById(SchoolYearCurrent.SchoolYearId) != null)
-				{
-					MessageBox.Show("Năm học " + SchoolYearCurrent.SchoolYearName + " đã tồn tại");
-					return;
-				}
 				SchoolYearBus.CreateNewSchoolYear(SchoolYearCurrent);
 			}
 
@@ -344,6 +332,8 @@ namespace QuanLySV.Controls
 			DataTable dt = SubjectBus.FillSubject(forceReload);
 			DgvSubject.AutoGenerateColumns = false;
 			DgvSubject.DataSource = dt;
+
+			TbxSubjectId.Text = SubjectBus.GenerateSubjectId();
 		}
 
 		/// <summary>
@@ -359,19 +349,17 @@ namespace QuanLySV.Controls
 				return;
 			}
 
+			SetSubjectCurrent();
 			if (SubjectFormEditing)
 			{
 				string oldSubjectId = SubjectCurrent.SubjectId;
 				// Update subject after edit
-				SetSubjectCurrent();
 				SubjectCurrent.SubjectId = oldSubjectId;
 				SubjectBus.UpdateSubject(SubjectCurrent, oldSubjectId);
 				SubjectFormEditing = false;
 			}
 			else
 			{
-				SetSubjectCurrent();
-				SubjectCurrent.SubjectId = SubjectBus.GenerateSubjectId();
 				SubjectBus.CreateNewSubject(SubjectCurrent);
 			}
 
@@ -569,7 +557,7 @@ namespace QuanLySV.Controls
 					SchoolFormEditing = false;
 					break;
 				case TrainingInfoTab.Subject:
-					TbxSubjectId.Text = null;
+					TbxSubjectId.Text = SubjectBus.GenerateSubjectId();
 					TbxSubjectName.Text = null;
                     NumSubjectCredit.Value = NumSubjectCredit.Minimum;
 					TbxSubjectDescription.Text = null;
