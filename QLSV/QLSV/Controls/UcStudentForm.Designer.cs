@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.PnlMain = new System.Windows.Forms.Panel();
 			this.TabStudent = new System.Windows.Forms.TabControl();
 			this.TpgInfoStudent = new System.Windows.Forms.TabPage();
@@ -469,9 +469,10 @@
 			// 
 			this.SchoolYearName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
 			this.SchoolYearName.DataPropertyName = "SchoolYearName";
-			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-			this.SchoolYearName.DefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+			this.SchoolYearName.DefaultCellStyle = dataGridViewCellStyle3;
 			this.SchoolYearName.HeaderText = "Năm học";
+			this.SchoolYearName.MinimumWidth = 150;
 			this.SchoolYearName.Name = "SchoolYearName";
 			this.SchoolYearName.ReadOnly = true;
 			// 
@@ -480,6 +481,7 @@
 			this.Semester.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
 			this.Semester.DataPropertyName = "Semester";
 			this.Semester.HeaderText = "Học kỳ";
+			this.Semester.MinimumWidth = 50;
 			this.Semester.Name = "Semester";
 			this.Semester.ReadOnly = true;
 			// 
@@ -488,6 +490,7 @@
 			this.ClassName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
 			this.ClassName.DataPropertyName = "ClassName";
 			this.ClassName.HeaderText = "Lớp học";
+			this.ClassName.MinimumWidth = 250;
 			this.ClassName.Name = "ClassName";
 			this.ClassName.ReadOnly = true;
 			// 
@@ -496,6 +499,7 @@
 			this.SubjectName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
 			this.SubjectName.DataPropertyName = "SubjectName";
 			this.SubjectName.HeaderText = "Môn học";
+			this.SubjectName.MinimumWidth = 300;
 			this.SubjectName.Name = "SubjectName";
 			this.SubjectName.ReadOnly = true;
 			// 
@@ -536,8 +540,8 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.PnlFooter);
 			this.Controls.Add(this.PnlMain);
+			this.Controls.Add(this.PnlFooter);
 			this.Name = "UcStudentForm";
 			this.Size = new System.Drawing.Size(643, 488);
 			this.PnlMain.ResumeLayout(false);

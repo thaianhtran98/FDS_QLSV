@@ -45,7 +45,7 @@ namespace QuanLySVBusiness
 		// Convert score (scale 10) to letter grade (A, B, C, D, F)
 		/// <summary>
 		/// Converts a score on the 10-point scale to a letter grade:
-		/// A (&gt;= 8.5), B (&gt;= 7.0), C (&gt;= 5.5), D (&gt;= 4.0), otherwise F. Returns null when the score is null.
+		/// A (>= 8.5), B (>= 7.0), C (>= 5.5), D (>= 4.0), otherwise F. Returns null when the score is null.
 		/// </summary>
 		public string ConvertScoreToLetter(decimal? score)
 		{

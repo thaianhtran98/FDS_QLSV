@@ -61,7 +61,7 @@
 			this.MinimizeBox = false;
 			this.Name = "FrmTrainingInfo";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-			this.Text = "FrmTrainingInfo";
+			this.Text = "Quản lý thông tin đào tạo";
 			this.PnlMain.ResumeLayout(false);
 			this.ResumeLayout(false);
 

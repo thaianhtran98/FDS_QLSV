@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 using System.Windows.Forms;
 using QuanLySV.Controls;
 using QuanLySVBusiness;
